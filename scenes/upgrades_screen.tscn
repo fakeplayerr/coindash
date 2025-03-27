@@ -1,0 +1,223 @@
+[gd_scene load_steps=2 format=3 uid="uid://cfwkpsbxknvwn"]
+
+[ext_resource type="Script" uid="uid://ct454gj3ycopc" path="res://scenes/upgrades_screen.gd" id="1_5k4m3"]
+
+[node name="UpgradesScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_5k4m3")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.2, 0.2, 0.2, 1)
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -200.0
+offset_top = 50.0
+offset_right = 200.0
+offset_bottom = 100.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 48
+text = "Upgrades"
+horizontal_alignment = 1
+
+[node name="BackButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -100.0
+offset_top = -60.0
+offset_right = 100.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Back"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 120.0
+offset_right = -20.0
+offset_bottom = -80.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="UpgradesList" type="VBoxContainer" parent="ScrollContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="FuelUpgrades" type="VBoxContainer" parent="ScrollContainer/UpgradesList"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="ScrollContainer/UpgradesList/FuelUpgrades"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Fuel Upgrades"
+
+[node name="FuelTankSize" type="HBoxContainer" parent="ScrollContainer/UpgradesList/FuelUpgrades"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="ScrollContainer/UpgradesList/FuelUpgrades/FuelTankSize"]
+layout_mode = 2
+text = "Fuel Tank Size"
+
+[node name="UpgradeButton" type="Button" parent="ScrollContainer/UpgradesList/FuelUpgrades/FuelTankSize"]
+layout_mode = 2
+text = "Upgrade (100 coins)"
+
+[node name="CoinEfficiency" type="HBoxContainer" parent="ScrollContainer/UpgradesList/FuelUpgrades"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="ScrollContainer/UpgradesList/FuelUpgrades/CoinEfficiency"]
+layout_mode = 2
+text = "Coin Efficiency"
+
+[node name="UpgradeButton" type="Button" parent="ScrollContainer/UpgradesList/FuelUpgrades/CoinEfficiency"]
+layout_mode = 2
+text = "Upgrade (300 coins)"
+
+[node name="CarUpgrades" type="VBoxContainer" parent="ScrollContainer/UpgradesList"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="ScrollContainer/UpgradesList/CarUpgrades"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Car Upgrades"
+
+[node name="Speed" type="HBoxContainer" parent="ScrollContainer/UpgradesList/CarUpgrades"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="ScrollContainer/UpgradesList/CarUpgrades/Speed"]
+layout_mode = 2
+text = "Speed"
+
+[node name="UpgradeButton" type="Button" parent="ScrollContainer/UpgradesList/CarUpgrades/Speed"]
+layout_mode = 2
+text = "Upgrade (200 coins)"
+
+[node name="Handling" type="HBoxContainer" parent="ScrollContainer/UpgradesList/CarUpgrades"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="ScrollContainer/UpgradesList/CarUpgrades/Handling"]
+layout_mode = 2
+text = "Handling"
+
+[node name="UpgradeButton" type="Button" parent="ScrollContainer/UpgradesList/CarUpgrades/Handling"]
+layout_mode = 2
+text = "Upgrade (200 coins)"
+
+[node name="PowerUps" type="VBoxContainer" parent="ScrollContainer/UpgradesList"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="ScrollContainer/UpgradesList/PowerUps"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Power-Ups"
+
+[node name="PowerUpSlot" type="HBoxContainer" parent="ScrollContainer/UpgradesList/PowerUps"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="ScrollContainer/UpgradesList/PowerUps/PowerUpSlot"]
+layout_mode = 2
+text = "Power-Up Slot"
+
+[node name="UpgradeButton" type="Button" parent="ScrollContainer/UpgradesList/PowerUps/PowerUpSlot"]
+layout_mode = 2
+text = "Unlock (800 coins)"
+
+[node name="WeaponUpgrades" type="VBoxContainer" parent="ScrollContainer/UpgradesList"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="ScrollContainer/UpgradesList/WeaponUpgrades"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Weapon Upgrades"
+
+[node name="FireRate" type="HBoxContainer" parent="ScrollContainer/UpgradesList/WeaponUpgrades"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="ScrollContainer/UpgradesList/WeaponUpgrades/FireRate"]
+layout_mode = 2
+text = "Fire Rate"
+
+[node name="UpgradeButton" type="Button" parent="ScrollContainer/UpgradesList/WeaponUpgrades/FireRate"]
+layout_mode = 2
+text = "Upgrade (250 coins)"
+
+[node name="ProjectileSpeed" type="HBoxContainer" parent="ScrollContainer/UpgradesList/WeaponUpgrades"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="ScrollContainer/UpgradesList/WeaponUpgrades/ProjectileSpeed"]
+layout_mode = 2
+text = "Projectile Speed"
+
+[node name="UpgradeButton" type="Button" parent="ScrollContainer/UpgradesList/WeaponUpgrades/ProjectileSpeed"]
+layout_mode = 2
+text = "Upgrade (200 coins)"
+
+[node name="GameUpgrades" type="VBoxContainer" parent="ScrollContainer/UpgradesList"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="ScrollContainer/UpgradesList/GameUpgrades"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Game Upgrades"
+
+[node name="RunTime" type="HBoxContainer" parent="ScrollContainer/UpgradesList/GameUpgrades"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="ScrollContainer/UpgradesList/GameUpgrades/RunTime"]
+layout_mode = 2
+text = "Run Time"
+
+[node name="UpgradeButton" type="Button" parent="ScrollContainer/UpgradesList/GameUpgrades/RunTime"]
+layout_mode = 2
+text = "Upgrade (500 coins)"
+
+[node name="TotalCoins" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -100.0
+offset_top = -100.0
+offset_right = 100.0
+offset_bottom = -70.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Total Coins: 0"
+horizontal_alignment = 1

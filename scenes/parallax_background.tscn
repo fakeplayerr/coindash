@@ -1,0 +1,24 @@
+[gd_scene load_steps=2 format=3 uid="uid://08jd5x4et5m"]
+
+[ext_resource type="Script" path="res://scenes/parallax_background.gd" id="1_9k4m3"]
+
+[node name="ParallaxBackground" type="ParallaxBackground"]
+script = ExtResource("1_9k4m3")
+
+[node name="Layer1" type="ParallaxLayer" parent="."]
+motion_scale = Vector2(0.2, 0.2)
+
+[node name="Sprite2D" type="Sprite2D" parent="Layer1"]
+# TODO: Add background sprite
+
+[node name="Layer2" type="ParallaxLayer" parent="."]
+motion_scale = Vector2(0.4, 0.4)
+
+[node name="Sprite2D" type="Sprite2D" parent="Layer2"]
+# TODO: Add background sprite
+
+[node name="Layer3" type="ParallaxLayer" parent="."]
+motion_scale = Vector2(0.6, 0.6)
+
+[node name="Sprite2D" type="Sprite2D" parent="Layer3"]
+# TODO: Add background sprite 

@@ -1,0 +1,53 @@
+[gd_scene load_steps=8 format=3 uid="uid://f6t55orpuo85"]
+
+[ext_resource type="Texture2D" uid="uid://diiqlc5t2roim" path="res://assets/general/human/girl2/girl2sprite.png" id="1_p4ogc"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_85fhk"]
+atlas = ExtResource("1_p4ogc")
+region = Rect2(0, 0, 137, 268)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1ir8b"]
+atlas = ExtResource("1_p4ogc")
+region = Rect2(137, 0, 137, 268)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dsmbr"]
+atlas = ExtResource("1_p4ogc")
+region = Rect2(274, 0, 137, 268)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ec112"]
+atlas = ExtResource("1_p4ogc")
+region = Rect2(411, 0, 137, 268)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8k62m"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_85fhk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1ir8b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dsmbr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ec112")
+}],
+"loop": true,
+"name": &"run",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yuloi"]
+size = Vector2(37, 50)
+
+[node name="Girl2" type="Area2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_8k62m")
+animation = &"run"
+frame_progress = 0.260234
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1.5, 8)
+shape = SubResource("RectangleShape2D_yuloi")

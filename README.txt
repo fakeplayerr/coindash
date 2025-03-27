@@ -1,0 +1,1 @@
+assets\general\coin
