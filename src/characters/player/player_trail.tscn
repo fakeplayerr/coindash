@@ -1,0 +1,33 @@
+[gd_scene load_steps=2 format=3 uid="uid://dr4gly1e7xcj3"]
+
+[ext_resource type="Script" uid="uid://5otjeff5vtq3" path="res://src/characters/player/player_trail.gd" id="1_9k4m3"]
+
+[node name="PlayerTrail" type="GPUParticles2D"]
+amount = 20
+lifetime = 0.5
+randomness = 0.2
+fixed_fps = 0
+interpolate = false
+script = ExtResource("1_9k4m3")
+
+[node name="ParticleMaterial" type="ParticleProcessMaterial" parent="."]
+_import_path = NodePath("")
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
+particle_flag_disable_z = true
+spread = 0.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 0.0
+initial_velocity_max = 0.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_min = 1.0
+scale_max = 2.0
+color = Color(0.2, 0.8, 1, 0.5)
+script = null

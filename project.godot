@@ -17,8 +17,12 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-Autoload="*res://scenes/autoload.gd"
-SaveManager="*res://scenes/save_manager.tscn"
+Transition="*res://src/autoload/transition.tscn"
+SaveManager="*res://src/autoload/save_manager.tscn"
+GameAssetsClass="*res://src/autoload/game_assets.gd"
+Autoload="*res://src/autoload/autoload.tscn"
+GameModeManager="*res://src/autoload/game_mode_manager.tscn"
+GameAssets="*res://src/autoload/game_assets.tscn"
 
 [display]
 
