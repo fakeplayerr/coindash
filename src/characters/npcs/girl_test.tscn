@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://dssskqw87o2r3"]
+
+[ext_resource type="Script" uid="uid://bhys4qc8pa7ei" path="res://src/characters/npcs/girl_test.gd" id="1_bsdxa"]
+[ext_resource type="PackedScene" uid="uid://ccty25c3n3pfl" path="res://src/characters/npcs/girl1.tscn" id="2_00xh2"]
+[ext_resource type="PackedScene" uid="uid://f6t55orpuo85" path="res://src/characters/npcs/girl2.tscn" id="3_rdhlj"]
+[ext_resource type="Script" uid="uid://bcl3mxvlsecqo" path="res://src/characters/npcs/area_npc.gd" id="4_fe31p"]
+
+[node name="GirlTest" type="Node2D"]
+script = ExtResource("1_bsdxa")
+
+[node name="Girl1" parent="." instance=ExtResource("2_00xh2")]
+position = Vector2(300, 200)
+script = null
+
+[node name="Girl2" parent="." groups=["humans"] instance=ExtResource("3_rdhlj")]
+position = Vector2(600, 200)
+script = ExtResource("4_fe31p")
+
+[node name="Instructions" type="Label" parent="."]
+offset_left = 50.0
+offset_top = 50.0
+offset_right = 1030.0
+offset_bottom = 150.0
+text = "This is a test scene for the girl characters.
+The characters should animate and move downward with a swaying motion.
+Press Play to see them in action."
+horizontal_alignment = 1

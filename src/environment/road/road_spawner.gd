@@ -11,6 +11,10 @@ var min_powerups = 0
 var max_powerups = 2
 var spawn_powerup_chance = 0.3
 
+# Settings for human speed (can be set by game mode manager)
+var human_speed = 50.0
+var spawn_rate_multiplier = 1.0
+
 # Tracking
 var current_segment_top_y = 0
 var segments = []
@@ -21,15 +25,40 @@ var road_segment_count = 0
 
 # Scenes
 @onready var road_segment_scene = preload("res://src/environment/road/road_segment.tscn")
-@onready var human_scene = preload("res://src/characters/npcs/human.tscn")
 @onready var powerup_scene = preload("res://src/powerups/power_up.tscn")
+
+# NPC Spawner reference
+var npc_spawner = null
 
 # Called when the node enters the tree for the first time.
 func _ready():
 	if get_parent().has_node("PowerUpManager"):
 		powerup_manager = get_parent().get_node("PowerUpManager")
+	
+	# Initialize NPC spawner
+	initialize_npc_spawner()
+	
 	print("RoadSpawner initialized")
 	current_segment_top_y = 0
+
+# Initialize or get the NPC spawner
+func initialize_npc_spawner():
+	# Try to find an existing NPC spawner in the parent
+	npc_spawner = get_parent().get_node_or_null("NPCSpawner")
+	
+	# If not found, create a new one
+	if not npc_spawner:
+		var NpcSpawnerScene = load("res://src/characters/npcs/npc_spawner.tscn")
+		npc_spawner = NpcSpawnerScene.instantiate()
+		get_parent().add_child(npc_spawner)
+		print("Created new NPC spawner")
+	
+	# Set initial settings
+	npc_spawner.set_npc_speed(human_speed)
+	npc_spawner.set_npc_limit(human_limit)
+	
+	# Connect to the npc_died signal
+	npc_spawner.connect("npc_died", _on_npc_died)
 
 # Set the camera reference
 func set_camera(camera):
@@ -140,10 +169,14 @@ func spawn_road_segment(y_position):
 		segment.generate_obstacles(num_obstacles)
 	
 	# Add humans
-	if spawn_humans and active_humans < human_limit:
+	if spawn_humans and npc_spawner and npc_spawner.active_npcs < npc_spawner.npc_limit:
 		var spawn_points = segment.get_node("HumanSpawnPoints").get_children()
+		
+		# Adjust based on spawn rate multiplier
+		var adjusted_chance = spawn_human_chance * spawn_rate_multiplier
+		
 		for point in spawn_points:
-			if randf() < spawn_human_chance / spawn_points.size():
+			if randf() < adjusted_chance / spawn_points.size():
 				spawn_human(point.global_position)
 	
 	# Add powerups
@@ -185,34 +218,14 @@ func respawn_humans_from_segment(segment):
 
 # Spawn a human at a given position
 func spawn_human(position):
-	var human = human_scene.instantiate()
-	human.global_position = position
-	get_parent().add_child(human)
-	active_humans += 1
-	# Use a lambda function to handle the died signal to avoid connection issues
-	human.connect("died", func(): 
-		active_humans -= 1
-		
-		# Always spawn a new human when one dies (immediately)
-		var timer = Timer.new()
-		timer.one_shot = true
-		timer.wait_time = 1.0  # Reduced from 2.0 to 1.0 seconds
-		timer.timeout.connect(func(): 
-			# Clean up the timer
-			timer.queue_free()
-			
-			# Find a segment to spawn in
-			if segments.size() > 0:
-				var random_segment = segments[randi() % segments.size()]
-				if random_segment and is_instance_valid(random_segment):
-					var spawn_points = random_segment.get_node("HumanSpawnPoints").get_children()
-					if spawn_points.size() > 0:
-						var point = spawn_points[randi() % spawn_points.size()]
-						spawn_human(point.global_position)
-		)
-		add_child(timer)
-		timer.start()
-	)
+	if not npc_spawner:
+		return
+	
+	# Use NPC spawner to create a random NPC
+	var npc = npc_spawner.spawn_npc(position)
+	get_parent().add_child(npc)
+	npc_spawner.active_npcs += 1
+	active_humans += 1  # Keep old counter for compatibility
 
 # Spawn a powerup at a given position
 func spawn_powerup(position):
@@ -225,10 +238,36 @@ func spawn_powerup(position):
 	powerup.setup(powerup_type, powerup_manager.get_powerup_color(powerup_type), powerup_manager.get_powerup_duration(powerup_type))
 	get_parent().add_child(powerup)
 
-# Called when a human dies - this is now handled in the lambda function above
-func _on_human_died():
-	# Kept for backward compatibility, but functionality moved to the lambda above
+# Called when an NPC dies - respawn after delay
+func _on_npc_died():
+	# Decrement old counter for compatibility
 	active_humans -= 1
+	
+	# Always spawn a new NPC when one dies (after a delay)
+	var timer = Timer.new()
+	timer.one_shot = true
+	timer.wait_time = 1.0  # Reduced from 2.0 to 1.0 seconds
+	timer.timeout.connect(func(): 
+		# Clean up the timer
+		timer.queue_free()
+		
+		# Find a segment to spawn in
+		if segments.size() > 0:
+			var random_segment = segments[randi() % segments.size()]
+			if random_segment and is_instance_valid(random_segment):
+				var spawn_points = random_segment.get_node("HumanSpawnPoints").get_children()
+				if spawn_points.size() > 0:
+					var point = spawn_points[randi() % spawn_points.size()]
+					spawn_human(point.global_position)
+	)
+	add_child(timer)
+	timer.start()
+
+# Set human speed - affects NPCs spawned after this call
+func set_human_speed(speed):
+	human_speed = speed
+	if npc_spawner:
+		npc_spawner.set_npc_speed(speed)
 
 # Log the current state (for debugging)
 func log_state():
@@ -236,6 +275,8 @@ func log_state():
 	print("- Current segment top Y: ", current_segment_top_y)
 	print("- Active segments: ", segments.size())
 	print("- Active humans: ", active_humans)
+	print("- Human speed: ", human_speed)
+	print("- Spawn rate multiplier: ", spawn_rate_multiplier)
 	if camera_ref != null:
 		print("- Camera position: ", camera_ref.global_position)
 		print("- Camera top edge: ", get_camera_top_edge())

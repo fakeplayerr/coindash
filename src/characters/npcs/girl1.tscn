@@ -1,5 +1,6 @@
-[gd_scene load_steps=11 format=3 uid="uid://ccty25c3n3pfl"]
+[gd_scene load_steps=12 format=3 uid="uid://ccty25c3n3pfl"]
 
+[ext_resource type="Script" uid="uid://bapcxbi75x3bd" path="res://src/characters/npcs/girl_npc.gd" id="1_b4jrm"]
 [ext_resource type="Texture2D" uid="uid://c0av7bj3bfm6q" path="res://assets/general/human/girl1/run-1.png" id="1_sugbh"]
 [ext_resource type="Texture2D" uid="uid://mhho5vvvwv3h" path="res://assets/general/human/girl1/run-2.png" id="2_k2hqw"]
 [ext_resource type="Texture2D" uid="uid://ddg8ssro07vb8" path="res://assets/general/human/girl1/run-3.png" id="3_5rn2w"]
@@ -44,7 +45,8 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iuafg"]
 size = Vector2(37, 50)
 
-[node name="Girl1" type="Area2D"]
+[node name="Girl1" type="CharacterBody2D" groups=["humans"]]
+script = ExtResource("1_b4jrm")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_dkbfw")

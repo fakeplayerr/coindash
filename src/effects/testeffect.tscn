@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://1vjpqtemtuaj"]
+
+[ext_resource type="Shader" uid="uid://dcglxrgr5w8sn" path="res://src/effects/muglow.gdshader" id="1_wl77b"]
+[ext_resource type="Texture2D" uid="uid://b1dbxsnshylqu" path="res://assets/UI/PNG/Blue/Default/icon_cross.png" id="2_xlss1"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_p37qu"]
+shader = ExtResource("1_wl77b")
+shader_parameter/glow_color = Color(0, 1, 1, 1)
+shader_parameter/glow_intensity = 2.0
+shader_parameter/pulse_speed = 2.0
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_p37qu")
+scale = Vector2(26.1111, 26.1111)
+texture = ExtResource("2_xlss1")

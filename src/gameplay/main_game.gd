@@ -138,20 +138,20 @@ func _ready():
 	timer.start()
 	
 	# Set up the road spawner
-	if road_spawner:
-		# Use set_camera method instead of direct property assignment
-		if road_spawner.has_method("set_camera"):
-			road_spawner.set_camera(camera)
-			print("Camera reference set in RoadSpawner")
-		else:
-			print("WARNING: RoadSpawner missing set_camera method")
-		
-		# Handle initial road segments
-		if road_spawner.has_method("force_spawn_initial_road_segments"):
-			road_spawner.force_spawn_initial_road_segments()
-		else:
-			print("WARNING: RoadSpawner missing force_spawn_initial_road_segments")
-	
+	#if road_spawner:
+		## Use set_camera method instead of direct property assignment
+		#if road_spawner.has_method("set_camera"):
+			#road_spawner.set_camera(camera)
+			#print("Camera reference set in RoadSpawner")
+		#else:
+			#print("WARNING: RoadSpawner missing set_camera method")
+		#
+		## Handle initial road segments
+		#if road_spawner.has_method("force_spawn_initial_road_segments"):
+			#road_spawner.force_spawn_initial_road_segments()
+		#else:
+			#print("WARNING: RoadSpawner missing force_spawn_initial_road_segments")
+	#
 	# Initialize SaveManager - robust way
 	initialize_save_manager()
 	

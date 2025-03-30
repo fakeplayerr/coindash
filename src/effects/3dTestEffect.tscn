@@ -1,0 +1,40 @@
+[gd_scene load_steps=7 format=3 uid="uid://c3cicvhqvmyme"]
+
+[ext_resource type="Shader" uid="uid://3qwhb02kgeys" path="res://3dMuGlow.gdshader" id="1_0hy1r"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0hy1r"]
+
+[sub_resource type="TorusMesh" id="TorusMesh_urqpe"]
+material = SubResource("ShaderMaterial_0hy1r")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xunuv"]
+render_priority = 0
+shader = ExtResource("1_0hy1r")
+shader_parameter/glow_color = Color(1, 1, 1, 1)
+shader_parameter/glow_intensity = 5.0
+shader_parameter/wave_speed = 5.0
+shader_parameter/wave_scale = 5.0
+shader_parameter/min_glow_level = 7.82
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_0hy1r"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_urqpe"]
+render_priority = 0
+shader = ExtResource("1_0hy1r")
+shader_parameter/glow_color = Color(0, 1, 1, 1)
+shader_parameter/glow_intensity = 5.0
+shader_parameter/wave_speed = 5.0
+shader_parameter/wave_scale = 0.1
+shader_parameter/min_glow_level = 10.0
+
+[node name="Node3D" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("TorusMesh_urqpe")
+surface_material_override/0 = SubResource("ShaderMaterial_xunuv")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.19563, 0, 0)
+mesh = SubResource("CapsuleMesh_0hy1r")
+skeleton = NodePath("../MeshInstance3D")
+surface_material_override/0 = SubResource("ShaderMaterial_urqpe")

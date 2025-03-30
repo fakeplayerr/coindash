@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://d3ooyrjlx8a7u"]
+
+[ext_resource type="Script" path="res://src/characters/npcs/npc_spawner.gd" id="1_8lp3d"]
+
+[node name="NPCSpawner" type="Node"]
+script = ExtResource("1_8lp3d") 
