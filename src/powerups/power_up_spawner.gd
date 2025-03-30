@@ -63,7 +63,7 @@ func spawn_power_up():
 	var power_up = PowerUp.instantiate()
 	
 	# Position the power-up ahead of the player
-	var viewport_size = get_viewport_rect().size
+	var viewport_size = get_viewport().get_visible_rect().size
 	var x_pos = randf_range(viewport_size.x * (0.5 - spawn_width/2), viewport_size.x * (0.5 + spawn_width/2))
 	var y_pos = player.global_position.y - spawn_distance
 	
@@ -108,7 +108,7 @@ func force_spawn(type, position: Vector2 = Vector2.ZERO):
 	
 	# Position the power-up (use provided position or default ahead of player)
 	if position == Vector2.ZERO and player:
-		var viewport_size = get_viewport_rect().size
+		var viewport_size = get_viewport().get_visible_rect().size
 		var x_pos = randf_range(viewport_size.x * (0.5 - spawn_width/2), viewport_size.x * (0.5 + spawn_width/2))
 		var y_pos = player.global_position.y - spawn_distance * 0.5
 		power_up.global_position = Vector2(x_pos, y_pos)

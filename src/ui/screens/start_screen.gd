@@ -92,7 +92,7 @@ func _reset_save_data_confirmed():
 		# Show message
 		var message = Label.new()
 		message.text = "Save data reset to default values!"
-		message.position = Vector2(get_viewport_rect().size.x/2 - 150, get_viewport_rect().size.y/2)
+		message.position = Vector2(get_viewport().get_visible_rect().size.x/2 - 150, get_viewport().get_visible_rect().size.y/2)
 		message.add_theme_font_size_override("font_size", 24)
 		message.modulate = Color(1, 0.5, 0, 1)  # Orange
 		add_child(message)
@@ -121,4 +121,12 @@ func update_ui():
 		if texture and car_sprite:
 			car_sprite.texture = texture
 	else:
-		print("SaveManager not found when updating UI") 
+		print("SaveManager not found when updating UI")
+
+func show_challenge_complete():
+	var message = Label.new()
+	message.text = "Challenge Complete!"
+	message.position = Vector2(get_viewport().get_visible_rect().size.x/2 - 150, get_viewport().get_visible_rect().size.y/2)
+	message.add_theme_font_size_override("font_size", 48)
+	message.modulate = Color(0, 1, 0, 1)  # Green
+	add_child(message) 

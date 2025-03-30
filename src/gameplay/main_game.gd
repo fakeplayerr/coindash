@@ -3,7 +3,7 @@ extends Node2D
 # Reference to the module classes
 const PowerUpManagerClass = preload("res://src/powerups/power_up_manager.gd")
 const TimerManagerClass = preload("res://src/core/timer_manager.gd")
-const PowerUpSpawnerClass = preload("res://src/powerups/power_up_spawner.gd")
+const SpawnManagerClass = preload("res://src/core/spawners/spawn_manager.gd")
 
 var game_time: float = 0.0
 var max_game_time: float = 60.0
@@ -32,8 +32,8 @@ var active_power_ups = []
 
 # Game systems
 var timer_manager: TimerManagerClass = null
-var power_up_spawner: PowerUpSpawnerClass = null
 var powerup_manager = null
+var spawn_manager: SpawnManagerClass = null
 
 # Powerup state variables
 var player_speed_modifier: float = 1.0
@@ -46,7 +46,6 @@ var projectile_speed_modifier: float = 1.0
 @onready var coin_label = $UI/TopBar/CoinLabel
 @onready var camera = $MainCamera
 @onready var pause_button = $UI/BottomBar/PauseButton
-@onready var road_spawner = $RoadSpawner
 
 # Global reference for the main game
 static var current_instance = null
@@ -71,7 +70,7 @@ func _ready():
 	get_tree().paused = false
 	
 	# Setup initial screen size reference for all systems
-	var viewport_size = get_viewport_rect().size
+	var viewport_size = get_viewport().get_visible_rect().size
 	screen_width = viewport_size.x
 	screen_height = viewport_size.y
 	
@@ -137,21 +136,6 @@ func _ready():
 	timer.connect("timeout", check_camera_position)
 	timer.start()
 	
-	# Set up the road spawner
-	#if road_spawner:
-		## Use set_camera method instead of direct property assignment
-		#if road_spawner.has_method("set_camera"):
-			#road_spawner.set_camera(camera)
-			#print("Camera reference set in RoadSpawner")
-		#else:
-			#print("WARNING: RoadSpawner missing set_camera method")
-		#
-		## Handle initial road segments
-		#if road_spawner.has_method("force_spawn_initial_road_segments"):
-			#road_spawner.force_spawn_initial_road_segments()
-		#else:
-			#print("WARNING: RoadSpawner missing force_spawn_initial_road_segments")
-	#
 	# Initialize SaveManager - robust way
 	initialize_save_manager()
 	
@@ -396,11 +380,16 @@ func apply_upgrades():
 		
 		# Apply power-up spawn rate based on upgrades
 		var power_up_level = save_manager.get_upgrade_level("power_up_slots")
-		if power_up_spawner:
+		if spawn_manager and spawn_manager.powerup_spawner:
 			# More power-up slots = faster spawning
 			var min_spawn_time = max(3.0, 8.0 - (power_up_level - 1) * 0.5)
 			var max_spawn_time = max(8.0, 15.0 - (power_up_level - 1) * 0.5)
-			power_up_spawner.set_spawn_interval(min_spawn_time, max_spawn_time)
+			
+			var powerup_params = {
+				"spawn_interval_min": min_spawn_time,
+				"spawn_interval_max": max_spawn_time
+			}
+			spawn_manager.update_powerup_parameters(powerup_params)
 			print("Adjusted power-up spawn interval: %.1f-%.1f seconds" % [min_spawn_time, max_spawn_time])
 		
 		# Apply fuel consumption reduction based on upgrades
@@ -499,7 +488,7 @@ func show_power_up_effect(power_up_type: String):
 	label.text = power_up_type.capitalize() + " Activated!"
 	
 	# Get viewport size
-	var viewport_size = get_viewport_rect().size
+	var viewport_size = get_viewport().get_visible_rect().size
 	label.position = Vector2(randf_range(50, viewport_size.x - 50), randf_range(50, viewport_size.y - 50))
 	
 	label.add_theme_font_size_override("font_size", 24)
@@ -522,15 +511,12 @@ func on_human_hit(position: Vector2):
 	
 	# Maybe spawn a power-up (small chance)
 	if randf() < 0.1:  # 10% chance
-		if power_up_spawner:
-			# Create an instance if we don't already have one
-			if not powerup_manager:
-				powerup_manager = PowerUpManagerClass.new()
-				add_child(powerup_manager)
-			
-			# Get a random powerup type from the instance
+		if spawn_manager:
 			var powerup_type = powerup_manager.get_random_powerup_type()
-			power_up_spawner.force_spawn(powerup_type, position)
+			spawn_manager.spawn_powerup_at(position, powerup_type)
+			print("Spawned powerup at human hit position")
+		else:
+			print("No spawn manager available for powerup spawn")
 
 # Collect a power-up (called from power-up instances)
 func collect_power_up(power_up_type):
@@ -603,13 +589,56 @@ func initialize_game_systems():
 	timer_manager = TimerManagerClass.new(max_game_time)
 	add_child(timer_manager)
 	
-	# Initialize power-up spawner
-	power_up_spawner = PowerUpSpawnerClass.new()
-	add_child(power_up_spawner)
+	# Initialize PowerUpManager
+	powerup_manager = PowerUpManagerClass.new()
+	add_child(powerup_manager)
 	
-	# Set player reference for the spawner
+	# Initialize spawn manager
+	spawn_manager = SpawnManagerClass.new()
+	spawn_manager.name = "SpawnManager"
+	add_child(spawn_manager)
+	
+	# Set references for spawn manager
 	if player:
-		power_up_spawner.set_player(player)
+		spawn_manager.set_player(player)
+	
+	if camera:
+		spawn_manager.set_camera(camera)
+	
+	# Configure spawners through the spawn manager
+	var human_params = {
+		"npc_limit": 50,
+		"base_speed": 50.0,
+		"spawn_chance": 0.9,
+		"spawn_rate_multiplier": 1.0,
+		"respawn_delay": 1.0
+	}
+	spawn_manager.update_human_parameters(human_params)
+	
+	var powerup_params = {
+		"spawn_interval_min": 8.0,
+		"spawn_interval_max": 15.0,
+		"spawn_distance": 800.0,
+		"spawn_width_percentage": 0.8,
+		"spawn_chance": 0.3,
+		"min_powerups": 0,
+		"max_powerups": 2
+	}
+	spawn_manager.update_powerup_parameters(powerup_params)
+	
+	var road_params = {
+		"segment_height": 600,
+		"min_obstacles": 0,
+		"max_obstacles": 1
+	}
+	spawn_manager.update_road_parameters(road_params)
+	
+	# Enable/disable spawners based on game mode
+	spawn_manager.set_road_enabled(true)
+	spawn_manager.set_humans_enabled(true)
+	spawn_manager.set_powerups_enabled(true)
+	
+	print("Main Game: Game systems initialized")
 
 func add_time(amount):
 	game_time = max(0, game_time - amount)
@@ -643,11 +672,31 @@ func initialize_save_manager():
 
 # Force spawn initial road segments if the spawner didn't do it
 func force_spawn_initial_road_segments():
-	if road_spawner:
+	if spawn_manager and spawn_manager.road_spawner:
 		print("Main Game: Forcing initial road segment generation")
-		road_spawner.generate_initial_segments()
+		spawn_manager.road_spawner.initialize()
+		print("Initial road segments generated")
 	else:
-		print("Main Game: ERROR - Road spawner not found for initial segments")
+		print("Main Game: Creating spawn manager and road spawner")
+		
+		# Create spawn manager if it doesn't exist
+		if not spawn_manager:
+			spawn_manager = SpawnManagerClass.new()
+			spawn_manager.name = "SpawnManager"
+			add_child(spawn_manager)
+			
+			# Set player reference
+			if player:
+				spawn_manager.set_player(player)
+			
+			# Set camera reference
+			if camera:
+				spawn_manager.set_camera(camera)
+				
+			# Initialize road spawner
+			spawn_manager.initialize_road_spawner()
+			
+			print("Created spawn manager and road spawner for initial segments")
 
 # Show visual effect for time bonus
 func show_time_bonus_text(amount: float):
@@ -811,7 +860,7 @@ func set_max_game_time(time: float):
 func show_challenge_complete():
 	var message = Label.new()
 	message.text = "Challenge Complete!"
-	message.position = Vector2(get_viewport_rect().size.x/2 - 150, get_viewport_rect().size.y/2)
+	message.position = Vector2(get_viewport().get_visible_rect().size.x/2 - 150, get_viewport().get_visible_rect().size.y/2)
 	message.add_theme_font_size_override("font_size", 48)
 	message.modulate = Color(0, 1, 0, 1)  # Green
 	$UI.add_child(message)

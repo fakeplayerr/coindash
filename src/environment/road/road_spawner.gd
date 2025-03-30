@@ -71,7 +71,7 @@ func get_camera_visible_height():
 		print("WARNING: Camera reference is null in get_camera_visible_height")
 		return 1200  # Default fallback
 	
-	var viewport_size = get_viewport_rect().size
+	var viewport_size = get_viewport().get_visible_rect().size
 	var zoom = camera_ref.zoom.y
 	return viewport_size.y / zoom
 
@@ -81,7 +81,7 @@ func get_camera_top_edge():
 		print("WARNING: Camera reference is null in get_camera_top_edge")
 		return 0
 	
-	var viewport_size = get_viewport_rect().size
+	var viewport_size = get_viewport().get_visible_rect().size
 	var zoom = camera_ref.zoom.y
 	return camera_ref.global_position.y - (viewport_size.y / (2 * zoom))
 
@@ -91,7 +91,7 @@ func get_camera_bottom_edge():
 		print("WARNING: Camera reference is null in get_camera_bottom_edge")
 		return 1200
 	
-	var viewport_size = get_viewport_rect().size
+	var viewport_size = get_viewport().get_visible_rect().size
 	var zoom = camera_ref.zoom.y
 	return camera_ref.global_position.y + (viewport_size.y / (2 * zoom))
 

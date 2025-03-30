@@ -49,7 +49,7 @@ func _process(delta):
 	move_and_slide()
 	
 	# Keep within screen bounds
-	var viewport_rect = get_viewport_rect().size
+	var viewport_rect = get_viewport().get_visible_rect().size
 	if position.x < 0:
 		position.x = 0
 		direction.x = abs(direction.x)
