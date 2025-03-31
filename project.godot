@@ -32,6 +32,13 @@ window/stretch/mode="viewport"
 window/stretch/aspect="keep_width"
 window/handheld/orientation=1
 
+[global_group]
+
+player=""
+enemies=""
+environment=""
+powerup=""
+
 [input]
 
 ui_left={

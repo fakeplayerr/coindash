@@ -1,6 +1,5 @@
-[gd_scene load_steps=6 format=3 uid="uid://d26jw7gs7p8sh"]
+[gd_scene load_steps=5 format=3 uid="uid://d26jw7gs7p8sh"]
 
-[ext_resource type="Script" uid="uid://4r04dqnn1416" path="res://src/gameplay/modes/survival.gd" id="1_1oh11"]
 [ext_resource type="Texture2D" uid="uid://bsx4st8vttf6p" path="res://assets/UI/PNG/Red/Double/button_square_gloss.png" id="1_6id1e"]
 [ext_resource type="PackedScene" uid="uid://c8q5v0j6y5n3q" path="res://src/characters/player/player.tscn" id="2_b7qem"]
 
@@ -11,7 +10,6 @@ size = Vector2(350, 344)
 size = Vector2(40, 1929)
 
 [node name="Survival" type="Node2D"]
-script = ExtResource("1_1oh11")
 
 [node name="Walls" type="Node2D" parent="."]
 
