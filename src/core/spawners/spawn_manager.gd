@@ -218,6 +218,14 @@ func update_road_parameters(parameters: Dictionary) -> void:
 	
 	print("SpawnManager: Road spawner parameters updated")
 
+# Set powerup spawn interval (convenience method)
+func set_spawn_interval(min_time: float, max_time: float) -> void:
+	if powerup_spawner:
+		powerup_spawner.set_spawn_interval(min_time, max_time)
+		print("SpawnManager: Powerup spawn interval set to %.1f-%.1f seconds" % [min_time, max_time])
+	else:
+		print("SpawnManager: Cannot set spawn interval - powerup spawner not initialized")
+
 # Force spawn a human at a specific position
 func spawn_human_at(position: Vector2) -> Node:
 	if human_spawner:

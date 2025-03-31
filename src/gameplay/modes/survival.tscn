@@ -1,0 +1,61 @@
+[gd_scene load_steps=6 format=3 uid="uid://d26jw7gs7p8sh"]
+
+[ext_resource type="Script" uid="uid://4r04dqnn1416" path="res://src/gameplay/modes/survival.gd" id="1_1oh11"]
+[ext_resource type="Texture2D" uid="uid://bsx4st8vttf6p" path="res://assets/UI/PNG/Red/Double/button_square_gloss.png" id="1_6id1e"]
+[ext_resource type="PackedScene" uid="uid://c8q5v0j6y5n3q" path="res://src/characters/player/player.tscn" id="2_b7qem"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b7qem"]
+size = Vector2(350, 344)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1oh11"]
+size = Vector2(40, 1929)
+
+[node name="Survival" type="Node2D"]
+script = ExtResource("1_1oh11")
+
+[node name="Walls" type="Node2D" parent="."]
+
+[node name="Wall" type="Area2D" parent="Walls"]
+position = Vector2(549, 281)
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Wall"]
+shape = SubResource("RectangleShape2D_b7qem")
+
+[node name="Sprite2D" type="Sprite2D" parent="Walls/Wall"]
+scale = Vector2(2.8125, 2.8125)
+texture = ExtResource("1_6id1e")
+
+[node name="Wall2" type="Area2D" parent="Walls"]
+position = Vector2(889, 707)
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Wall2"]
+position = Vector2(149, 243.5)
+shape = SubResource("RectangleShape2D_1oh11")
+
+[node name="Sprite2D" type="Sprite2D" parent="Walls/Wall2"]
+position = Vector2(152, 248)
+scale = Vector2(0.484375, 15.0781)
+texture = ExtResource("1_6id1e")
+
+[node name="Wall3" type="Area2D" parent="Walls"]
+position = Vector2(-127, 710)
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Wall3"]
+position = Vector2(149, 243.5)
+shape = SubResource("RectangleShape2D_1oh11")
+
+[node name="Sprite2D" type="Sprite2D" parent="Walls/Wall3"]
+position = Vector2(152, 248)
+scale = Vector2(0.484375, 15.0781)
+texture = ExtResource("1_6id1e")
+
+[node name="Player" parent="." instance=ExtResource("2_b7qem")]
+position = Vector2(560, 1545)
+collision_layer = 3
+collision_mask = 3

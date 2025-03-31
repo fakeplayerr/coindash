@@ -70,7 +70,7 @@ func _ready():
 	get_tree().paused = false
 	
 	# Setup initial screen size reference for all systems
-	var viewport_size = get_viewport().get_visible_rect().size
+	var viewport_size = get_viewport_rect().size
 	screen_width = viewport_size.x
 	screen_height = viewport_size.y
 	
@@ -136,6 +136,21 @@ func _ready():
 	timer.connect("timeout", check_camera_position)
 	timer.start()
 	
+	# Set up the road spawner
+	#if road_spawner:
+		## Use set_camera method instead of direct property assignment
+		#if road_spawner.has_method("set_camera"):
+			#road_spawner.set_camera(camera)
+			#print("Camera reference set in RoadSpawner")
+		#else:
+			#print("WARNING: RoadSpawner missing set_camera method")
+		#
+		## Handle initial road segments
+		#if road_spawner.has_method("force_spawn_initial_road_segments"):
+			#road_spawner.force_spawn_initial_road_segments()
+		#else:
+			#print("WARNING: RoadSpawner missing force_spawn_initial_road_segments")
+	#
 	# Initialize SaveManager - robust way
 	initialize_save_manager()
 	
@@ -380,16 +395,11 @@ func apply_upgrades():
 		
 		# Apply power-up spawn rate based on upgrades
 		var power_up_level = save_manager.get_upgrade_level("power_up_slots")
-		if spawn_manager and spawn_manager.powerup_spawner:
+		if spawn_manager:
 			# More power-up slots = faster spawning
 			var min_spawn_time = max(3.0, 8.0 - (power_up_level - 1) * 0.5)
 			var max_spawn_time = max(8.0, 15.0 - (power_up_level - 1) * 0.5)
-			
-			var powerup_params = {
-				"spawn_interval_min": min_spawn_time,
-				"spawn_interval_max": max_spawn_time
-			}
-			spawn_manager.update_powerup_parameters(powerup_params)
+			spawn_manager.set_spawn_interval(min_spawn_time, max_spawn_time)
 			print("Adjusted power-up spawn interval: %.1f-%.1f seconds" % [min_spawn_time, max_spawn_time])
 		
 		# Apply fuel consumption reduction based on upgrades
@@ -488,7 +498,7 @@ func show_power_up_effect(power_up_type: String):
 	label.text = power_up_type.capitalize() + " Activated!"
 	
 	# Get viewport size
-	var viewport_size = get_viewport().get_visible_rect().size
+	var viewport_size = get_viewport_rect().size
 	label.position = Vector2(randf_range(50, viewport_size.x - 50), randf_range(50, viewport_size.y - 50))
 	
 	label.add_theme_font_size_override("font_size", 24)
@@ -675,28 +685,8 @@ func force_spawn_initial_road_segments():
 	if spawn_manager and spawn_manager.road_spawner:
 		print("Main Game: Forcing initial road segment generation")
 		spawn_manager.road_spawner.initialize()
-		print("Initial road segments generated")
 	else:
-		print("Main Game: Creating spawn manager and road spawner")
-		
-		# Create spawn manager if it doesn't exist
-		if not spawn_manager:
-			spawn_manager = SpawnManagerClass.new()
-			spawn_manager.name = "SpawnManager"
-			add_child(spawn_manager)
-			
-			# Set player reference
-			if player:
-				spawn_manager.set_player(player)
-			
-			# Set camera reference
-			if camera:
-				spawn_manager.set_camera(camera)
-				
-			# Initialize road spawner
-			spawn_manager.initialize_road_spawner()
-			
-			print("Created spawn manager and road spawner for initial segments")
+		print("Main Game: ERROR - Road spawner not found for initial segments")
 
 # Show visual effect for time bonus
 func show_time_bonus_text(amount: float):
@@ -860,7 +850,7 @@ func set_max_game_time(time: float):
 func show_challenge_complete():
 	var message = Label.new()
 	message.text = "Challenge Complete!"
-	message.position = Vector2(get_viewport().get_visible_rect().size.x/2 - 150, get_viewport().get_visible_rect().size.y/2)
+	message.position = Vector2(get_viewport_rect().size.x/2 - 150, get_viewport_rect().size.y/2)
 	message.add_theme_font_size_override("font_size", 48)
 	message.modulate = Color(0, 1, 0, 1)  # Green
 	$UI.add_child(message)

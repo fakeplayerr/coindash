@@ -67,9 +67,14 @@ func _on_mode_button_pressed(mode_id: int):
 		if mode_id == game_mode_manager.GameMode.CHALLENGE:
 			# Maybe show challenge selection UI first
 			show_challenge_selection()
+		elif mode_id == game_mode_manager.GameMode.SURVIVAL:
+			show_survavil_selection()
 		else:
 			# Go directly to game
 			get_tree().change_scene_to_file("res://src/gameplay/main_game.tscn")
+
+func show_survavil_selection():
+	get_tree().change_scene_to_file("res://src/gameplay/modes/survival.tscn")
 
 func show_challenge_selection():
 	# For now, just select a random challenge and start the game

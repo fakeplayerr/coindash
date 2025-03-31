@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://b8p4q2x3y405w"]
+[gd_scene load_steps=10 format=3 uid="uid://b8p4q2x3y405w"]
 
 [ext_resource type="Script" uid="uid://d12n6rlio0jtd" path="res://src/gameplay/main_game.gd" id="1_main"]
+[ext_resource type="Texture2D" uid="uid://l5vfnh62cfgf" path="res://assets/general/PNG/Tiles/Asphalt road/road_asphalt01.png" id="2_ipu61"]
 [ext_resource type="Script" uid="uid://4myy7366vsuj" path="res://src/characters/player/player.gd" id="3_player"]
 [ext_resource type="PackedScene" uid="uid://vbx7evr8btj4" path="res://src/gameplay/camera/camera_controller.tscn" id="5_glor6"]
 [ext_resource type="Script" uid="uid://bh6hgf8ext15g" path="res://src/environment/road/road_spawner.gd" id="5_spawner"]
@@ -28,9 +29,11 @@ size = Vector2(1080, 100)
 script = ExtResource("1_main")
 
 [node name="Background" type="Sprite2D" parent="."]
+visible = false
 modulate = Color(0.376471, 0.4, 0.588235, 0.403922)
-position = Vector2(3175, 1442)
+position = Vector2(540, 960)
 scale = Vector2(8.4375, 15)
+texture = ExtResource("2_ipu61")
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 

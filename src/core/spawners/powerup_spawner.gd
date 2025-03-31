@@ -149,7 +149,7 @@ func spawn_random_powerup() -> Node:
 	ensure_powerup_manager()
 	
 	# Position the power-up ahead of the player
-	var viewport_size = get_viewport().get_visible_rect().size
+	var viewport_size = get_viewport().size
 	var x_pos = randf_range(viewport_size.x * (0.5 - spawn_width_percentage/2), 
 						  viewport_size.x * (0.5 + spawn_width_percentage/2))
 	var y_pos = player.global_position.y - spawn_distance

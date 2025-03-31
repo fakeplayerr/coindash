@@ -49,7 +49,7 @@ func _ready():
 	coin_spawn_point = $CoinSpawnPoint
 	
 	# Get actual viewport size
-	var viewport_size = get_viewport().get_visible_rect().size
+	var viewport_size = get_viewport_rect().size
 	if viewport_size.x > 0 and viewport_size.y > 0:
 		screen_width = viewport_size.x
 		screen_height = viewport_size.y
@@ -329,14 +329,3 @@ func update_camera_position():
 			var offset = camera.global_position - global_position
 			if abs(offset.y - (-300)) > 10:
 				print("Player enforcing camera position, offset was: ", offset)
-
-# Add code to clamp player position to screen bounds
-func clamp_to_screen_bounds():
-	var viewport_size = get_viewport().get_visible_rect().size
-	
-	# Calculate the boundaries with padding
-	var min_x = wall_padding
-	var max_x = viewport_size.x - wall_padding
-	
-	# Apply clamping
-	position.x = clamp(position.x, min_x, max_x)

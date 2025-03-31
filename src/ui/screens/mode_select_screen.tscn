@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dms8n307qwg4q"]
 
-[ext_resource type="Script" path="res://src/ui/screens/mode_select_screen.gd" id="1_ms26k"]
+[ext_resource type="Script" uid="uid://dvd44rkasetep" path="res://src/ui/screens/mode_select_screen.gd" id="1_ms26k"]
 
 [node name="ModeSelectScreen" type="Control"]
 layout_mode = 3
@@ -82,4 +82,4 @@ offset_bottom = -50.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_font_sizes/font_size = 20
-text = "Back" 
+text = "Back"
