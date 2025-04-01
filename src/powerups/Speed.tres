@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="Speed" load_steps=2 format=3 uid="uid://bpfxkyemck7l5"]
+
+[ext_resource type="Script" uid="uid://cll673xp0d0c0" path="res://src/powerups/speed.gd" id="1_t721g"]
+
+[resource]
+script = ExtResource("1_t721g")
+value = 100.0
+metadata/_custom_type_script = "uid://cll673xp0d0c0"

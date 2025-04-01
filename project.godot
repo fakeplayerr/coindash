@@ -15,15 +15,6 @@ run/main_scene="uid://dhfxp03wrqhat"
 config/features=PackedStringArray("4.4", "Mobile")
 config/icon="res://icon.svg"
 
-[autoload]
-
-Transition="*res://src/autoload/transition.tscn"
-SaveManager="*res://src/autoload/save_manager.tscn"
-GameAssetsClass="*res://src/autoload/game_assets.gd"
-Autoload="*res://src/autoload/autoload.tscn"
-GameModeManager="*res://src/autoload/game_mode_manager.tscn"
-GameAssets="*res://src/autoload/game_assets.tscn"
-
 [display]
 
 window/size/viewport_width=1080

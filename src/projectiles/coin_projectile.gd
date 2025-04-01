@@ -19,6 +19,8 @@ func _ready():
 func set_direction(dir: Vector2, speed_multiplier: float = 1.0):
 	direction = dir.normalized()
 	speed = 600.0 * speed_multiplier  # Apply speed multiplier
+	var rand_scale = randf_range(0.5, 2.0)
+	sprite.apply_scale(Vector2(rand_scale,rand_scale))
 	
 	# Set initial rotation based on direction
 	sprite.rotation = direction.angle() + PI/2
@@ -32,6 +34,7 @@ func _process(delta):
 	
 	# Update distance traveled
 	distance_traveled += speed * delta
+	
 	
 	# Destroy if gone too far
 	if distance_traveled > max_distance:

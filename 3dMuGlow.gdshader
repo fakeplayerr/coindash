@@ -11,14 +11,14 @@ uniform float min_glow_level : hint_range(0.0, 10.0) = 7.0; // Glow starts at +7
 void fragment() {
     // Fetch base texture color
     vec4 tex_color = texture(TEXTURE, UV);
-    
+
     // Liquid ripple effect across the item (wavy distortion)
     float wave = sin(UV.x * wave_scale + TIME * wave_speed) * 0.5 + 0.5;
 
     // Apply wave distortion to UV for liquid-like movement on the texture
     vec2 distorted_uv = UV + vec2(sin(UV.y * wave_scale + TIME * wave_speed) * 0.05, wave * 0.1);
     vec4 distorted_tex_color = texture(TEXTURE, distorted_uv);
-    
+
     // Fresnel effect for stronger glow on edges (optional, you can tweak or remove this)
     float fresnel = pow(1.0 - dot(NORMAL, VIEW), 3.0);
 

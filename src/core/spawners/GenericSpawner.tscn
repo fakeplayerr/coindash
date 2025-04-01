@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3 uid="uid://d3ag7x7h3ra28"]
+
+[ext_resource type="Script" uid="uid://cc74oyorf8fne" path="res://src/core/spawners/generic_spawner.gd" id="1_vh7mu"]
+
+[node name="GenericSpawner" type="Node"]
+script = ExtResource("1_vh7mu")
+
+[node name="Point1" type="Marker2D" parent="."]
+position = Vector2(60, 69)
+
+[node name="Point2" type="Marker2D" parent="."]
+position = Vector2(1002, 77)
+
+[node name="Point3" type="Marker2D" parent="."]
+position = Vector2(63, 437)
+
+[node name="Point4" type="Marker2D" parent="."]
+position = Vector2(1011, 437)

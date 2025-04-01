@@ -152,7 +152,7 @@ func _ready():
 			#print("WARNING: RoadSpawner missing force_spawn_initial_road_segments")
 	#
 	# Initialize SaveManager - robust way
-	initialize_save_manager()
+		()
 	
 	# Initialize GameModeManager
 	initialize_game_mode_manager()

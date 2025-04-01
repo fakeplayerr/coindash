@@ -122,42 +122,12 @@ func fallback_car_texture():
 		print("Player: Applied orientation adjustments to fallback car")
 
 func _physics_process(delta):
-	if not can_move:
-		return
 	
-	# Calculate movement input (horizontal only)
-	var input_dir = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 	
-	# Only use horizontal input for steering
-	var direction = Vector2(input_dir.x, 0)
-	
-	# Set horizontal velocity based on input and handling
-	velocity.x = direction.x * speed * handling_multiplier
-	
-	# CRITICAL FIX: Always use a fixed forward speed (negative Y is up in Godot)
-	velocity.y = -forward_speed
-	
-	# Apply car rotation based on horizontal movement
-	if direction.x != 0:
-		# Tilting the car based on horizontal movement
-		var target_rotation = (direction.x * 15.0) # Small tilt when turning
-		sprite.rotation_degrees = target_rotation
-	else:
-		# Reset rotation to upward when not turning
-		sprite.rotation_degrees = 0
-	
-	# Move the character
-	move_and_slide()
-	
-	# Only clamp the player horizontally - allow free vertical movement
-	position.x = clamp(position.x, wall_padding, screen_width - wall_padding)
-	
+
 	# DIRECT CAMERA UPDATE: Ensure camera follows player directly
 	update_camera_position()
 	
-	# Debug movement info
-	if Engine.get_frames_drawn() % 60 == 0: # Once per second
-		print("Player pos:", position, " velocity:", velocity)
 	
 	# Get current fire rate (apply power-up if active)
 	var current_fire_delay = coin_shoot_delay
