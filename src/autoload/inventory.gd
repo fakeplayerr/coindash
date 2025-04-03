@@ -1,5 +1,6 @@
 extends Resource
 class_name Inventory
 
-var coins: int = 0
-var items = {}
+@export var coins: int = 0
+@export var cars = {}
+@export var selected_car : PackedScene

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="BaseCar" load_steps=3 format=3 uid="uid://dlon8ibcr7cy3"]
+
+[ext_resource type="Texture2D" uid="uid://o7b4pxv5smtq" path="res://assets/general/PNG/Cars/car_black_2.png" id="1_7t0ug"]
+[ext_resource type="Script" uid="uid://c3j0p3qg3ux1f" path="res://src/characters/cars/base_car.gd" id="1_kllpe"]
+
+[resource]
+script = ExtResource("1_kllpe")
+name = ""
+description = ""
+image = ExtResource("1_7t0ug")
+metadata/_custom_type_script = "uid://c3j0p3qg3ux1f"

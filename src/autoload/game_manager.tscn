@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://v70bspp8s65o"]
+
+[ext_resource type="Script" uid="uid://cjrjmh1kv8vac" path="res://src/autoload/base_game.gd" id="1_pvju5"]
+[ext_resource type="Resource" uid="uid://b642h2uo8iiih" path="res://src/autoload/inventory.tres" id="2_lodgj"]
+
+[node name="GameManager" type="Node"]
+script = ExtResource("1_pvju5")
+inventory = ExtResource("2_lodgj")

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cynlqxe5nq3bs"]
+
+[ext_resource type="Script" uid="uid://dt3s83pfgkuhg" path="res://src/characters/cars/car_manager.gd" id="1_u4e0o"]
+
+[node name="CarManager" type="Node2D"]
+script = ExtResource("1_u4e0o")

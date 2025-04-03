@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="BaseCar" load_steps=3 format=3 uid="uid://p6pncv8x05u6"]
+
+[ext_resource type="Texture2D" uid="uid://gomcvpsner64" path="res://assets/general/PNG/Cars/lambo-2.png" id="1_61gxm"]
+[ext_resource type="Script" uid="uid://c3j0p3qg3ux1f" path="res://src/characters/cars/base_car.gd" id="1_cm0l5"]
+
+[resource]
+script = ExtResource("1_cm0l5")
+name = ""
+description = ""
+image = ExtResource("1_61gxm")
+metadata/_custom_type_script = "uid://c3j0p3qg3ux1f"
