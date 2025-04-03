@@ -15,6 +15,7 @@ var current_mode: int = GameMode.CLASSIC
 var challenge_objective: Dictionary = {}
 
 @export var inventory: Inventory
+@export var car_manager: CarManager
 
 # Mode-specific settings
 var game_mode_settings = {

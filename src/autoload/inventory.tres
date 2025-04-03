@@ -1,7 +1,10 @@
-[gd_resource type="Resource" script_class="Inventory" load_steps=2 format=3 uid="uid://b642h2uo8iiih"]
+[gd_resource type="Resource" script_class="Inventory" load_steps=3 format=3 uid="uid://b642h2uo8iiih"]
 
 [ext_resource type="Script" uid="uid://coggdyqcrjl34" path="res://src/autoload/inventory.gd" id="1_oqxso"]
+[ext_resource type="Resource" uid="uid://dlon8ibcr7cy3" path="res://src/characters/cars/dacia_black.tres" id="2_3jv52"]
 
 [resource]
 script = ExtResource("1_oqxso")
+coins = 0
+selected_car = ExtResource("2_3jv52")
 metadata/_custom_type_script = "uid://coggdyqcrjl34"

@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="CarManager" load_steps=7 format=3 uid="uid://b31c4qli8cy8j"]
+
+[ext_resource type="Script" uid="uid://c3j0p3qg3ux1f" path="res://src/characters/cars/base_car.gd" id="1_ypfsw"]
+[ext_resource type="Resource" uid="uid://dlon8ibcr7cy3" path="res://src/characters/cars/dacia_black.tres" id="2_opij8"]
+[ext_resource type="Script" uid="uid://dt3s83pfgkuhg" path="res://src/characters/cars/car_manager.gd" id="2_rdj1j"]
+[ext_resource type="Resource" uid="uid://x15fg3n7xuh8" path="res://src/characters/cars/lambo_green.tres" id="3_6gi51"]
+[ext_resource type="Resource" uid="uid://csllmlj1ck1ix" path="res://src/characters/cars/lambo_red.tres" id="4_egwso"]
+[ext_resource type="Resource" uid="uid://p6pncv8x05u6" path="res://src/characters/cars/lambo_blue.tres" id="5_nwu40"]
+
+[resource]
+script = ExtResource("2_rdj1j")
+cars = Array[ExtResource("1_ypfsw")]([ExtResource("2_opij8"), ExtResource("3_6gi51"), ExtResource("4_egwso"), ExtResource("5_nwu40")])
+metadata/_custom_type_script = "uid://dt3s83pfgkuhg"
