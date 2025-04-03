@@ -26,7 +26,6 @@ mass = 1000.0
 physics_material_override = SubResource("PhysicsMaterial_ty2en")
 linear_velocity = Vector2(-1, -1)
 linear_damp = 4.0
-angular_damp = 4.0
 constant_force = Vector2(-1, -1)
 
 [node name="Sprite" type="Sprite2D" parent="."]

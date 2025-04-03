@@ -1,0 +1,129 @@
+[gd_scene load_steps=13 format=3 uid="uid://bdrmumld304fw"]
+
+[ext_resource type="Script" uid="uid://c4knn1dpoi0c3" path="res://src/environment/obstacles/asphalt/asphalt.gd" id="1_vxp03"]
+[ext_resource type="Texture2D" uid="uid://hdcl0t568qiw" path="res://assets/general/PNG/Tiles/Asphalt road/road_asphalt22.png" id="2_27yqa"]
+[ext_resource type="Texture2D" uid="uid://b504mr482fqa5" path="res://assets/general/PNG/Objects/cone_straight.png" id="3_27yqa"]
+[ext_resource type="Texture2D" uid="uid://cgwtn20wji48y" path="res://assets/general/PNG/Objects/barrier_red.png" id="4_adghp"]
+[ext_resource type="Texture2D" uid="uid://wyri4qjd61xi" path="res://assets/general/PNG/Objects/barrier_white.png" id="5_5h6lj"]
+[ext_resource type="Script" uid="uid://cgn48qblphs7s" path="res://src/environment/road/road_test_player.gd" id="6_c8tr3"]
+[ext_resource type="Texture2D" uid="uid://c6ntokfuht3em" path="res://assets/general/PNG/Cars/lambo-1.png" id="7_j23r4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vwewc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vxp03"]
+size = Vector2(41, 2261)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_27yqa"]
+size = Vector2(140, 134)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_c8tr3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cieau"]
+size = Vector2(106, 240)
+
+[node name="Map" type="Node2D"]
+script = ExtResource("1_vxp03")
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(541, 961.25)
+scale = Vector2(8.42187, 14.9805)
+texture = ExtResource("2_27yqa")
+metadata/_edit_lock_ = true
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("RectangleShape2D_vwewc")
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
+
+[node name="CollisionWall" type="Node2D" parent="."]
+visible = false
+
+[node name="StaticBody2D" type="StaticBody2D" parent="CollisionWall"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionWall/StaticBody2D"]
+position = Vector2(-3.5, 925.5)
+shape = SubResource("RectangleShape2D_vxp03")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="CollisionWall"]
+position = Vector2(1084, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionWall/StaticBody2D2"]
+position = Vector2(-3.5, 925.5)
+shape = SubResource("RectangleShape2D_vxp03")
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="CollisionWall"]
+position = Vector2(1408, 1899)
+rotation = 1.5708
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionWall/StaticBody2D3"]
+position = Vector2(18.0032, 871)
+shape = SubResource("RectangleShape2D_vxp03")
+
+[node name="StaticBody2D4" type="StaticBody2D" parent="CollisionWall"]
+position = Vector2(1476, -12)
+rotation = 1.5708
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionWall/StaticBody2D4"]
+position = Vector2(-3.99671, 908)
+shape = SubResource("RectangleShape2D_vxp03")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[node name="RigidBody2D" type="RigidBody2D" parent="."]
+position = Vector2(546, 1813)
+gravity_scale = 0.0
+linear_damp_mode = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+shape = SubResource("RectangleShape2D_27yqa")
+
+[node name="Sprite2D" type="Sprite2D" parent="RigidBody2D/CollisionShape2D"]
+scale = Vector2(3.45455, 3.45455)
+texture = ExtResource("3_27yqa")
+
+[node name="Walls" type="RigidBody2D" parent="."]
+collision_layer = 8
+collision_mask = 8
+gravity_scale = 0.0
+linear_damp_mode = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="Walls"]
+position = Vector2(32, 104)
+rotation = -1.5708
+texture = ExtResource("4_adghp")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Walls"]
+position = Vector2(1048, 104)
+rotation = 1.5708
+texture = ExtResource("5_5h6lj")
+
+[node name="Sprite2D3" type="Sprite2D" parent="Walls"]
+position = Vector2(1048, 312)
+rotation = 1.5708
+texture = ExtResource("4_adghp")
+
+[node name="Sprite2D4" type="Sprite2D" parent="Walls"]
+position = Vector2(32, 312)
+rotation = -1.5708
+texture = ExtResource("5_5h6lj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls"]
+shape = SubResource("SegmentShape2D_c8tr3")
+disabled = true
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+position = Vector2(376, 1704)
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("6_c8tr3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+shape = SubResource("RectangleShape2D_cieau")
+
+[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
+texture = ExtResource("7_j23r4")
+
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

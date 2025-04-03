@@ -1,0 +1,33 @@
+[gd_scene load_steps=3 format=3 uid="uid://xjkvwcxwc62s"]
+
+[ext_resource type="Texture2D" uid="uid://b504mr482fqa5" path="res://assets/general/PNG/Objects/cone_straight.png" id="1_l0exg"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ji75a"]
+size = Vector2(140, 134)
+
+[node name="Node2D" type="Node2D"]
+
+[node name="RigidBody2D" type="RigidBody2D" parent="."]
+position = Vector2(848, 0)
+gravity_scale = 0.0
+linear_velocity = Vector2(0, 200)
+
+[node name="Sprite2D" type="Sprite2D" parent="RigidBody2D"]
+scale = Vector2(3.45455, 3.45455)
+texture = ExtResource("1_l0exg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+shape = SubResource("RectangleShape2D_ji75a")
+
+[node name="RigidBody2D2" type="RigidBody2D" parent="."]
+position = Vector2(320, 0)
+gravity_scale = 0.0
+linear_velocity = Vector2(0, 200)
+linear_damp_mode = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="RigidBody2D2"]
+scale = Vector2(3.45455, 3.45455)
+texture = ExtResource("1_l0exg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D2"]
+shape = SubResource("RectangleShape2D_ji75a")

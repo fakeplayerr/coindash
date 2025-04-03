@@ -52,8 +52,10 @@ func _spawn_coin_at_position(pos: Vector2) -> void:
 	if not _is_position_valid(pos):
 		return
 		
-	var new_coin := coin_template.duplicate() as Node2D
+	var new_coin := coin_template.duplicate() as RigidBody2D
 	new_coin.position = pos
+	new_coin.rotation = randf_range(15.0,120.0)
+	new_coin.angular_velocity = 40.0
 	
 	# Apply random colors to the shader material
 	var sprite := new_coin.get_node("Sprite") as Sprite2D

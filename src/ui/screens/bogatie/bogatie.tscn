@@ -1,24 +1,7 @@
-[gd_scene load_steps=11 format=3 uid="uid://clk13i3hwoyi3"]
+[gd_scene load_steps=7 format=3 uid="uid://clk13i3hwoyi3"]
 
 [ext_resource type="Script" uid="uid://bn8oarnq8t67m" path="res://src/ui/screens/bogatie/bogatie.gd" id="1_yxvfq"]
-[ext_resource type="Texture2D" uid="uid://c1b7dut44hxtv" path="res://assets/general/coin/coin_240x240_no_bg.png" id="2_lri53"]
-[ext_resource type="Shader" uid="uid://c3xid1cndotol" path="res://src/ui/screens/bogatie/coin_glow.gdshader" id="2_ovasn"]
-
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ty2en"]
-rough = true
-absorbent = true
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ty2en"]
-shader = ExtResource("2_ovasn")
-shader_parameter/speed = 1.0
-shader_parameter/width = 0.1
-shader_parameter/glow_color = Color(0.711, 0.8874, 0.9, 1)
-shader_parameter/base_color = Color(1, 1, 1, 1)
-shader_parameter/left_width = 0.211
-shader_parameter/right_width = 1.0
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_yxvfq"]
-radius = 27.0
+[ext_resource type="PackedScene" uid="uid://bishgb6fc2q44" path="res://src/ui/screens/bogatie/coin_with_glow.tscn" id="2_hx0uf"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_yxvfq"]
 rough = true
@@ -38,24 +21,9 @@ absorbent = true
 [node name="Bogatie" type="Node2D"]
 script = ExtResource("1_yxvfq")
 
-[node name="Coin" type="RigidBody2D" parent="."]
+[node name="Coin" parent="." instance=ExtResource("2_hx0uf")]
 position = Vector2(514, 526)
-collision_layer = 3
-collision_mask = 3
-mass = 1000.0
-physics_material_override = SubResource("PhysicsMaterial_ty2en")
-linear_velocity = Vector2(-1, -1)
-linear_damp = 4.0
-angular_damp = 4.0
-constant_force = Vector2(-1, -1)
-
-[node name="Sprite" type="Sprite2D" parent="Coin"]
-material = SubResource("ShaderMaterial_ty2en")
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_lri53")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Coin"]
-shape = SubResource("CircleShape2D_yxvfq")
+linear_damp = 0.0
 
 [node name="Area2D" type="StaticBody2D" parent="."]
 position = Vector2(-107, 967)

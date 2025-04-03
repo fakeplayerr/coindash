@@ -11,13 +11,13 @@ void fragment() {
     vec4 pixelColor = texture(TEXTURE, UV);
     float brightness = (pixelColor.r + pixelColor.g + pixelColor.b) / 3.0;
     vec4 grayScale = vec4(brightness, brightness, brightness, pixelColor.a);
-    
+
     // Calculate the moving wave effect using a sine function
     float time_offset = fract(TIME * speed);
     //float wave = sin((UV.y + time_offset) * TAU) * 0.9 + 0.1; // Sin wave mapped to [0,1]
     float diagonal_wave = sin(((UV.x + UV.y) * 1.0 + time_offset) * TAU) * 0.9 + 0.01; // Increased frequency diagonally
     float line_effect = smoothstep(left_width - width, right_width + width, diagonal_wave);
-    
+
     // Apply base color and glow effect
     vec4 finalColor = mix(pixelColor * base_color, glow_color, line_effect * pixelColor.a);
     COLOR = finalColor;

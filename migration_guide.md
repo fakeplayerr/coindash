@@ -33,8 +33,6 @@ mkdir src\gameplay
 # Player characters
 copy scenes\player.gd src\characters\player\player.gd
 copy scenes\player.tscn src\characters\player\player.tscn
-copy scenes\player_trail.gd src\characters\player\player_trail.gd
-copy scenes\player_trail.tscn src\characters\player\player_trail.tscn
 
 # NPC characters
 copy scenes\human.gd src\characters\npcs\human.gd
