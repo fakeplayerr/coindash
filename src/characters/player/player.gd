@@ -2,6 +2,19 @@ extends CharacterBody2D
 
 @export var base_player : BasePlayer
 
+func _ready() -> void:
+	# Connect to base_player's car property changes
+	if base_player and base_player.car:
+		base_player.car.changed.connect(_on_car_changed)
+		_update_car_texture()
+
+func _on_car_changed() -> void:
+	_update_car_texture()
+
+func _update_car_texture() -> void:
+	if base_player and base_player.car and base_player.car.image:
+		$Car.texture = base_player.car.image
+
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
 	if not is_on_floor():
@@ -20,8 +33,3 @@ func _physics_process(delta: float) -> void:
 		velocity.x = move_toward(velocity.x, 0, base_player.SPEED)
 
 	move_and_slide()
-
-
-func _on_car_texture_changed() -> void:
-	print("texture_changed")
-	$Car.texture = base_player.car

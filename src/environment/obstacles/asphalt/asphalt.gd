@@ -6,14 +6,20 @@ var speed = GameManager.BASE_SPEED
 @onready var player = $Player
 @onready var walls = $Walls
 
-
 var max_speed = 600
 var acceleration = 50  # Adjust acceleration per frame
 
 func _ready():
 	GameManager.load_game()
-	player.base_player.car = GameManager.inventory.selected_car
-	print("NAME: ", player.base_player.car.name, GameManager.inventory.selected_car.name)
+	_initialize_player()
+
+func _initialize_player():
+	if player and player.base_player and GameManager.inventory.selected_car:
+		# Set the car first
+		player.base_player.car = GameManager.inventory.selected_car
+		# Force an update of the car texture
+		player._update_car_texture()
+		print("Player initialized with car: ", player.base_player.car.name)
 
 func _physics_process(delta):
 	if Input.is_action_pressed("ui_up"):
