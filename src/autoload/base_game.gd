@@ -14,7 +14,7 @@ enum GameMode {
 var current_mode: int = GameMode.CLASSIC
 var challenge_objective: Dictionary = {}
 
-@export var inventory: Inventory
+@export var inventory: Inventory = Inventory.new()
 @export var car_manager: CarManager
 
 # Mode-specific settings

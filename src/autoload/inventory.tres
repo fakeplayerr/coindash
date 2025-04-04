@@ -5,6 +5,6 @@
 
 [resource]
 script = ExtResource("1_oqxso")
-coins = 0
+coins = 1
 selected_car = ExtResource("2_3jv52")
 metadata/_custom_type_script = "uid://coggdyqcrjl34"

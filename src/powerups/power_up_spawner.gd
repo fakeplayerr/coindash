@@ -1,5 +1,4 @@
 extends Node2D
-
 class_name PowerUpSpawner
 
 # Reference to power-up scene and manager

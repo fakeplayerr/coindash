@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="BasePlayer" load_steps=2 format=3 uid="uid://c81m1mkpba2ml"]
+
+[ext_resource type="Script" uid="uid://pvfnor7btpce" path="res://src/characters/player/base_player.gd" id="1_yihsd"]
+
+[resource]
+script = ExtResource("1_yihsd")
+name = "Gigi"
+SPEED = 300.0
+JUMP_VELOCITY = -400.0
+metadata/_custom_type_script = "uid://pvfnor7btpce"
