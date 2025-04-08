@@ -1,15 +1,19 @@
-[gd_scene load_steps=4 format=3 uid="uid://csothya5ckh1x"]
+[gd_scene load_steps=5 format=3 uid="uid://csothya5ckh1x"]
 
+[ext_resource type="Script" uid="uid://bh75fou74dncp" path="res://src/environment/obstacles/walls/walls.gd" id="1_4j0ra"]
 [ext_resource type="Texture2D" uid="uid://cgwtn20wji48y" path="res://assets/general/PNG/Objects/barrier_red.png" id="1_dcun1"]
 [ext_resource type="Texture2D" uid="uid://wyri4qjd61xi" path="res://assets/general/PNG/Objects/barrier_white.png" id="2_4j0ra"]
 
-[sub_resource type="SegmentShape2D" id="SegmentShape2D_c8tr3"]
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_dcun1"]
+a = Vector2(-25, 20)
+b = Vector2(-21, 5)
 
 [node name="Walls" type="RigidBody2D"]
 collision_layer = 8
 collision_mask = 8
 gravity_scale = 0.0
 linear_damp_mode = 1
+script = ExtResource("1_4j0ra")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(32, 104)
@@ -32,5 +36,13 @@ rotation = -1.5708
 texture = ExtResource("2_4j0ra")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("SegmentShape2D_c8tr3")
+visible = false
+position = Vector2(-68, 266)
+shape = SubResource("SegmentShape2D_dcun1")
 disabled = true
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(537.5, 35.5)
+scale = Vector2(54.75, 4.55)
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

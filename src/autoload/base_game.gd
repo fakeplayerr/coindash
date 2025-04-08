@@ -112,6 +112,12 @@ var coins := 0
 var fuel := 100.0
 var unlocked_cars := [false, false, false] # First car unlocked, others locked
 
+func initialize_player(player: Node) -> void:
+	if player and player.base_player and inventory.selected_car:
+		player.base_player.car = inventory.selected_car
+		player._update_car_texture()
+		print("Player initialized with car: ", player.base_player.car.name)
+
 # Set the current game mode
 func set_game_mode(mode: int):
 	current_mode = mode

@@ -1,12 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://bdrmumld304fw"]
+[gd_scene load_steps=8 format=3 uid="uid://bdrmumld304fw"]
 
 [ext_resource type="Script" uid="uid://c4knn1dpoi0c3" path="res://src/environment/obstacles/asphalt/asphalt.gd" id="1_vxp03"]
 [ext_resource type="Texture2D" uid="uid://hdcl0t568qiw" path="res://assets/general/PNG/Tiles/Asphalt road/road_asphalt22.png" id="2_27yqa"]
 [ext_resource type="Texture2D" uid="uid://b504mr482fqa5" path="res://assets/general/PNG/Objects/cone_straight.png" id="3_27yqa"]
 [ext_resource type="PackedScene" uid="uid://csothya5ckh1x" path="res://src/environment/obstacles/walls/walls.tscn" id="4_adghp"]
 [ext_resource type="PackedScene" uid="uid://dry8n3hcd7hi7" path="res://src/characters/player/player.tscn" id="5_adghp"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_vwewc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vxp03"]
 size = Vector2(41, 2261)
@@ -22,13 +20,6 @@ position = Vector2(541, 961.25)
 scale = Vector2(8.42187, 14.9805)
 texture = ExtResource("2_27yqa")
 metadata/_edit_lock_ = true
-
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-shape = SubResource("RectangleShape2D_vwewc")
-
-[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
 
 [node name="CollisionWall" type="Node2D" parent="."]
 visible = false
@@ -79,7 +70,7 @@ texture = ExtResource("3_27yqa")
 [node name="Walls" parent="." instance=ExtResource("4_adghp")]
 
 [node name="Player" parent="." instance=ExtResource("5_adghp")]
-position = Vector2(360, 1816)
+position = Vector2(551, 1528)
 
 [connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
