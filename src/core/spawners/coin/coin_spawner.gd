@@ -1,36 +1,46 @@
-extends Node2D
+extends Node
 
-@export var projectile_types: Array[BaseProjectile] = []  # Array of coin types to spawn
-@export var spawn_points: Array[Vector2] = [Vector2(100, 0), Vector2(300, 0), Vector2(500, 0)]  # Configurable spawn points
-@export var min_spawn_interval: float = 0.5  # Minimum time between spawns (seconds)
-@export var max_spawn_interval: float = 2.0  # Maximum time between spawns (seconds)
+@export var projectiles: Array[BaseProjectile] = []
+@export var spawn_interval: float = 2.0  # Time between spawns
+@export var spawn_area: Vector2 = Vector2(1000, 600)  # Area in which to spawn projectiles
+@export var projectile_speed: float = 200.0  # Speed of projectiles
 
-
+var timer: Timer
 var coin_scene = preload("res://src/projectiles/coin_projectile.tscn")
-func _ready():
-	start_spawning()
-	
 
-func start_spawning():
-	print("Starting")
-	var timer : Timer = Timer.new()
-	timer.wait_time = randf_range(min_spawn_interval, max_spawn_interval)
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	timer = Timer.new()
+	timer.wait_time = spawn_interval
+	timer.connect("timeout", Callable(self, "spawn_projectiles"))
+	timer.autostart = true
 	add_child(timer)
-	timer.start()
 
-func _on_timer_timeout():
-	print("timeout")
-	spawn_coin()
-	var timer : Timer = Timer.new()
-	timer.wait_time = randf_range(min_spawn_interval, max_spawn_interval)
-	add_child(timer)
-	timer.start()
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
 
-func spawn_coin():
-	print("Spawn")
+func spawn_projectiles() -> void:
+	if projectiles.size() == 0:
+		return
+		
+	# Choose a random projectile from the array
+	var projectile_resource = projectiles[randi() % projectiles.size()]
 	
-	var coin = coin_scene.instantiate()
-	coin.projectile_resource = projectile_types[randi() % projectile_types.size()]  # Random coin type
-	var spawn_point = spawn_points[randi() % spawn_points.size()]  # Random spawn point
-	coin.position = spawn_point
-	get_parent().add_child(coin)  # Add to the game level scene
+	# Create instance of the coin scene
+	var coin_instance = coin_scene.instantiate()
+	
+	# Set the projectile resource
+	coin_instance.projectile_resource = projectile_resource
+	
+	# Set random position within spawn area
+	var rand_x = randf_range(-spawn_area.x/2, spawn_area.x/2)
+	var rand_y = randf_range(-spawn_area.y/2, spawn_area.y/2)
+	coin_instance.position = Vector2(rand_x, rand_y)
+	
+	# Set downward velocity
+	coin_instance.set_speed(projectile_speed)
+	coin_instance.set_velocity(Vector2(0, projectile_speed))  # Moving downward
+	
+	# Add to scene
+	add_child(coin_instance)

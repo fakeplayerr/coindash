@@ -7,5 +7,4 @@
 
 [node name="CoinSpawner" type="Node2D"]
 script = ExtResource("1_t57ut")
-projectile_types = Array[ExtResource("2_jx3p2")]([ExtResource("3_4qjxq"), ExtResource("4_4qjxq")])
-spawn_points = Array[Vector2]([Vector2(100, 100), Vector2(150, 150), Vector2(200, 200)])
+projectiles = Array[ExtResource("2_jx3p2")]([ExtResource("3_4qjxq"), ExtResource("4_4qjxq")])

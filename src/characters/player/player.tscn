@@ -8,11 +8,10 @@
 size = Vector2(82, 104)
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
+collision_layer = 7
+collision_mask = 7
 script = ExtResource("1_player")
 base_player = ExtResource("2_03ylq")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_1")
 
 [node name="CoinSpawnPoint" type="Marker2D" parent="."]
 position = Vector2(0, -20)
@@ -31,5 +30,8 @@ angular_velocity_min = -720.0
 angular_velocity_max = 720.0
 
 [node name="Car" type="Sprite2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_1")
 
 [connection signal="texture_changed" from="Car" to="." method="_on_car_texture_changed"]

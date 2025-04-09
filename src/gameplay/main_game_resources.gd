@@ -1,7 +1,8 @@
 extends Resource
-class_name Level1
+class_name BaseLevel
 
 @export var time : float = 0.0
+@export var coins: int = 0
 #@export var road_spawner
 #@export var human_spawner
 

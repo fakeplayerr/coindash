@@ -2,13 +2,35 @@ extends Node2D
 
 @export var projectile_resource: BaseProjectile
 
+@export var velocity: Vector2 = Vector2.ZERO
+@export_range(0, 1000, 10) var speed: float = 200
+
 func _ready():
 	if projectile_resource:
 		$Sprite2D.texture = projectile_resource.image
 		$Sprite2D.scale = Vector2.ONE * projectile_resource.size * 0.5  # Scale based on size
-		$Area2D/CollisionShape2D.scale = Vector2.ONE * projectile_resource.size * 0.5
+		$CollisionShape2D.scale = Vector2.ONE * projectile_resource.size * 0.5
+		
+	# Start animation if it exists
+	if has_node("AnimationPlayer"):
+		$AnimationPlayer.play("rotate")
+		
+	# Connect screen exited signal
+	if has_node("VisibleOnScreenNotifier2D"):
+		$VisibleOnScreenNotifier2D.connect("screen_exited", Callable(self, "_on_visible_on_screen_notifier_2d_screen_exited"))
 
+func _process(delta):
+	# Move according to velocity
+	position += velocity * delta
+
+func set_velocity(vel: Vector2):
+	velocity = vel
+
+func set_speed(spd: float):
+	speed = spd
+	
 func _on_area_2d_body_entered(body):
+	print("BODY ENtered: ", body.name)
 	if body.is_in_group("player"):
 		GameManager.add_coins(projectile_resource.size)   # Size as coin value
 		queue_free()
@@ -78,3 +100,6 @@ func _on_area_2d_body_entered(body):
 #
 #func _on_screen_exited():
 	#queue_free() 
+
+func _on_visible_on_screen_notifier_2d_screen_exited():
+	queue_free()  # Clean up when leaving screen 

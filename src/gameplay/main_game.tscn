@@ -9,11 +9,11 @@
 script = ExtResource("1_sq1eg")
 level1 = ExtResource("2_m70f8")
 
-[node name="Player" parent="." instance=ExtResource("3_44uhg")]
-position = Vector2(543, 1717)
-
 [node name="CoinSpawner" parent="." instance=ExtResource("3_gt3fb")]
 position = Vector2(455, 354)
+
+[node name="Player" parent="." instance=ExtResource("3_44uhg")]
+position = Vector2(543, 1717)
 
 [node name="UI" type="CanvasLayer" parent="."]
 process_mode = 3

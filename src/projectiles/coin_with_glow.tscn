@@ -1,5 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://5j1u7l78jwci"]
+[gd_scene load_steps=7 format=3 uid="uid://5j1u7l78jwci"]
 
+[ext_resource type="Script" uid="uid://6xilrjfg8gcd" path="res://src/projectiles/coin_projectile.gd" id="1_r0txn"]
 [ext_resource type="Shader" uid="uid://c3xid1cndotol" path="res://src/ui/screens/bogatie/coin_glow.gdshader" id="1_y47d2"]
 [ext_resource type="Texture2D" uid="uid://c1b7dut44hxtv" path="res://assets/general/coin/coin_240x240_no_bg.png" id="2_r0txn"]
 
@@ -20,18 +21,21 @@ shader_parameter/right_width = 1.0
 radius = 27.0
 
 [node name="Coin" type="RigidBody2D"]
-collision_layer = 3
-collision_mask = 3
+collision_layer = 7
+collision_mask = 7
 mass = 1000.0
 physics_material_override = SubResource("PhysicsMaterial_ty2en")
 linear_velocity = Vector2(-1, -1)
 linear_damp = 4.0
 constant_force = Vector2(-1, -1)
+script = ExtResource("1_r0txn")
 
-[node name="Sprite" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_ty2en")
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_r0txn")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_yxvfq")
+
+[connection signal="body_entered" from="." to="." method="_on_area_2d_body_entered"]
