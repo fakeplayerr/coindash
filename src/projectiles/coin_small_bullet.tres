@@ -5,7 +5,8 @@
 
 [resource]
 script = ExtResource("2_qlu3n")
-damage = 1
-size = 1
+damage = 2
+size = 3
 image = ExtResource("1_a36jl")
+amount = 1
 metadata/_custom_type_script = "uid://d2nw6btlmeg5f"

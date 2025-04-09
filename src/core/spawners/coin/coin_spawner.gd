@@ -2,7 +2,7 @@ extends Node
 
 @export var projectiles: Array[BaseProjectile] = []
 @export var spawn_interval: float = 2.0  # Time between spawns
-@export var spawn_area: Vector2 = Vector2(1000, 600)  # Area in which to spawn projectiles
+@export var spawn_area: Vector2 = Vector2(1000, 100)  # Area in which to spawn projectiles
 @export var projectile_speed: float = 200.0  # Speed of projectiles
 
 var timer: Timer
@@ -34,13 +34,14 @@ func spawn_projectiles() -> void:
 	coin_instance.projectile_resource = projectile_resource
 	
 	# Set random position within spawn area
-	var rand_x = randf_range(-spawn_area.x/2, spawn_area.x/2)
-	var rand_y = randf_range(-spawn_area.y/2, spawn_area.y/2)
+	var rand_x = randf_range(50, spawn_area.x)
+	var rand_y = randf_range(50, spawn_area.y)
 	coin_instance.position = Vector2(rand_x, rand_y)
+	coin_instance.rotation = randf_range(0, 90 + randf())
 	
 	# Set downward velocity
-	coin_instance.set_speed(projectile_speed)
-	coin_instance.set_velocity(Vector2(0, projectile_speed))  # Moving downward
+	#coin_instance.set_speed(randf_range(projectile_speed/2, projectile_speed))
+	coin_instance.set_velocity(Vector2(0, randf_range(projectile_speed/2, projectile_speed)))  # Moving downward
 	
 	# Add to scene
 	add_child(coin_instance)
