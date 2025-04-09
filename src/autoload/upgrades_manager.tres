@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="UpgradesManager" load_steps=3 format=3 uid="uid://mx72ecbyy36t"]
+
+[ext_resource type="Script" uid="uid://ds0xkndpj4v3l" path="res://src/autoload/upgrades_manager.gd" id="1_kc255"]
+[ext_resource type="Resource" path="res://src/autoload/base_upgrades.tres" id="1_p685u"]
+
+[resource]
+script = ExtResource("1_kc255")
+base_upgrades = ExtResource("1_p685u")
+metadata/_custom_type_script = "uid://ds0xkndpj4v3l"

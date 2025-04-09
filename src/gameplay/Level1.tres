@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="Level1" load_steps=2 format=3 uid="uid://luybrgcgac4r"]
+
+[ext_resource type="Script" uid="uid://cymyspbfmy78m" path="res://src/gameplay/main_game_resources.gd" id="1_mw0ak"]
+
+[resource]
+script = ExtResource("1_mw0ak")
+time = 0.0
+metadata/_custom_type_script = "uid://cymyspbfmy78m"

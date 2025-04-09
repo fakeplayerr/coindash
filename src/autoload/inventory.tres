@@ -5,6 +5,11 @@
 
 [resource]
 script = ExtResource("1_oqxso")
-coins = 1
+coins = 0
+fuel = 100.0
 selected_car = ExtResource("2_3jv52")
+speed = 100.0
+fuel_tank_size = 1000.0
+fire_rate = 100.0
+projectile_speed = 100.0
 metadata/_custom_type_script = "uid://coggdyqcrjl34"

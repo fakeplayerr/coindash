@@ -1,0 +1,311 @@
+[gd_scene load_steps=11 format=3 uid="uid://b8p4q2x3y405w"]
+
+[ext_resource type="Script" uid="uid://d12n6rlio0jtd" path="res://src/gameplay/main_game_old.gd" id="1_main"]
+[ext_resource type="Script" uid="uid://4myy7366vsuj" path="res://src/characters/player/player_old.gd" id="3_player"]
+[ext_resource type="PackedScene" path="res://src/gameplay/camera/camera_controller.tscn" id="5_glor6"]
+[ext_resource type="Theme" path="res://themes/generated/dark_theme.tres" id="5_lp7an"]
+[ext_resource type="Script" uid="uid://bh6hgf8ext15g" path="res://src/environment/road/road_spawner.gd" id="5_spawner"]
+[ext_resource type="Theme" path="res://themes/generated/light_theme.tres" id="6_egdul"]
+[ext_resource type="Script" path="res://src/gameplay/load_selected_car.gd" id="6_load_car"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2"]
+size = Vector2(32, 32)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_1"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(1, 1, 1)
+spread = 10.0
+initial_velocity_min = 100.0
+initial_velocity_max = 150.0
+gravity = Vector3(0, 0, 0)
+scale_min = 2.0
+scale_max = 5.0
+color = Color(0.6, 0.6, 0.6, 0.4)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3"]
+size = Vector2(1080, 100)
+
+[node name="MainGame" type="Node2D"]
+script = ExtResource("1_main")
+
+[node name="Background" type="Sprite2D" parent="."]
+modulate = Color(0.376471, 0.4, 0.588235, 0.403922)
+position = Vector2(3175, 1442)
+scale = Vector2(8.4375, 15)
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer1" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.5, 0.9)
+motion_mirroring = Vector2(0, 1920)
+
+[node name="ColorRect" type="ColorRect" parent="ParallaxBackground/ParallaxLayer1"]
+offset_right = 1080.0
+offset_bottom = 1920.0
+color = Color(0.2, 0.2, 0.3, 1)
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.7, 0.95)
+motion_mirroring = Vector2(0, 1920)
+
+[node name="Lines" type="Node2D" parent="ParallaxBackground/ParallaxLayer2"]
+
+[node name="Line1" type="ColorRect" parent="ParallaxBackground/ParallaxLayer2/Lines"]
+offset_left = 352.0
+offset_right = 362.0
+offset_bottom = 100.0
+color = Color(0.8, 0.8, 0.8, 0.4)
+
+[node name="Line2" type="ColorRect" parent="ParallaxBackground/ParallaxLayer2/Lines"]
+offset_left = 352.0
+offset_top = 200.0
+offset_right = 362.0
+offset_bottom = 300.0
+color = Color(0.8, 0.8, 0.8, 0.4)
+
+[node name="Line3" type="ColorRect" parent="ParallaxBackground/ParallaxLayer2/Lines"]
+offset_left = 352.0
+offset_top = 400.0
+offset_right = 362.0
+offset_bottom = 500.0
+color = Color(0.8, 0.8, 0.8, 0.4)
+
+[node name="Line4" type="ColorRect" parent="ParallaxBackground/ParallaxLayer2/Lines"]
+offset_left = 352.0
+offset_top = 600.0
+offset_right = 362.0
+offset_bottom = 700.0
+color = Color(0.8, 0.8, 0.8, 0.4)
+
+[node name="Line5" type="ColorRect" parent="ParallaxBackground/ParallaxLayer2/Lines"]
+offset_left = 352.0
+offset_top = 800.0
+offset_right = 362.0
+offset_bottom = 900.0
+color = Color(0.8, 0.8, 0.8, 0.4)
+
+[node name="Line6" type="ColorRect" parent="ParallaxBackground/ParallaxLayer2/Lines"]
+offset_left = 352.0
+offset_top = 1000.0
+offset_right = 362.0
+offset_bottom = 1100.0
+color = Color(0.8, 0.8, 0.8, 0.4)
+
+[node name="Line7" type="ColorRect" parent="ParallaxBackground/ParallaxLayer2/Lines"]
+offset_left = 352.0
+offset_top = 1200.0
+offset_right = 362.0
+offset_bottom = 1300.0
+color = Color(0.8, 0.8, 0.8, 0.4)
+
+[node name="Line8" type="ColorRect" parent="ParallaxBackground/ParallaxLayer2/Lines"]
+offset_left = 352.0
+offset_top = 1400.0
+offset_right = 362.0
+offset_bottom = 1500.0
+color = Color(0.8, 0.8, 0.8, 0.4)
+
+[node name="Line9" type="ColorRect" parent="ParallaxBackground/ParallaxLayer2/Lines"]
+offset_left = 352.0
+offset_top = 1600.0
+offset_right = 362.0
+offset_bottom = 1700.0
+color = Color(0.8, 0.8, 0.8, 0.4)
+
+[node name="Line10" type="ColorRect" parent="ParallaxBackground/ParallaxLayer2/Lines"]
+offset_left = 352.0
+offset_top = 1800.0
+offset_right = 362.0
+offset_bottom = 1900.0
+color = Color(0.8, 0.8, 0.8, 0.4)
+
+[node name="Line11" type="ColorRect" parent="ParallaxBackground/ParallaxLayer2/Lines"]
+offset_left = 718.0
+offset_right = 728.0
+offset_bottom = 100.0
+color = Color(0.8, 0.8, 0.8, 0.4)
+
+[node name="Line12" type="ColorRect" parent="ParallaxBackground/ParallaxLayer2/Lines"]
+offset_left = 718.0
+offset_top = 200.0
+offset_right = 728.0
+offset_bottom = 300.0
+color = Color(0.8, 0.8, 0.8, 0.4)
+
+[node name="Line13" type="ColorRect" parent="ParallaxBackground/ParallaxLayer2/Lines"]
+offset_left = 718.0
+offset_top = 400.0
+offset_right = 728.0
+offset_bottom = 500.0
+color = Color(0.8, 0.8, 0.8, 0.4)
+
+[node name="Line14" type="ColorRect" parent="ParallaxBackground/ParallaxLayer2/Lines"]
+offset_left = 718.0
+offset_top = 600.0
+offset_right = 728.0
+offset_bottom = 700.0
+color = Color(0.8, 0.8, 0.8, 0.4)
+
+[node name="Line15" type="ColorRect" parent="ParallaxBackground/ParallaxLayer2/Lines"]
+offset_left = 718.0
+offset_top = 800.0
+offset_right = 728.0
+offset_bottom = 900.0
+color = Color(0.8, 0.8, 0.8, 0.4)
+
+[node name="Line16" type="ColorRect" parent="ParallaxBackground/ParallaxLayer2/Lines"]
+offset_left = 718.0
+offset_top = 1000.0
+offset_right = 728.0
+offset_bottom = 1100.0
+color = Color(0.8, 0.8, 0.8, 0.4)
+
+[node name="Line17" type="ColorRect" parent="ParallaxBackground/ParallaxLayer2/Lines"]
+offset_left = 718.0
+offset_top = 1200.0
+offset_right = 728.0
+offset_bottom = 1300.0
+color = Color(0.8, 0.8, 0.8, 0.4)
+
+[node name="Line18" type="ColorRect" parent="ParallaxBackground/ParallaxLayer2/Lines"]
+offset_left = 718.0
+offset_top = 1400.0
+offset_right = 728.0
+offset_bottom = 1500.0
+color = Color(0.8, 0.8, 0.8, 0.4)
+
+[node name="Line19" type="ColorRect" parent="ParallaxBackground/ParallaxLayer2/Lines"]
+offset_left = 718.0
+offset_top = 1600.0
+offset_right = 728.0
+offset_bottom = 1700.0
+color = Color(0.8, 0.8, 0.8, 0.4)
+
+[node name="Line20" type="ColorRect" parent="ParallaxBackground/ParallaxLayer2/Lines"]
+offset_left = 718.0
+offset_top = 1800.0
+offset_right = 728.0
+offset_bottom = 1900.0
+color = Color(0.8, 0.8, 0.8, 0.4)
+
+[node name="RoadSpawner" type="Node2D" parent="."]
+script = ExtResource("5_spawner")
+
+[node name="Player" type="CharacterBody2D" parent="." groups=["player"]]
+position = Vector2(540, 1600)
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("3_player")
+
+[node name="Sprite2D" type="Sprite2D" parent="Player"]
+scale = Vector2(2, 2)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+shape = SubResource("RectangleShape2D_2")
+
+[node name="CoinSpawnPoint" type="Marker2D" parent="Player"]
+position = Vector2(0, -20)
+
+[node name="Trail" type="GPUParticles2D" parent="Player"]
+position = Vector2(1, 195)
+emitting = false
+amount = 20
+lifetime = 0.2
+speed_scale = 0.5
+randomness = 0.2
+trail_enabled = true
+trail_lifetime = 0.1
+process_material = SubResource("ParticleProcessMaterial_1")
+
+[node name="MainCamera" parent="." instance=ExtResource("5_glor6")]
+position = Vector2(540, 960)
+target_node_path = NodePath("../Player")
+
+[node name="BottomBarrier" type="StaticBody2D" parent="."]
+position = Vector2(540, 2010)
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BottomBarrier"]
+position = Vector2(8, 1272)
+shape = SubResource("RectangleShape2D_3")
+
+[node name="UI" type="CanvasLayer" parent="."]
+process_mode = 3
+
+[node name="TopBar" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 80.0
+grow_horizontal = 2
+
+[node name="FuelBar" type="ProgressBar" parent="UI/TopBar"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = 60.0
+grow_horizontal = 2
+value = 100.0
+
+[node name="TimeLabel" type="Label" parent="UI/TopBar"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 65.0
+offset_right = 200.0
+grow_vertical = 2
+theme = ExtResource("5_lp7an")
+theme_override_font_sizes/font_size = 24
+text = "Time: 0.0"
+
+[node name="CoinLabel" type="Label" parent="UI/TopBar"]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -200.0
+offset_top = 65.0
+offset_right = -20.0
+grow_horizontal = 0
+grow_vertical = 2
+theme = ExtResource("6_egdul")
+theme_override_font_sizes/font_size = 24
+text = "Coins: 0"
+horizontal_alignment = 2
+
+[node name="BottomBar" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -100.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="PauseButton" type="Button" parent="UI/BottomBar"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -60.0
+offset_top = -40.0
+offset_right = 60.0
+offset_bottom = 40.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("6_egdul")
+theme_override_font_sizes/font_size = 24
+text = "Pause"
+
+[node name="LoadSelectedCar" type="Node" parent="."]
+script = ExtResource("6_load_car")

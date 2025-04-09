@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="BaseUpgrades" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://src/autoload/base_upgrades.gd" id="1_2k3m4"]
+
+[resource]
+script = ExtResource("1_2k3m4")
+fuel_tank_size_level = 1
+coin_efficiency_level = 1
+car_speed_level = 1
+car_handling_level = 1
+power_up_slots_level = 1
+fire_rate_level = 1
+projectile_speed_level = 1
+run_time_level = 1

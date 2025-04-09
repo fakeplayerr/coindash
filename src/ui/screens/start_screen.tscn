@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://dhfxp03wrqhat"]
+[gd_scene load_steps=4 format=3 uid="uid://dhfxp03wrqhat"]
 
 [ext_resource type="Script" uid="uid://gfj2rnawc1vg" path="res://src/ui/screens/start_screen.gd" id="1_4k4m3"]
+[ext_resource type="PackedScene" uid="uid://clk13i3hwoyi3" path="res://src/ui/screens/bogatie/bogatie.tscn" id="2_6bpkx"]
+[ext_resource type="Theme" uid="uid://cm6paiulktuae" path="res://src/ui/theme/base.tres" id="3_ixfe8"]
 
 [node name="StartScreen" type="Control"]
 layout_mode = 3
@@ -19,6 +21,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.2, 0.2, 0.2, 1)
+
+[node name="Bogatie" parent="." instance=ExtResource("2_6bpkx")]
+metadata/_edit_lock_ = true
 
 [node name="Title" type="Label" parent="."]
 layout_mode = 1
@@ -48,9 +53,14 @@ grow_horizontal = 2
 [node name="CarBackground" type="ColorRect" parent="CarPreview"]
 layout_mode = 1
 anchors_preset = -1
-anchor_top = 10.34
-anchor_right = 1.0
-anchor_bottom = 11.34
+anchor_left = -2.131
+anchor_top = 12.159
+anchor_right = 4.079
+anchor_bottom = 13.33
+offset_left = 220.1
+offset_top = 35.1
+offset_right = -300.9
+offset_bottom = 17.9999
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.15, 0.15, 0.15, 1)
@@ -75,6 +85,42 @@ grow_vertical = 0
 text = "Current Car"
 horizontal_alignment = 1
 
+[node name="ResetSaveButton" type="Button" parent="."]
+layout_mode = 2
+offset_left = 762.0
+offset_top = 1658.0
+offset_right = 1017.0
+offset_bottom = 1711.0
+theme = ExtResource("3_ixfe8")
+text = "Reset Save Data"
+
+[node name="AddCoins" type="Button" parent="."]
+layout_mode = 2
+offset_left = 440.0
+offset_top = 1591.5
+offset_right = 640.0
+offset_bottom = 1644.5
+theme = ExtResource("3_ixfe8")
+text = "Add coins"
+
+[node name="SaveGame" type="Button" parent="."]
+layout_mode = 2
+offset_left = 91.0
+offset_top = 1605.0
+offset_right = 291.0
+offset_bottom = 1658.0
+theme = ExtResource("3_ixfe8")
+text = "Save Game"
+
+[node name="LoadGame" type="Button" parent="."]
+layout_mode = 2
+offset_left = 86.0
+offset_top = 1518.0
+offset_right = 286.0
+offset_bottom = 1571.0
+theme = ExtResource("3_ixfe8")
+text = "LoadGame"
+
 [node name="MainMenu" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 8
@@ -92,26 +138,22 @@ theme_override_constants/separation = 20
 
 [node name="PlayButton" type="Button" parent="MainMenu"]
 layout_mode = 2
+theme = ExtResource("3_ixfe8")
 text = "Play"
-
-[node name="GameModesButton" type="Button" parent="MainMenu"]
-layout_mode = 2
-text = "Game Modes"
 
 [node name="UpgradesButton" type="Button" parent="MainMenu"]
 layout_mode = 2
+theme = ExtResource("3_ixfe8")
 text = "Upgrades"
 
 [node name="CarSelectButton" type="Button" parent="MainMenu"]
 layout_mode = 2
+theme = ExtResource("3_ixfe8")
 text = "Select Car"
-
-[node name="ResetSaveButton" type="Button" parent="MainMenu"]
-layout_mode = 2
-text = "Reset Save Data"
 
 [node name="QuitButton" type="Button" parent="MainMenu"]
 layout_mode = 2
+theme = ExtResource("3_ixfe8")
 text = "Quit"
 
 [node name="TotalCoins" type="Label" parent="."]
@@ -121,11 +163,12 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -100.0
-offset_top = -50.0
-offset_right = 100.0
+offset_left = -239.0
+offset_top = -202.0
+offset_right = 254.0
 offset_bottom = -20.0
 grow_horizontal = 2
 grow_vertical = 0
+theme = ExtResource("3_ixfe8")
 text = "Total Coins: 0"
 horizontal_alignment = 1

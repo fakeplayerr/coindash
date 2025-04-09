@@ -86,18 +86,6 @@ text = "Fuel Tank Size"
 layout_mode = 2
 text = "Upgrade (100 coins)"
 
-[node name="CoinEfficiency" type="HBoxContainer" parent="ScrollContainer/UpgradesList/FuelUpgrades"]
-layout_mode = 2
-theme_override_constants/separation = 10
-
-[node name="Label" type="Label" parent="ScrollContainer/UpgradesList/FuelUpgrades/CoinEfficiency"]
-layout_mode = 2
-text = "Coin Efficiency"
-
-[node name="UpgradeButton" type="Button" parent="ScrollContainer/UpgradesList/FuelUpgrades/CoinEfficiency"]
-layout_mode = 2
-text = "Upgrade (300 coins)"
-
 [node name="CarUpgrades" type="VBoxContainer" parent="ScrollContainer/UpgradesList"]
 layout_mode = 2
 theme_override_constants/separation = 10
@@ -129,28 +117,7 @@ text = "Handling"
 
 [node name="UpgradeButton" type="Button" parent="ScrollContainer/UpgradesList/CarUpgrades/Handling"]
 layout_mode = 2
-text = "Upgrade (200 coins)"
-
-[node name="PowerUps" type="VBoxContainer" parent="ScrollContainer/UpgradesList"]
-layout_mode = 2
-theme_override_constants/separation = 10
-
-[node name="Label" type="Label" parent="ScrollContainer/UpgradesList/PowerUps"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 24
-text = "Power-Ups"
-
-[node name="PowerUpSlot" type="HBoxContainer" parent="ScrollContainer/UpgradesList/PowerUps"]
-layout_mode = 2
-theme_override_constants/separation = 10
-
-[node name="Label" type="Label" parent="ScrollContainer/UpgradesList/PowerUps/PowerUpSlot"]
-layout_mode = 2
-text = "Power-Up Slot"
-
-[node name="UpgradeButton" type="Button" parent="ScrollContainer/UpgradesList/PowerUps/PowerUpSlot"]
-layout_mode = 2
-text = "Unlock (800 coins)"
+text = "Upgrade (175 coins)"
 
 [node name="WeaponUpgrades" type="VBoxContainer" parent="ScrollContainer/UpgradesList"]
 layout_mode = 2
@@ -185,6 +152,27 @@ text = "Projectile Speed"
 layout_mode = 2
 text = "Upgrade (200 coins)"
 
+[node name="PowerUps" type="VBoxContainer" parent="ScrollContainer/UpgradesList"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="ScrollContainer/UpgradesList/PowerUps"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Power Ups"
+
+[node name="PowerUpSlot" type="HBoxContainer" parent="ScrollContainer/UpgradesList/PowerUps"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="ScrollContainer/UpgradesList/PowerUps/PowerUpSlot"]
+layout_mode = 2
+text = "Additional Slot"
+
+[node name="UpgradeButton" type="Button" parent="ScrollContainer/UpgradesList/PowerUps/PowerUpSlot"]
+layout_mode = 2
+text = "Upgrade (300 coins)"
+
 [node name="GameUpgrades" type="VBoxContainer" parent="ScrollContainer/UpgradesList"]
 layout_mode = 2
 theme_override_constants/separation = 10
@@ -204,7 +192,7 @@ text = "Run Time"
 
 [node name="UpgradeButton" type="Button" parent="ScrollContainer/UpgradesList/GameUpgrades/RunTime"]
 layout_mode = 2
-text = "Upgrade (500 coins)"
+text = "Upgrade (225 coins)"
 
 [node name="TotalCoins" type="Label" parent="."]
 layout_mode = 1

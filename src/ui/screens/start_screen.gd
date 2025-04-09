@@ -1,28 +1,37 @@
 extends Control
 
-# This script was updated by the fix_references.gd tool
-# The GameAssetsClass constant remain unchanged but now refers to GameAssetsResource class
-
-# Reference to GameAssets class
-const GameAssetsClass = preload("res://src/autoload/game_assets.gd")
-
 @onready var play_button = $MainMenu/PlayButton
-@onready var game_modes_button = $MainMenu/GameModesButton
 @onready var upgrades_button = $MainMenu/UpgradesButton
 @onready var car_select_button = $MainMenu/CarSelectButton
-@onready var reset_save_button = $MainMenu/ResetSaveButton
+@onready var reset_save_button = $ResetSaveButton
 @onready var quit_button = $MainMenu/QuitButton
 @onready var total_coins = $TotalCoins
+@onready var add_coins_button = $AddCoins
 @onready var car_sprite = $CarPreview/CarSprite
 
+@onready var load_game_button = $LoadGame
+@onready var save_game_button = $SaveGame
+
+func _on_load_game_button_pressed():
+	GameManager.load_game()
+	update_ui()
+	
+func _on_save_game_button_pressed():
+	GameManager.save_game()
+	
 func _ready():
 	# Connect button signals
 	play_button.pressed.connect(_on_play_pressed)
-	game_modes_button.pressed.connect(_on_game_modes_pressed)
 	upgrades_button.pressed.connect(_on_upgrades_pressed)
 	car_select_button.pressed.connect(_on_car_select_pressed)
 	reset_save_button.pressed.connect(_on_reset_save_pressed)
 	quit_button.pressed.connect(_on_quit_pressed)
+	
+	add_coins_button.pressed.connect(_on_add_coins_button_pressed)
+	
+	load_game_button.pressed.connect(_on_load_game_button_pressed)
+	save_game_button.pressed.connect(_on_save_game_button_pressed)
+	
 	
 	# Set initial coin display to loading
 	total_coins.text = "Total Coins: Loading..."
@@ -43,6 +52,10 @@ func _ready():
 
 func _on_save_manager_ready():
 	print("SaveManager is ready, updating UI now")
+	update_ui()
+	
+func _on_add_coins_button_pressed():
+	GameManager.add_coins(100)
 	update_ui()
 
 func _on_play_pressed():
@@ -109,16 +122,11 @@ func _on_quit_pressed():
 	get_tree().quit()
 
 func update_ui():
-	var save_manager = get_node_or_null("/root/SaveManager")
-	if save_manager:
-		var coins = save_manager.get_total_coins()
-		total_coins.text = "Total Coins: %d" % coins
-		print("Updated UI with %d coins" % coins)
-		
-		# Update car preview
-		var selected_car = save_manager.get_selected_car()
-		var texture = GameAssetsClass.load_car_texture(selected_car)
-		if texture and car_sprite:
-			car_sprite.texture = texture
-	else:
-		print("SaveManager not found when updating UI") 
+	total_coins.text = "Total Coins: %d" % GameManager.get_coins()
+	print("Updated UI with %d coins" % GameManager.get_coins())
+	
+	# Update car preview
+	#var selected_car = GameManager.get_selected_car()
+		#var texture = GameAssetsClass.load_car_texture(selected_car)
+		#if texture and car_sprite:
+			#car_sprite.texture = texture

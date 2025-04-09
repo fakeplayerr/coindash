@@ -1,141 +1,46 @@
 extends Node
 
 var config = ConfigFile.new()
-# Game mode definitions
-enum GameMode {
-	CLASSIC, # Standard game with time and fuel
-	ENDLESS, # No time limit, just fuel
-	TIME_ATTACK, # Only time limit, no fuel concerns
-	SURVIVAL, # Harder enemies, faster depletion
-	CHALLENGE # Special challenges with objectives
-}
-
-# Current active game mode
-var current_mode: int = GameMode.CLASSIC
-var challenge_objective: Dictionary = {}
 
 @export var inventory: Inventory = Inventory.new()
 @export var car_manager: CarManager
-
-# Mode-specific settings
-var game_mode_settings = {
-	GameMode.CLASSIC: {
-		"name": "Classic",
-		"description": "Beat the clock and manage your fuel",
-		"time_limit": 60.0,
-		"use_fuel": true,
-		"fuel_consumption_rate": 5.0,
-		"human_speed": 50.0,
-		"spawn_rate": 1.0
-	},
-	GameMode.ENDLESS: {
-		"name": "Endless",
-		"description": "No time limit, just manage your fuel",
-		"time_limit": 0.0,  # No time limit
-		"use_fuel": true,
-		"fuel_consumption_rate": 7.0,  # Faster fuel consumption
-		"human_speed": 60.0,
-		"spawn_rate": 1.2
-	},
-	GameMode.TIME_ATTACK: {
-		"name": "Time Attack",
-		"description": "Race against the clock to collect coins",
-		"time_limit": 30.0,  # Shorter time
-		"use_fuel": false,   # No fuel concerns
-		"human_speed": 70.0, # Faster humans
-		"spawn_rate": 1.5    # More humans
-	},
-	GameMode.SURVIVAL: {
-		"name": "Survival",
-		"description": "Survive as long as possible with limited resources",
-		"time_limit": 90.0,  # Longer time
-		"use_fuel": true,
-		"fuel_consumption_rate": 10.0,  # Much faster fuel consumption
-		"human_speed": 80.0, # Much faster humans
-		"spawn_rate": 2.0    # Many more humans
-	},
-	GameMode.CHALLENGE: {
-		"name": "Challenge",
-		"description": "Complete special objectives",
-		"time_limit": 60.0,
-		"use_fuel": true,
-		"fuel_consumption_rate": 5.0,
-		"human_speed": 60.0,
-		"spawn_rate": 1.0
-	}
-}
-
-# Game mode descriptions for UI
-var mode_descriptions = {
-	GameMode.CLASSIC: "The standard game mode with time and fuel limits. Collect coins and upgrade your car.",
-	GameMode.ENDLESS: "Play without time pressure. Just manage your fuel and collect as many coins as possible.",
-	GameMode.TIME_ATTACK: "Race against the clock! Collect as many coins as possible before time runs out. No fuel worries.",
-	GameMode.SURVIVAL: "Resources are scarce! Fuel depletes faster and humans move quicker. How long can you survive?",
-	GameMode.CHALLENGE: "Complete specific objectives to earn bonus rewards and unlock special content."
-}
-
-# Challenge objectives
-var challenge_objectives = [
-	{
-		"name": "Coin Collector",
-		"description": "Collect 50 coins in 45 seconds",
-		"type": "coins",
-		"target": 50,
-		"time_limit": 45.0,
-		"reward_coins": 100
-	},
-	{
-		"name": "Fuel Efficiency",
-		"description": "Survive for 60 seconds with minimal fuel consumption",
-		"type": "time",
-		"target": 60,
-		"fuel_limit": 50.0,
-		"reward_coins": 150
-	},
-	{
-		"name": "Speed Demon",
-		"description": "Hit 30 humans in 30 seconds",
-		"type": "humans",
-		"target": 30,
-		"time_limit": 30.0,
-		"reward_coins": 200
-	}
-]
-
+@export var upgrades_manager: UpgradesManager
 
 # Global game settings
 const BASE_SPEED := 200.0
 const MAX_SPEED := 1000.0
 
-var player_speed := BASE_SPEED
-var coins := 0
-var fuel := 100.0
-var unlocked_cars := [false, false, false] # First car unlocked, others locked
+func _ready() -> void:
+	print("Game Manager loaded")
+	print("loading game:...")
+	load_game()
 
 func initialize_player(player: Node) -> void:
-	if player and player.base_player and inventory.selected_car:
-		player.base_player.car = inventory.selected_car
-		player._update_car_texture()
-		print("Player initialized with car: ", player.base_player.car.name)
-
-# Set the current game mode
-func set_game_mode(mode: int):
-	current_mode = mode
-	print("Game Mode Manager: Set mode to " + game_mode_settings[mode]["name"])
-
-# Function to reset game state
-func reset_game():
-	coins = 0
-	fuel = 100.0
-	player_speed = BASE_SPEED
+	if player and player.base_player:
+		var selected_car = car_manager.get_selected_car()
+		if selected_car:
+			player.base_player.car = selected_car
+			player._update_car_texture()
+			print("Player initialized with car: ", selected_car.name)
+		else:
+			print("ERROR: No selected car found for player initialization")
 
 func save_game():
-	var config = ConfigFile.new()
-	config.set_value("player", "coins", coins)
-	config.set_value("player", "fuel", fuel)
-	config.set_value("player", "unlocked_cars", unlocked_cars)
+	# Save inventory stats
+	config.set_value("inventory", "coins", inventory.coins)
+	config.set_value("inventory", "fuel", inventory.fuel)
+	config.set_value("inventory", "speed", inventory.speed)
+	config.set_value("inventory", "fuel_tank_size", inventory.fuel_tank_size)
+	config.set_value("inventory", "fire_rate", inventory.fire_rate)
+	config.set_value("inventory", "projectile_speed", inventory.projectile_speed)
+	
+	# Save player progress - car data
+	car_manager.save_cars(config)
+	
+	# Save upgrades
+	upgrades_manager.save_upgrades(config)
 
-	var save_path = "user://save_data/config.cfg"  # Use user:// instead of res:// for writable storage
+	var save_path = "res://save_data/config.cfg"
 	var err = config.save(save_path)
 
 	if err == OK:
@@ -144,28 +49,113 @@ func save_game():
 		print("Error saving game! Error code: ", err)
 
 func load_game():
-	var config = ConfigFile.new()
-	var load_path = "user://save_data/config.cfg"
+	var load_path = "res://save_data/config.cfg"
 
 	if config.load(load_path) == OK:
-		coins = config.get_value("player", "coins", 0)
-		fuel = config.get_value("player", "fuel", 100.0)
-		unlocked_cars = config.get_value("player", "unlocked_cars", [false, false, false])
+		# Load inventory stats
+		inventory.coins = config.get_value("inventory", "coins", 0)
+		inventory.fuel = config.get_value("inventory", "fuel", 100.0)
+		inventory.speed = config.get_value("inventory", "speed", 0.0)
+		inventory.fuel_tank_size = config.get_value("inventory", "fuel_tank_size", 1000.0)
+		inventory.fire_rate = config.get_value("inventory", "fire_rate", 100.0)
+		inventory.projectile_speed = config.get_value("inventory", "projectile_speed", 100.0)
+		
+		# Load car data
+		car_manager.load_cars(config)
+		
+		# Load upgrades
+		upgrades_manager.load_upgrades(config)
+		
+		# Apply upgrade effects to inventory
+		upgrades_manager.apply_upgrade_effects(inventory)
 
 		print("Game loaded successfully!")
-		print("Coins:", coins)
-		print("Fuel:", fuel)
-		print("Unlocked Cars:", unlocked_cars)
+		print("Inventory Stats:")
+		print("- Coins:", inventory.coins)
+		print("- Fuel:", inventory.fuel)
+		print("- Speed:", inventory.speed)
+		print("- Fuel Tank Size:", inventory.fuel_tank_size)
+		print("- Fire Rate:", inventory.fire_rate)
+		print("- Projectile Speed:", inventory.projectile_speed)
+		print("Car Data:")
+		print("- Selected Car Index:", car_manager.selected_car_index)
+		print("- Unlocked Cars:", car_manager.unlocked_cars)
 	else:
 		print("No save file found or failed to load.")
 
-#@export var energy = 0:
-	#set(value):
-		#energy = value
-		#update_configuration_warnings()
-#
-#func _get_configuration_warnings():
-	#if energy < 0:
-		#return ["Energy must be 0 or greater."]
-	#else:
-		#return []
+# Car-related helper functions
+func get_selected_car() -> BaseCar:
+	return car_manager.get_selected_car()
+
+func select_car(index: int) -> bool:
+	var result = car_manager.select_car(index)
+	if result:
+		save_game()  # Save changes immediately
+	return result
+
+func is_car_unlocked(index: int) -> bool:
+	return car_manager.is_car_unlocked(index)
+
+func unlock_car(index: int) -> bool:
+	var result = car_manager.unlock_car(index)
+	if result:
+		save_game()  # Save changes immediately
+	return result
+
+func get_car_cost(index: int) -> int:
+	return car_manager.get_car_cost(index)
+
+func get_car_count() -> int:
+	return car_manager.get_car_count()
+
+func get_car(index: int) -> BaseCar:
+	return car_manager.get_car(index)
+
+# Helper functions for managing inventory values
+func add_fuel(amount: float) -> void:
+	inventory.fuel = min(inventory.fuel + amount, inventory.fuel_tank_size)
+
+func remove_fuel(amount: float) -> void:
+	inventory.fuel = max(inventory.fuel - amount, 0.0)
+
+func update_speed(new_speed: float) -> void:
+	inventory.speed = new_speed
+
+func update_fuel_tank_size(new_size: float) -> void:
+	inventory.fuel_tank_size = new_size
+	# Ensure current fuel doesn't exceed new tank size
+	inventory.fuel = min(inventory.fuel, new_size)
+
+func update_fire_rate(new_rate: float) -> void:
+	inventory.fire_rate = new_rate
+
+func update_projectile_speed(new_speed: float) -> void:
+	inventory.projectile_speed = new_speed
+
+func get_fuel() -> float:
+	return inventory.fuel
+
+func get_fuel_tank_size() -> float:
+	return inventory.fuel_tank_size
+
+func get_speed() -> float:
+	return inventory.speed
+
+func get_fire_rate() -> float:
+	return inventory.fire_rate
+
+func get_projectile_speed() -> float:
+	return inventory.projectile_speed
+
+func get_coins():
+	return inventory.coins
+	
+func add_coins(amount: int):
+	inventory.coins += amount
+	
+func spend_coins(amount: int) -> bool:
+	if inventory.coins >= amount:
+		inventory.coins -= amount
+		save_game()  # Save after spending coins
+		return true
+	return false

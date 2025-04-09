@@ -27,9 +27,9 @@ coindash/
 2. Update the autoload paths in Project Settings:
    - Go to Project → Project Settings → Autoload
    - Update the following autoloads to point to their new locations:
-     - SaveManager: `res://src/autoload/save_manager.tscn`
-     - GameAssets: `res://src/autoload/game_assets.gd`
-     - Transition: `res://src/autoload/transition.tscn`
+	 - SaveManager: `res://src/autoload/save_manager.tscn`
+	 - GameAssets: `res://src/autoload/game_assets.gd`
+	 - Transition: `res://src/autoload/transition.tscn`
 
 3. Update the main scene in Project Settings:
    - Go to Project → Project Settings → Application → Run

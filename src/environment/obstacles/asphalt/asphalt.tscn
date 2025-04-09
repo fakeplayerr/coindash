@@ -1,10 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://bdrmumld304fw"]
+[gd_scene load_steps=7 format=3 uid="uid://bdrmumld304fw"]
 
 [ext_resource type="Script" uid="uid://c4knn1dpoi0c3" path="res://src/environment/obstacles/asphalt/asphalt.gd" id="1_vxp03"]
 [ext_resource type="Texture2D" uid="uid://hdcl0t568qiw" path="res://assets/general/PNG/Tiles/Asphalt road/road_asphalt22.png" id="2_27yqa"]
 [ext_resource type="Texture2D" uid="uid://b504mr482fqa5" path="res://assets/general/PNG/Objects/cone_straight.png" id="3_27yqa"]
-[ext_resource type="PackedScene" uid="uid://csothya5ckh1x" path="res://src/environment/obstacles/walls/walls.tscn" id="4_adghp"]
-[ext_resource type="Script" uid="uid://c746b8xkao6ig" path="res://src/core/spawners/wall_spawner.gd" id="5_5h6lj"]
 [ext_resource type="PackedScene" uid="uid://dry8n3hcd7hi7" path="res://src/characters/player/player.tscn" id="5_adghp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vxp03"]
@@ -68,11 +66,3 @@ texture = ExtResource("3_27yqa")
 
 [node name="Player" parent="." instance=ExtResource("5_adghp")]
 position = Vector2(551, 1528)
-
-[node name="Node" type="Node2D" parent="."]
-script = ExtResource("5_5h6lj")
-wall_scene = ExtResource("4_adghp")
-num_walls_above = 4
-num_walls_below = 4
-vertical_gap = 208.0
-wall_speed = 208.0

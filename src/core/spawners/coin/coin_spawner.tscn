@@ -1,0 +1,11 @@
+[gd_scene load_steps=5 format=3 uid="uid://ejcvrsf4dhhh"]
+
+[ext_resource type="Script" uid="uid://ovifjwp8p61u" path="res://src/core/spawners/coin/coin_spawner.gd" id="1_t57ut"]
+[ext_resource type="Script" uid="uid://d2nw6btlmeg5f" path="res://src/projectiles/base_projectile.gd" id="2_jx3p2"]
+[ext_resource type="Resource" uid="uid://cbcq371n87v7k" path="res://src/projectiles/coin_small_bullet.tres" id="3_4qjxq"]
+[ext_resource type="Resource" uid="uid://c1tubmmkdkbj7" path="res://src/projectiles/coin_big_bullet.tres" id="4_4qjxq"]
+
+[node name="CoinSpawner" type="Node2D"]
+script = ExtResource("1_t57ut")
+projectile_types = Array[ExtResource("2_jx3p2")]([ExtResource("3_4qjxq"), ExtResource("4_4qjxq")])
+spawn_points = Array[Vector2]([Vector2(100, 100), Vector2(150, 150), Vector2(200, 200)])
