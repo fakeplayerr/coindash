@@ -13,34 +13,34 @@ func _ready():
 	update_ui()
 	
 	# Connect upgrade buttons - only connect to buttons that exist
-	if has_node("ScrollContainer/UpgradesList/FuelUpgrades/FuelTankSize/UpgradeButton"):
-		$ScrollContainer/UpgradesList/FuelUpgrades/FuelTankSize/UpgradeButton.pressed.connect(
+	if has_node("ScrollContainer/UpgradesList/FuelUpgrades/UpgradeButton"):
+		$ScrollContainer/UpgradesList/FuelUpgrades/UpgradeButton.pressed.connect(
 			_on_upgrade_pressed.bind("fuel_tank_size"))
 	
 	# Only connect to buttons that exist in the scene
-	if has_node("ScrollContainer/UpgradesList/CarUpgrades/Speed/UpgradeButton"):
-		$ScrollContainer/UpgradesList/CarUpgrades/Speed/UpgradeButton.pressed.connect(
+	if has_node("ScrollContainer/UpgradesList/CarUpgrades/UpgradeButton"):
+		$ScrollContainer/UpgradesList/CarUpgrades/UpgradeButton.pressed.connect(
 			_on_upgrade_pressed.bind("car_speed"))
 	
-	if has_node("ScrollContainer/UpgradesList/CarUpgrades/Handling/UpgradeButton"):
-		$ScrollContainer/UpgradesList/CarUpgrades/Handling/UpgradeButton.pressed.connect(
+	if has_node("ScrollContainer/UpgradesList/CarUpgrades/UpgradeButton2"):
+		$ScrollContainer/UpgradesList/CarUpgrades/UpgradeButton2.pressed.connect(
 			_on_upgrade_pressed.bind("car_handling"))
 	
-	if has_node("ScrollContainer/UpgradesList/PowerUps/PowerUpSlot/UpgradeButton"):
-		$ScrollContainer/UpgradesList/PowerUps/PowerUpSlot/UpgradeButton.pressed.connect(
+	if has_node("ScrollContainer/UpgradesList/PowerUps/UpgradeButton"):
+		$ScrollContainer/UpgradesList/PowerUps/UpgradeButton.pressed.connect(
 			_on_upgrade_pressed.bind("power_up_slots"))
 	
 	# Connect weapon upgrade buttons
-	if has_node("ScrollContainer/UpgradesList/WeaponUpgrades/FireRate/UpgradeButton"):
-		$ScrollContainer/UpgradesList/WeaponUpgrades/FireRate/UpgradeButton.pressed.connect(
+	if has_node("ScrollContainer/UpgradesList/WeaponUpgrades/UpgradeButton"):
+		$ScrollContainer/UpgradesList/WeaponUpgrades/UpgradeButton.pressed.connect(
 			_on_upgrade_pressed.bind("fire_rate"))
 	
-	if has_node("ScrollContainer/UpgradesList/WeaponUpgrades/ProjectileSpeed/UpgradeButton"):
-		$ScrollContainer/UpgradesList/WeaponUpgrades/ProjectileSpeed/UpgradeButton.pressed.connect(
+	if has_node("ScrollContainer/UpgradesList/WeaponUpgrades/UpgradeButton2"):
+		$ScrollContainer/UpgradesList/WeaponUpgrades/UpgradeButton2.pressed.connect(
 			_on_upgrade_pressed.bind("projectile_speed"))
 	
-	if has_node("ScrollContainer/UpgradesList/GameUpgrades/RunTime/UpgradeButton"):
-		$ScrollContainer/UpgradesList/GameUpgrades/RunTime/UpgradeButton.pressed.connect(
+	if has_node("ScrollContainer/UpgradesList/GameUpgrades/UpgradeButton"):
+		$ScrollContainer/UpgradesList/GameUpgrades/UpgradeButton.pressed.connect(
 			_on_upgrade_pressed.bind("run_time"))
 
 func update_ui():
@@ -75,19 +75,19 @@ func _update_upgrade_button(upgrade_name: String):
 func _get_upgrade_button(upgrade_name: String) -> Button:
 	match upgrade_name:
 		"fuel_tank_size":
-			return $ScrollContainer/UpgradesList/FuelUpgrades/FuelTankSize/UpgradeButton
+			return $ScrollContainer/UpgradesList/FuelUpgrades/UpgradeButton
 		"car_speed":
-			return $ScrollContainer/UpgradesList/CarUpgrades/Speed/UpgradeButton
+			return $ScrollContainer/UpgradesList/CarUpgrades/UpgradeButton
 		"car_handling":
-			return $ScrollContainer/UpgradesList/CarUpgrades/Handling/UpgradeButton
+			return $ScrollContainer/UpgradesList/CarUpgrades/UpgradeButton2
 		"power_up_slots":
-			return $ScrollContainer/UpgradesList/PowerUps/PowerUpSlot/UpgradeButton
+			return $ScrollContainer/UpgradesList/PowerUps/UpgradeButton
 		"fire_rate":
-			return $ScrollContainer/UpgradesList/WeaponUpgrades/FireRate/UpgradeButton
+			return $ScrollContainer/UpgradesList/WeaponUpgrades/UpgradeButton
 		"projectile_speed":
-			return $ScrollContainer/UpgradesList/WeaponUpgrades/ProjectileSpeed/UpgradeButton
+			return $ScrollContainer/UpgradesList/WeaponUpgrades/UpgradeButton2
 		"run_time":
-			return $ScrollContainer/UpgradesList/GameUpgrades/RunTime/UpgradeButton
+			return $ScrollContainer/UpgradesList/GameUpgrades/UpgradeButton
 	return null
 
 func _on_upgrade_pressed(upgrade_name: String):

@@ -71,6 +71,7 @@ func _on_node_added(node: Node) -> void:
 # Called when a girl NPC is collected
 func _on_girl_collected() -> void:
 	girls_collected_this_round += 1
+	$UI/TopBar/GirlsLabel.text = "Girls: %d" % girls_collected_this_round
 	print("Girl collected! Total this round: ", girls_collected_this_round)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

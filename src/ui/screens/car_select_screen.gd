@@ -8,7 +8,7 @@ const GameAssetsClass = preload("res://src/autoload/game_assets.gd")
 
 @onready var car_grid = $VBoxContainer/CenterContainer/CarGrid
 @onready var back_button = $VBoxContainer/CenterContainer3/BackButton
-@onready var coin_label = $VBoxContainer/CenterContainer3/TotalCoins if has_node("TotalCoins") else null
+@onready var coin_label = $VBoxContainer/HBoxContainer/CenterContainer2/TotalCoins
 
 func _ready():
 	print("CarSelectScreen: Initializing")
@@ -46,7 +46,20 @@ func create_car_buttons():
 			button.custom_minimum_size = Vector2(200, 380)
 			
 			var texture_rect = TextureRect.new()
-			texture_rect.texture = car.image
+			
+			# Check if car image is valid
+			if car.image:
+				texture_rect.texture = car.image
+				print("CarSelectScreen: Loaded texture for car %d" % i)
+			else:
+				# Create a placeholder colored rect as fallback
+				print("CarSelectScreen: No texture for car %d, using fallback" % i)
+				var placeholder = ColorRect.new()
+				placeholder.color = Color(0.8, 0.2, 0.2)
+				placeholder.custom_minimum_size = Vector2(180, 360)
+				placeholder.position = Vector2(10, 10)
+				button.add_child(placeholder)
+			
 			texture_rect.expand_mode = 1  # EXPAND_KEEP_ASPECT
 			texture_rect.custom_minimum_size = Vector2(180, 360)
 			texture_rect.position = Vector2(10, 10)
@@ -78,9 +91,11 @@ func create_car_buttons():
 				else:
 					label.add_theme_color_override("font_color", Color(1, 0, 0))  # Red if can't afford
 					button.disabled = true
-					texture_rect.modulate = Color(0.5, 0.5, 0.5)  # Grayed out
+					if texture_rect.texture:
+						texture_rect.modulate = Color(0.5, 0.5, 0.5)  # Grayed out
 			
-			button.add_child(texture_rect)
+			if texture_rect.texture:
+				button.add_child(texture_rect)
 			button.add_child(label)
 			car_grid.add_child(button)
 			

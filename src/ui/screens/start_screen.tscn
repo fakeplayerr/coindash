@@ -72,6 +72,7 @@ scale = Vector2(0.5, 0.5)
 region_rect = Rect2(100, 200, 100, 200)
 
 [node name="ResetSaveButton" type="Button" parent="."]
+visible = false
 layout_mode = 2
 offset_left = 66.0
 offset_top = 1851.0
@@ -81,6 +82,7 @@ theme = ExtResource("3_ixfe8")
 text = "Reset Save Data"
 
 [node name="AddCoins" type="Button" parent="."]
+visible = false
 layout_mode = 2
 offset_left = 98.0
 offset_top = 1702.0
@@ -90,6 +92,7 @@ theme = ExtResource("3_ixfe8")
 text = "Add coins"
 
 [node name="SaveGame" type="Button" parent="."]
+visible = false
 layout_mode = 2
 offset_left = 91.0
 offset_top = 1605.0
@@ -99,6 +102,7 @@ theme = ExtResource("3_ixfe8")
 text = "Save Game"
 
 [node name="LoadGame" type="Button" parent="."]
+visible = false
 layout_mode = 2
 offset_left = 86.0
 offset_top = 1518.0

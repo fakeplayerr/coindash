@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://ch0ukjd77ixtd"]
+[gd_scene load_steps=11 format=3 uid="uid://ch0ukjd77ixtd"]
 
 [ext_resource type="Script" uid="uid://bapcxbi75x3bd" path="res://src/characters/npcs/girl_npc.gd" id="1_b1n3p"]
 [ext_resource type="Texture2D" uid="uid://dfcc056vov0jo" path="res://src/characters/npcs/characters/girl4/girl4-_0000_Layer-2.png" id="2_b1n3p"]
+[ext_resource type="AudioStream" uid="uid://blbt6thtaibdv" path="res://src/assets/sounds/anime-wow-sound-effect.mp3" id="2_wri63"]
 [ext_resource type="Texture2D" uid="uid://bxkgv5eqcwa82" path="res://src/characters/npcs/characters/girl4/girl4-_0001_Layer-3.png" id="3_wri63"]
 [ext_resource type="Texture2D" uid="uid://dmx0xbyd4yxwv" path="res://src/characters/npcs/characters/girl4/girl4-_0002_Layer-4.png" id="4_fxi8b"]
 [ext_resource type="Texture2D" uid="uid://kcxdnobyx475" path="res://src/characters/npcs/characters/girl4/girl4-_0003_Layer-5.png" id="5_gydsy"]
@@ -42,6 +43,7 @@ scale = Vector2(0.7, 0.7)
 collision_layer = 4
 collision_mask = 4
 script = ExtResource("1_b1n3p")
+death_sound = ExtResource("2_wri63")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(2, 2)

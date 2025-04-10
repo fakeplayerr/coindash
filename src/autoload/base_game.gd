@@ -104,7 +104,14 @@ func save_game():
 	# Save upgrades
 	upgrades_manager.save_upgrades(config)
 
-	var save_path = "res://save_data/config.cfg"
+	var save_path = "user://save_data.cfg"
+	
+	# Ensure the directory exists (not necessary for a file in user://)
+	# but added for clarity and potential future directory structure
+	var dir = DirAccess.open("user://")
+	if dir == null:
+		print("Error opening user directory: ", DirAccess.get_open_error())
+	
 	var err = config.save(save_path)
 
 	if err == OK:
@@ -113,7 +120,7 @@ func save_game():
 		print("Error saving game! Error code: ", err)
 
 func load_game():
-	var load_path = "res://save_data/config.cfg"
+	var load_path = "user://save_data.cfg"
 
 	if config.load(load_path) == OK:
 		# Load inventory stats
