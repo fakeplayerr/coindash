@@ -48,6 +48,7 @@ offset_top = 50.0
 offset_right = 200.0
 offset_bottom = 117.0
 grow_horizontal = 2
+theme = ExtResource("3_sjey8")
 theme_override_font_sizes/font_size = 48
 text = "Upgrades"
 horizontal_alignment = 1
@@ -65,6 +66,7 @@ offset_right = 100.0
 offset_bottom = -20.0
 grow_horizontal = 2
 grow_vertical = 0
+theme = ExtResource("3_sjey8")
 text = "Back"
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
@@ -73,7 +75,7 @@ anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 20.0
-offset_top = 120.0
+offset_top = 181.0
 offset_right = -20.0
 offset_bottom = -80.0
 grow_horizontal = 2
@@ -89,6 +91,7 @@ theme_override_constants/separation = 10
 
 [node name="Label" type="Label" parent="ScrollContainer/UpgradesList/FuelUpgrades"]
 layout_mode = 2
+theme = ExtResource("3_sjey8")
 theme_override_font_sizes/font_size = 24
 text = "Fuel Upgrades"
 
@@ -98,10 +101,12 @@ theme_override_constants/separation = 10
 
 [node name="Label" type="Label" parent="ScrollContainer/UpgradesList/FuelUpgrades/FuelTankSize"]
 layout_mode = 2
+theme = ExtResource("3_sjey8")
 text = "Fuel Tank Size"
 
-[node name="UpgradeButton" type="Button" parent="ScrollContainer/UpgradesList/FuelUpgrades/FuelTankSize"]
+[node name="UpgradeButton" type="Button" parent="ScrollContainer/UpgradesList/FuelUpgrades"]
 layout_mode = 2
+theme = ExtResource("3_sjey8")
 text = "Upgrade (100 coins)"
 
 [node name="CarUpgrades" type="VBoxContainer" parent="ScrollContainer/UpgradesList"]
@@ -110,6 +115,7 @@ theme_override_constants/separation = 10
 
 [node name="Label" type="Label" parent="ScrollContainer/UpgradesList/CarUpgrades"]
 layout_mode = 2
+theme = ExtResource("3_sjey8")
 theme_override_font_sizes/font_size = 24
 text = "Car Upgrades"
 
@@ -119,10 +125,12 @@ theme_override_constants/separation = 10
 
 [node name="Label" type="Label" parent="ScrollContainer/UpgradesList/CarUpgrades/Speed"]
 layout_mode = 2
+theme = ExtResource("3_sjey8")
 text = "Speed"
 
-[node name="UpgradeButton" type="Button" parent="ScrollContainer/UpgradesList/CarUpgrades/Speed"]
+[node name="UpgradeButton" type="Button" parent="ScrollContainer/UpgradesList/CarUpgrades"]
 layout_mode = 2
+theme = ExtResource("3_sjey8")
 text = "Upgrade (200 coins)"
 
 [node name="Handling" type="HBoxContainer" parent="ScrollContainer/UpgradesList/CarUpgrades"]
@@ -131,10 +139,12 @@ theme_override_constants/separation = 10
 
 [node name="Label" type="Label" parent="ScrollContainer/UpgradesList/CarUpgrades/Handling"]
 layout_mode = 2
+theme = ExtResource("3_sjey8")
 text = "Handling"
 
-[node name="UpgradeButton" type="Button" parent="ScrollContainer/UpgradesList/CarUpgrades/Handling"]
+[node name="UpgradeButton2" type="Button" parent="ScrollContainer/UpgradesList/CarUpgrades"]
 layout_mode = 2
+theme = ExtResource("3_sjey8")
 text = "Upgrade (175 coins)"
 
 [node name="WeaponUpgrades" type="VBoxContainer" parent="ScrollContainer/UpgradesList"]
@@ -143,6 +153,7 @@ theme_override_constants/separation = 10
 
 [node name="Label" type="Label" parent="ScrollContainer/UpgradesList/WeaponUpgrades"]
 layout_mode = 2
+theme = ExtResource("3_sjey8")
 theme_override_font_sizes/font_size = 24
 text = "Weapon Upgrades"
 
@@ -152,10 +163,12 @@ theme_override_constants/separation = 10
 
 [node name="Label" type="Label" parent="ScrollContainer/UpgradesList/WeaponUpgrades/FireRate"]
 layout_mode = 2
+theme = ExtResource("3_sjey8")
 text = "Fire Rate"
 
-[node name="UpgradeButton" type="Button" parent="ScrollContainer/UpgradesList/WeaponUpgrades/FireRate"]
+[node name="UpgradeButton" type="Button" parent="ScrollContainer/UpgradesList/WeaponUpgrades"]
 layout_mode = 2
+theme = ExtResource("3_sjey8")
 text = "Upgrade (250 coins)"
 
 [node name="ProjectileSpeed" type="HBoxContainer" parent="ScrollContainer/UpgradesList/WeaponUpgrades"]
@@ -164,10 +177,12 @@ theme_override_constants/separation = 10
 
 [node name="Label" type="Label" parent="ScrollContainer/UpgradesList/WeaponUpgrades/ProjectileSpeed"]
 layout_mode = 2
+theme = ExtResource("3_sjey8")
 text = "Projectile Speed"
 
-[node name="UpgradeButton" type="Button" parent="ScrollContainer/UpgradesList/WeaponUpgrades/ProjectileSpeed"]
+[node name="UpgradeButton2" type="Button" parent="ScrollContainer/UpgradesList/WeaponUpgrades"]
 layout_mode = 2
+theme = ExtResource("3_sjey8")
 text = "Upgrade (200 coins)"
 
 [node name="PowerUps" type="VBoxContainer" parent="ScrollContainer/UpgradesList"]
@@ -176,6 +191,7 @@ theme_override_constants/separation = 10
 
 [node name="Label" type="Label" parent="ScrollContainer/UpgradesList/PowerUps"]
 layout_mode = 2
+theme = ExtResource("3_sjey8")
 theme_override_font_sizes/font_size = 24
 text = "Power Ups"
 
@@ -185,10 +201,12 @@ theme_override_constants/separation = 10
 
 [node name="Label" type="Label" parent="ScrollContainer/UpgradesList/PowerUps/PowerUpSlot"]
 layout_mode = 2
+theme = ExtResource("3_sjey8")
 text = "Additional Slot"
 
-[node name="UpgradeButton" type="Button" parent="ScrollContainer/UpgradesList/PowerUps/PowerUpSlot"]
+[node name="UpgradeButton" type="Button" parent="ScrollContainer/UpgradesList/PowerUps"]
 layout_mode = 2
+theme = ExtResource("3_sjey8")
 text = "Upgrade (300 coins)"
 
 [node name="GameUpgrades" type="VBoxContainer" parent="ScrollContainer/UpgradesList"]
@@ -197,6 +215,7 @@ theme_override_constants/separation = 10
 
 [node name="Label" type="Label" parent="ScrollContainer/UpgradesList/GameUpgrades"]
 layout_mode = 2
+theme = ExtResource("3_sjey8")
 theme_override_font_sizes/font_size = 24
 text = "Game Upgrades"
 
@@ -206,10 +225,12 @@ theme_override_constants/separation = 10
 
 [node name="Label" type="Label" parent="ScrollContainer/UpgradesList/GameUpgrades/RunTime"]
 layout_mode = 2
+theme = ExtResource("3_sjey8")
 text = "Run Time"
 
-[node name="UpgradeButton" type="Button" parent="ScrollContainer/UpgradesList/GameUpgrades/RunTime"]
+[node name="UpgradeButton" type="Button" parent="ScrollContainer/UpgradesList/GameUpgrades"]
 layout_mode = 2
+theme = ExtResource("3_sjey8")
 text = "Upgrade (225 coins)"
 
 [node name="TotalCoins" type="Label" parent="."]
@@ -219,10 +240,10 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = 221.0
-offset_top = -1860.0
-offset_right = 428.0
-offset_bottom = -1815.0
+offset_left = -112.0
+offset_top = -168.0
+offset_right = 102.0
+offset_bottom = -123.0
 grow_horizontal = 2
 grow_vertical = 0
 theme = ExtResource("3_sjey8")

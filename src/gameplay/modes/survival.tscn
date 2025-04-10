@@ -1,10 +1,14 @@
-[gd_scene load_steps=5 format=3 uid="uid://d26jw7gs7p8sh"]
+[gd_scene load_steps=6 format=3 uid="uid://d26jw7gs7p8sh"]
 
-[ext_resource type="Texture2D" path="res://assets/UI/PNG/Red/Double/button_square_gloss.png" id="1_6id1e"]
 [ext_resource type="Script" uid="uid://4r04dqnn1416" path="res://src/gameplay/modes/survival.gd" id="1_b7qem"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b7qem"]
 size = Vector2(350, 344)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_6id1e"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_b7qem"]
+noise = SubResource("FastNoiseLite_6id1e")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1oh11"]
 size = Vector2(40, 1929)
@@ -24,7 +28,7 @@ shape = SubResource("RectangleShape2D_b7qem")
 
 [node name="Sprite2D" type="Sprite2D" parent="Walls/Wall"]
 scale = Vector2(2.8125, 2.8125)
-texture = ExtResource("1_6id1e")
+texture = SubResource("NoiseTexture2D_b7qem")
 
 [node name="Wall2" type="Area2D" parent="Walls"]
 position = Vector2(889, 707)
@@ -38,7 +42,6 @@ shape = SubResource("RectangleShape2D_1oh11")
 [node name="Sprite2D" type="Sprite2D" parent="Walls/Wall2"]
 position = Vector2(152, 248)
 scale = Vector2(0.484375, 15.0781)
-texture = ExtResource("1_6id1e")
 
 [node name="Wall3" type="Area2D" parent="Walls"]
 position = Vector2(-127, 710)
@@ -52,4 +55,3 @@ shape = SubResource("RectangleShape2D_1oh11")
 [node name="Sprite2D" type="Sprite2D" parent="Walls/Wall3"]
 position = Vector2(152, 248)
 scale = Vector2(0.484375, 15.0781)
-texture = ExtResource("1_6id1e")

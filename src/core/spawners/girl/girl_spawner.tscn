@@ -1,9 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://ct0erhcdhouh0"]
+[gd_scene load_steps=5 format=3 uid="uid://ct0erhcdhouh0"]
 
 [ext_resource type="Script" uid="uid://chvf4xt1rm11o" path="res://src/core/spawners/girl/girl_spawner.gd" id="1_872i8"]
 [ext_resource type="PackedScene" uid="uid://ccty25c3n3pfl" path="res://src/characters/npcs/girl1.tscn" id="2_r1vb3"]
-[ext_resource type="PackedScene" uid="uid://f6t55orpuo85" path="res://src/characters/npcs/girl2.tscn" id="3_860av"]
+[ext_resource type="PackedScene" uid="uid://suqahhyw3txb" path="res://src/characters/npcs/girl3.tscn" id="3_r1vb3"]
+[ext_resource type="PackedScene" uid="uid://ch0ukjd77ixtd" path="res://src/characters/npcs/girl4.tscn" id="4_860av"]
 
 [node name="GirlSpawner" type="Node2D"]
 script = ExtResource("1_872i8")
-girl_scenes = Array[PackedScene]([ExtResource("2_r1vb3"), ExtResource("3_860av")])
+girl_scenes = Array[PackedScene]([ExtResource("2_r1vb3"), ExtResource("3_r1vb3"), ExtResource("4_860av")])

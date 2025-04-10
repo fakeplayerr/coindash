@@ -1,0 +1,54 @@
+[gd_scene load_steps=10 format=3 uid="uid://suqahhyw3txb"]
+
+[ext_resource type="Script" uid="uid://bapcxbi75x3bd" path="res://src/characters/npcs/girl_npc.gd" id="1_c5g1e"]
+[ext_resource type="Texture2D" uid="uid://b2bdjibx0d3cc" path="res://src/characters/npcs/characters/girl3/girl3-_0000_Layer-2.png" id="2_12fbp"]
+[ext_resource type="Texture2D" uid="uid://bj4wl0aditjui" path="res://src/characters/npcs/characters/girl3/girl3-_0001_Layer-3.png" id="3_ondmn"]
+[ext_resource type="Texture2D" uid="uid://c55nxxof4na24" path="res://src/characters/npcs/characters/girl3/girl3-_0002_Layer-4.png" id="4_c5g1e"]
+[ext_resource type="Texture2D" uid="uid://cat1c3p30qljv" path="res://src/characters/npcs/characters/girl3/girl3-_0003_Layer-5.png" id="5_c24m7"]
+[ext_resource type="Texture2D" uid="uid://caymxklnyofps" path="res://src/characters/npcs/characters/girl3/girl3-_0004_Layer-6.png" id="6_ehrem"]
+[ext_resource type="Texture2D" uid="uid://mh8xf4us03me" path="res://src/characters/npcs/characters/girl3/girl3-_0005_Layer-7.png" id="7_2fn30"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dkbfw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_12fbp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_ondmn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_c5g1e")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_c24m7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_ehrem")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_2fn30")
+}],
+"loop": true,
+"name": &"run",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iuafg"]
+size = Vector2(120, 209)
+
+[node name="Girl3" type="CharacterBody2D" groups=["enemies"]]
+scale = Vector2(0.7, 0.7)
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("1_c5g1e")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_dkbfw")
+animation = &"run"
+frame_progress = 0.912254
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(3, -0.5)
+shape = SubResource("RectangleShape2D_iuafg")

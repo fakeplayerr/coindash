@@ -57,7 +57,7 @@ func _on_area_2d_body_entered(body):
 	elif body.is_in_group("enemies") and shot_by_player:
 		body.hit()  # Call the hit function on the enemy
 		explode_and_free()  # Show explosion and cleanup
-	elif body.is_in_group("environment"):
+	elif body.is_in_group("environment") and not shot_by_player:
 		# Destroy coin when hitting obstacles
 		explode_and_free()
 

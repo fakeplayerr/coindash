@@ -58,8 +58,8 @@ _data = {
 radius = 16.0
 
 [node name="CoinProjectile" type="Area2D"]
-collision_layer = 7
-collision_mask = 15
+collision_layer = 32775
+collision_mask = 32783
 script = ExtResource("1_8k4m3")
 projectile_resource = ExtResource("2_mklch")
 audio_stream = ExtResource("3_7152f")
