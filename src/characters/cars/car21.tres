@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="BaseCar" load_steps=3 format=3]
+
+[ext_resource type="Texture2D" path="res://src/characters/cars/car_resources/lamboo_0011_Layer-1.png" id="1_2hpny"]
+[ext_resource type="Script" path="res://src/characters/cars/base_car.gd" id="1_3ybyo"]
+
+[resource]
+script = ExtResource("1_3ybyo")
+name = "Lamboo 11"
+description = "Lamboo model 11"
+image = ExtResource("1_2hpny") 

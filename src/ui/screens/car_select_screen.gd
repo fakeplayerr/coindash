@@ -6,9 +6,9 @@ extends Control
 # Reference to GameAssets class
 const GameAssetsClass = preload("res://src/autoload/game_assets.gd")
 
-@onready var car_grid = $CarGrid
-@onready var back_button = $BackButton
-@onready var coin_label = $TotalCoins if has_node("TotalCoins") else null
+@onready var car_grid = $VBoxContainer/CenterContainer/CarGrid
+@onready var back_button = $VBoxContainer/CenterContainer3/BackButton
+@onready var coin_label = $VBoxContainer/CenterContainer3/TotalCoins if has_node("TotalCoins") else null
 
 func _ready():
 	print("CarSelectScreen: Initializing")
@@ -42,12 +42,13 @@ func create_car_buttons():
 		var car = GameManager.get_car(i)
 		if car:
 			var button = Button.new()
-			button.custom_minimum_size = Vector2(200, 200)
+			
+			button.custom_minimum_size = Vector2(200, 380)
 			
 			var texture_rect = TextureRect.new()
 			texture_rect.texture = car.image
 			texture_rect.expand_mode = 1  # EXPAND_KEEP_ASPECT
-			texture_rect.custom_minimum_size = Vector2(180, 180)
+			texture_rect.custom_minimum_size = Vector2(180, 360)
 			texture_rect.position = Vector2(10, 10)
 			
 			# Check if car is unlocked

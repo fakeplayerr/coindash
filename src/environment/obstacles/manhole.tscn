@@ -1,11 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://586yc4uxhadk"]
+[gd_scene load_steps=4 format=3 uid="uid://586yc4uxhadk"]
 
 [ext_resource type="Texture2D" uid="uid://balbkuyde4nup" path="res://assets/general/PNG/Objects/barrel_red.png" id="1_3sig1"]
+[ext_resource type="Script" uid="uid://ck4dxlggjn2qh" path="res://src/environment/obstacles/obstacle.gd" id="1_nw22k"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_nw22k"]
 radius = 29.0
 
-[node name="Manhole" type="StaticBody2D"]
+[node name="Manhole" type="StaticBody2D" groups=["environment"]]
+script = ExtResource("1_nw22k")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 modulate = Color(0.256836, 0.204524, 0.0990283, 1)

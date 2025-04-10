@@ -1,7 +1,7 @@
 extends Node2D
 
 @export var level1 : BaseLevel
-@export var round_time: float = 10.0  # 60 seconds per round
+@export var round_time: float = 60.0  # 60 seconds per round
 @onready var player = $Player
 @onready var coin_spawner = $CoinSpawner
 @onready var coin_label = $UI/TopBar/CoinLabel
@@ -84,15 +84,19 @@ func _process(delta: float) -> void:
 	if time_remaining <= 0:
 		time_remaining = 0
 		update_time_ui()
-		game_over()
+		game_over(true)  # Success - time ran out
 
 # Update the time UI with current remaining time
 func update_time_ui() -> void:
 	if time_label:
 		time_label.text = "Time: " + str(int(time_remaining))
 
+# Handler for when player hits an obstacle
+func handle_player_died() -> void:
+	game_over(false)  # Failure - player hit obstacle
+
 # Handle game over state
-func game_over() -> void:
+func game_over(success: bool = true) -> void:
 	if is_game_over:
 		return
 		
@@ -101,19 +105,25 @@ func game_over() -> void:
 	# Pause the game
 	get_tree().paused = true
 	
-	# Save coins and girls to GameManager
-	GameManager.add_coins(level1.get_coins())
-	GameManager.add_girls_collected(girls_collected_this_round)
-	GameManager.save_game()
-	
-	# Show game over dialog
-	if gameover_dialog:
-		gameover_dialog.dialog_text = "Round Over!\n\nCoins collected: " + str(level1.get_coins()) + "\nGirls charmed: " + str(girls_collected_this_round)
-		gameover_dialog.popup_centered()
+	if success:
+		# Save coins and girls to GameManager
+		GameManager.add_coins(level1.get_coins())
+		GameManager.add_girls_collected(girls_collected_this_round)
+		GameManager.save_game()
 		
-		# Connect the dialog's close signal to return to menu if not already connected
-		if not gameover_dialog.confirmed.is_connected(Callable(self, "_on_return_to_menu_pressed")):
-			gameover_dialog.confirmed.connect(_on_return_to_menu_pressed)
+		# Show game over dialog with rewards
+		if gameover_dialog:
+			gameover_dialog.dialog_text = "Round Over!\n\nCoins collected: " + str(level1.get_coins()) + "\nGirls charmed: " + str(girls_collected_this_round)
+			gameover_dialog.popup_centered()
+	else:
+		# Show failure dialog without rewards
+		if gameover_dialog:
+			gameover_dialog.dialog_text = "YOU FAILED!\n\nYour car crashed and you didn't get any rewards."
+			gameover_dialog.popup_centered()
+	
+	# Connect the dialog's close signal to return to menu if not already connected
+	if gameover_dialog and not gameover_dialog.confirmed.is_connected(Callable(self, "_on_return_to_menu_pressed")):
+		gameover_dialog.confirmed.connect(_on_return_to_menu_pressed)
 
 # Called when the player clicks the "Return to Menu" button
 func _on_return_to_menu_pressed() -> void:

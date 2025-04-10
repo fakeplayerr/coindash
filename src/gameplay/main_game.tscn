@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://crm0y5ev3lovg"]
+[gd_scene load_steps=10 format=3 uid="uid://crm0y5ev3lovg"]
 
 [ext_resource type="Script" uid="uid://bwjlorgdgur3x" path="res://src/gameplay/main_game.gd" id="1_sq1eg"]
 [ext_resource type="Resource" uid="uid://luybrgcgac4r" path="res://src/gameplay/Level1.tres" id="2_m70f8"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://ejcvrsf4dhhh" path="res://src/core/spawners/coin/coin_spawner.tscn" id="3_gt3fb"]
 [ext_resource type="PackedScene" uid="uid://ct0erhcdhouh0" path="res://src/core/spawners/girl/girl_spawner.tscn" id="4_0dvni"]
 [ext_resource type="PackedScene" uid="uid://cwnyp4topu4nb" path="res://src/environment/road/road_test_tile_map.tscn" id="5_glor6"]
+[ext_resource type="PackedScene" uid="uid://dnnqcx6ycqx8j" path="res://src/core/spawners/obstacle/obstacle_spawner.tscn" id="6_egdul"]
 [ext_resource type="Theme" uid="uid://cm6paiulktuae" path="res://src/ui/theme/base.tres" id="7_8t1lp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lp7an"]
@@ -60,6 +61,9 @@ shape = SubResource("RectangleShape2D_lp7an")
 projectile_speed = 2000.0
 
 [node name="GirlSpawner" parent="." instance=ExtResource("4_0dvni")]
+spawn_interval = 1.0
+
+[node name="ObstacleSpawner" parent="." instance=ExtResource("6_egdul")]
 spawn_interval = 1.0
 
 [node name="Player" parent="." instance=ExtResource("3_44uhg")]

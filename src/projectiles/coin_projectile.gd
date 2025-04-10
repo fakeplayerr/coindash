@@ -56,6 +56,17 @@ func _on_area_2d_body_entered(body):
 	elif body.is_in_group("enemies") and shot_by_player:
 		body.hit()  # Call the hit function on the enemy
 		queue_free()  # Remove the projectile
+	elif body.is_in_group("environment"):
+		# Destroy coin when hitting obstacles
+		queue_free()
+
+# When colliding with another area (like an obstacle's HitArea)
+func _on_area_entered(area):
+	# Check if this area is part of an obstacle
+	var parent = area.get_parent()
+	if parent and parent.is_in_group("environment"):
+		# Destroy coin when hitting obstacles
+		queue_free()
 
 func _on_visible_on_screen_notifier_2d_screen_exited():
-	queue_free()  # Clean up when leaving screenaaas
+	queue_free()  # Clean up when leaving screen

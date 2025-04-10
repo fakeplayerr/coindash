@@ -1,0 +1,10 @@
+[gd_scene load_steps=4 format=3 uid="uid://dnnqcx6ycqx8j"]
+
+[ext_resource type="Script" path="res://src/core/spawners/obstacle/obstacle_spawner.gd" id="1_0iw4h"]
+[ext_resource type="PackedScene" uid="uid://b6keehhktmrjw" path="res://src/environment/obstacles/dirt.tscn" id="2_6y4s3"]
+[ext_resource type="PackedScene" uid="uid://586yc4uxhadk" path="res://src/environment/obstacles/manhole.tscn" id="3_yiajd"]
+
+[node name="ObstacleSpawner" type="Node2D"]
+script = ExtResource("1_0iw4h")
+obstacle_scenes = Array[PackedScene]([ExtResource("2_6y4s3"), ExtResource("3_yiajd")])
+spawn_interval = 7.0 

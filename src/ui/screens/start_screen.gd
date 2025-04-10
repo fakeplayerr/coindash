@@ -6,7 +6,6 @@ extends Control
 @onready var reset_save_button = $ResetSaveButton
 @onready var quit_button = $MainMenu/QuitButton
 @onready var total_coins = $TotalCoins
-@onready var girls_working = $"GirlsWorking"
 @onready var passive_income = $"PassiveIncome"
 @onready var add_coins_button = $AddCoins
 @onready var car_sprite = $CarPreview/CarSprite

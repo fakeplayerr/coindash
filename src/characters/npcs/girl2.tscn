@@ -41,7 +41,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yuloi"]
-size = Vector2(37, 50)
+size = Vector2(62, 114)
 
 [node name="Girl2" type="CharacterBody2D" groups=["enemies"]]
 collision_layer = 4
@@ -51,11 +51,11 @@ death_sound = ExtResource("2_1xxp5")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(-1, 6)
-scale = Vector2(0.277372, 0.277372)
+scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_8k62m")
 animation = &"run"
 frame_progress = 0.260234
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-1.5, 8)
+position = Vector2(-1, 11)
 shape = SubResource("RectangleShape2D_yuloi")

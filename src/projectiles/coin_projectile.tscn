@@ -58,7 +58,7 @@ radius = 16.0
 
 [node name="CoinProjectile" type="Area2D"]
 collision_layer = 7
-collision_mask = 7
+collision_mask = 15
 script = ExtResource("1_8k4m3")
 projectile_resource = ExtResource("2_mklch")
 audio_stream = ExtResource("3_7152f")
@@ -80,4 +80,5 @@ shape = SubResource("CircleShape2D_1")
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 rect = Rect2(-20, -20, 40, 40)
 
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_area_2d_body_entered"]

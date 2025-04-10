@@ -149,14 +149,7 @@ func load_game():
 
 func reset_game() -> void:
 	# Reset inventory to default values
-	inventory.coins = 0
-	inventory.girls_collected = 0
-	inventory.fuel = 100.0
-	inventory.speed = 0.0
-	inventory.fuel_tank_size = 1000.0
-	inventory.fire_rate = 1000.0
-	inventory.projectile_speed = 1000.0
-	
+	inventory = Inventory.new()
 	# Reset car manager
 	car_manager.reset()
 	

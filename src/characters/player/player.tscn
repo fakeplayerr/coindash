@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dry8n3hcd7hi7"]
+[gd_scene load_steps=9 format=3 uid="uid://dry8n3hcd7hi7"]
 
 [ext_resource type="Script" uid="uid://di2pkjinq0d3t" path="res://src/characters/player/player.gd" id="1_player"]
 [ext_resource type="Resource" uid="uid://c81m1mkpba2ml" path="res://src/characters/player/base_player.tres" id="2_03ylq"]
@@ -6,9 +6,10 @@
 [ext_resource type="AudioStream" uid="uid://civhpp4siqw1y" path="res://src/assets/sounds/car-idle-84718.mp3" id="3_hhnms"]
 [ext_resource type="Texture2D" uid="uid://diktjy5qgstx0" path="res://assets/UI/Vector/Red/arrow_basic_n.svg" id="3_qhqgy"]
 [ext_resource type="AudioStream" uid="uid://c3j5nfb0jvg0r" path="res://src/assets/sounds/car-engine-revving-94831.mp3" id="4_qf5tv"]
+[ext_resource type="Texture2D" uid="uid://cwrv18j4a0w4v" path="res://src/characters/cars/car_resources/pngaaa.com-381242.png" id="7_hhaut"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1"]
-size = Vector2(82, 104)
+size = Vector2(107, 288)
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 collision_layer = 32775
@@ -36,8 +37,12 @@ angular_velocity_min = -720.0
 angular_velocity_max = 720.0
 
 [node name="Car" type="Sprite2D" parent="."]
+position = Vector2(-7, 3)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_hhaut")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1.5, 3)
 shape = SubResource("RectangleShape2D_1")
 
 [connection signal="texture_changed" from="Car" to="." method="_on_car_texture_changed"]
