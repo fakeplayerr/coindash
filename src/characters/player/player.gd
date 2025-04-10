@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
 @export var base_player : BasePlayer
+@export var shoot_sound : AudioStream  # Added export for audio in editor
 
 var coin_projectile = preload("res://src/projectiles/coin_projectile.tscn")
 var coin_bullet_resource = preload("res://src/projectiles/coin_small_bullet.tres")
@@ -28,7 +29,6 @@ func _physics_process(delta: float) -> void:
 		velocity.y = base_player.JUMP_VELOCITY
 
 	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
 	var direction := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 	if direction:
 		velocity.x = direction.x * base_player.SPEED
@@ -49,7 +49,6 @@ func shoot_coin() -> void:
 	for level_manager in current_levels:
 		print("shoot: ", level_manager.name)
 		
-		
 		if level_manager.has_method("handle_coin_collected"):
 			var coins = level_manager.level1.get_coins()
 			
@@ -59,6 +58,15 @@ func shoot_coin() -> void:
 				
 			# Subtract a coin
 			level_manager.handle_coin_collected(-1)
+			
+			# Play shoot sound if assigned
+			if shoot_sound:
+				var audio_player = AudioStreamPlayer2D.new()
+				audio_player.stream = shoot_sound
+				add_child(audio_player)
+				audio_player.play()
+				# Clean up audio player when finished
+				audio_player.finished.connect(audio_player.queue_free)
 			
 			# Create coin projectile
 			var coin_instance = coin_projectile.instantiate()

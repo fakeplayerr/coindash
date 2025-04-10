@@ -126,7 +126,6 @@ func update_ui():
 	print("Updated UI with %d coins" % GameManager.get_coins())
 	
 	# Update car preview
-	var selected_car = GameManager.get_selected_car()
 	var texture = GameManager.car_manager.get_selected_car().image
 	if texture and car_sprite:
 		car_sprite.texture = texture

@@ -11,8 +11,18 @@ var spawn_timer: Timer
 # Coin template
 var coin_template: Node
 
+@export var load_sound: AudioStream  # Added for initial load sound
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	# Play loading sound if assigned
+	if load_sound:
+		var audio_player = AudioStreamPlayer2D.new()
+		audio_player.stream = load_sound
+		add_child(audio_player)
+		audio_player.play()
+		audio_player.finished.connect(audio_player.queue_free)
+	
 	_setup_spawn_timer()
 	_setup_coin_template()
 	_spawn_initial_coins()
@@ -33,7 +43,6 @@ func _setup_coin_template() -> void:
 
 func _spawn_initial_coins() -> void:
 	# Get the number of coins from GameManager
-	
 	var initial_coin_count = min(GameManager.get_coins(), 200)
 	
 	# Spawn the initial number of coins
@@ -118,7 +127,3 @@ func _generate_random_position() -> Vector2:
 func _on_spawn_timer_timeout() -> void:
 	var pos := _generate_random_position()
 	_spawn_coin_at_position(pos)
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass

@@ -3,12 +3,10 @@ extends Node
 class_name SpawnManager
 
 # References to spawner classes
-const RoadSpawnerClass = preload("res://src/core/spawners/road_spawner.gd")
 const HumanSpawnerClass = preload("res://src/core/spawners/human_spawner.gd")
 const PowerupSpawnerClass = preload("res://src/core/spawners/powerup_spawner.gd")
 
 # References to spawner instances
-var road_spawner: RoadSpawner = null
 var human_spawner: HumanSpawner = null
 var powerup_spawner: PowerupSpawner = null
 
@@ -42,15 +40,7 @@ func initialize_spawners() -> void:
 
 # Initialize the road spawner
 func initialize_road_spawner() -> void:
-	# Create if it doesn't exist
-	if not road_spawner:
-		road_spawner = RoadSpawnerClass.new()
-		road_spawner.name = "RoadSpawner"
-		add_child(road_spawner)
-	
-	# Set camera reference if available
-	if camera:
-		road_spawner.set_camera(camera)
+
 		
 	# Initialize with defaults
 	var road_params = {
@@ -58,7 +48,6 @@ func initialize_road_spawner() -> void:
 		"min_obstacles": 0,
 		"max_obstacles": 1
 	}
-	road_spawner.set_spawn_parameters(road_params)
 	
 	print("SpawnManager: Road spawner initialized")
 
@@ -116,19 +105,6 @@ func initialize_powerup_spawner() -> void:
 
 # Connect spawners to each other
 func connect_spawners() -> void:
-	if road_spawner and human_spawner:
-		road_spawner.set_human_spawner(human_spawner)
-		
-		# Connect human respawn request to road spawner
-		if human_spawner.has_signal("request_spawn_point"):
-			human_spawner.connect("request_spawn_point", func():
-				var position = road_spawner.get_random_spawn_point()
-				if position != Vector2.ZERO:
-					human_spawner.spawn_at_position(position)
-			)
-	
-	if road_spawner and powerup_spawner:
-		road_spawner.set_powerup_spawner(powerup_spawner)
 	
 	print("SpawnManager: Spawners connected")
 
@@ -146,9 +122,7 @@ func set_player(player_node: Node2D) -> void:
 func set_camera(camera_node: Node2D) -> void:
 	camera = camera_node
 	
-	# Update existing spawners
-	if road_spawner:
-		road_spawner.set_camera(camera)
+
 	
 	print("SpawnManager: Camera reference set")
 
@@ -156,14 +130,6 @@ func set_camera(camera_node: Node2D) -> void:
 func set_road_enabled(enabled: bool) -> void:
 	road_enabled = enabled
 	
-	if road_spawner:
-		if enabled:
-			road_spawner.enable()
-		else:
-			road_spawner.disable()
-	elif enabled:
-		# Create if it was disabled but now needed
-		initialize_road_spawner()
 	
 	print("SpawnManager: Road spawner %s" % ("enabled" if enabled else "disabled"))
 
@@ -213,8 +179,6 @@ func update_powerup_parameters(parameters: Dictionary) -> void:
 
 # Update road spawner parameters
 func update_road_parameters(parameters: Dictionary) -> void:
-	if road_spawner:
-		road_spawner.set_spawn_parameters(parameters)
 	
 	print("SpawnManager: Road spawner parameters updated")
 

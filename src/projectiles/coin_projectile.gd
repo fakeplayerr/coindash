@@ -1,6 +1,7 @@
 extends Node2D
 
 @export var projectile_resource: BaseProjectile
+@export var audio_stream: AudioStream  # Add this to expose audio in editor
 
 @export var velocity: Vector2 = Vector2.ZERO
 @export_range(0, 1000, 10) var speed: float = 200
@@ -36,13 +37,22 @@ func _on_area_2d_body_entered(body):
 		return
 		
 	if body.is_in_group("player"):
-		# Find the current level through the group system
-		var current_levels = get_tree().get_nodes_in_group("current_level")
-		for level_manager in current_levels:
-			if level_manager.has_method("handle_coin_collected"):
-				level_manager.handle_coin_collected(projectile_resource.amount)
-		
-		queue_free()
+		# Play audio if we have one
+		if audio_stream:
+			var audio_player = AudioStreamPlayer2D.new()
+			audio_player.stream = audio_stream
+			audio_player.finished.connect(queue_free)  # Free the node when audio finishes
+			add_child(audio_player)
+			audio_player.play()
+			
+			# Find the current level through the group system
+			var current_levels = get_tree().get_nodes_in_group("current_level")
+			for level_manager in current_levels:
+				if level_manager.has_method("handle_coin_collected"):
+					level_manager.handle_coin_collected(projectile_resource.amount)
+		else:
+			# If no audio, free immediately
+			queue_free()
 
 func _on_visible_on_screen_notifier_2d_screen_exited():
-	queue_free()  # Clean up when leaving screen 
+	queue_free()  # Clean up when leaving screen
