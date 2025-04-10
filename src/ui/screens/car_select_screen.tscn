@@ -1,6 +1,20 @@
-[gd_scene load_steps=2 format=3 uid="uid://c8q5v0j6y5n3q"]
+[gd_scene load_steps=6 format=3 uid="uid://c8q5v0j6y5n3q"]
 
 [ext_resource type="Script" uid="uid://b2hggttpwd2p3" path="res://src/ui/screens/car_select_screen.gd" id="1_car"]
+[ext_resource type="PackedScene" uid="uid://clk13i3hwoyi3" path="res://src/ui/screens/bogatie/bogatie.tscn" id="2_whh1c"]
+
+[sub_resource type="Gradient" id="Gradient_whh1c"]
+offsets = PackedFloat32Array(0, 0.426426, 1)
+colors = PackedColorArray(0.333333, 0.72549, 0.639216, 1, 0.30045, 0.553675, 0.518461, 1, 0.305882, 0.65098, 0.603922, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_w5hit"]
+fractal_lacunarity = 4.365
+fractal_gain = 0.48
+domain_warp_fractal_lacunarity = 7.525
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_w5hit"]
+color_ramp = SubResource("Gradient_whh1c")
+noise = SubResource("FastNoiseLite_w5hit")
 
 [node name="CarSelectScreen" type="Control"]
 layout_mode = 3
@@ -11,14 +25,17 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_car")
 
-[node name="Background" type="ColorRect" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.2, 0.2, 0.2, 1)
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = -594.0
+offset_top = -61.0
+offset_right = 1714.0
+offset_bottom = 2994.0
+texture = SubResource("NoiseTexture2D_w5hit")
+metadata/_edit_lock_ = true
+
+[node name="Bogatie" parent="." instance=ExtResource("2_whh1c")]
+metadata/_edit_lock_ = true
 
 [node name="Title" type="Label" parent="."]
 layout_mode = 1

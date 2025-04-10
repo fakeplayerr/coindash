@@ -1,6 +1,21 @@
-[gd_scene load_steps=2 format=3 uid="uid://cfwkpsbxknvwn"]
+[gd_scene load_steps=7 format=3 uid="uid://cfwkpsbxknvwn"]
 
 [ext_resource type="Script" uid="uid://clwakw2d32yap" path="res://src/ui/screens/upgrades_screen.gd" id="1_5k4m3"]
+[ext_resource type="PackedScene" uid="uid://clk13i3hwoyi3" path="res://src/ui/screens/bogatie/bogatie.tscn" id="2_gkrrk"]
+[ext_resource type="Theme" uid="uid://cm6paiulktuae" path="res://src/ui/theme/base.tres" id="3_sjey8"]
+
+[sub_resource type="Gradient" id="Gradient_k0060"]
+offsets = PackedFloat32Array(0, 0.426426, 1)
+colors = PackedColorArray(0.333333, 0.72549, 0.639216, 1, 0.30045, 0.553675, 0.518461, 1, 0.305882, 0.65098, 0.603922, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_vvk1j"]
+fractal_lacunarity = 4.365
+fractal_gain = 0.48
+domain_warp_fractal_lacunarity = 7.525
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_sjey8"]
+color_ramp = SubResource("Gradient_k0060")
+noise = SubResource("FastNoiseLite_vvk1j")
 
 [node name="UpgradesScreen" type="Control"]
 layout_mode = 3
@@ -11,14 +26,16 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_5k4m3")
 
-[node name="Background" type="ColorRect" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.2, 0.2, 0.2, 1)
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_left = -594.0
+offset_top = -61.0
+offset_right = 1714.0
+offset_bottom = 2994.0
+texture = SubResource("NoiseTexture2D_sjey8")
+metadata/_edit_lock_ = true
+
+[node name="Bogatie" parent="." instance=ExtResource("2_gkrrk")]
+metadata/_edit_lock_ = true
 
 [node name="Title" type="Label" parent="."]
 layout_mode = 1
@@ -28,7 +45,7 @@ anchor_right = 0.5
 offset_left = -200.0
 offset_top = 50.0
 offset_right = 200.0
-offset_bottom = 100.0
+offset_bottom = 117.0
 grow_horizontal = 2
 theme_override_font_sizes/font_size = 48
 text = "Upgrades"
@@ -201,11 +218,12 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -100.0
-offset_top = -100.0
-offset_right = 100.0
-offset_bottom = -70.0
+offset_left = 221.0
+offset_top = -1860.0
+offset_right = 428.0
+offset_bottom = -1815.0
 grow_horizontal = 2
 grow_vertical = 0
-text = "Total Coins: 0"
+theme = ExtResource("3_sjey8")
+text = "Coins: 0"
 horizontal_alignment = 1

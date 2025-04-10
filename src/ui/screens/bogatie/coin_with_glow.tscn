@@ -17,7 +17,7 @@ shader_parameter/left_width = 0.211
 shader_parameter/right_width = 1.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_yxvfq"]
-radius = 27.0
+radius = 18.0278
 
 [node name="Coin" type="RigidBody2D"]
 collision_layer = 3
@@ -30,7 +30,7 @@ constant_force = Vector2(-1, -1)
 
 [node name="Sprite" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_ty2en")
-scale = Vector2(0.5, 0.5)
+scale = Vector2(0.25, 0.25)
 texture = ExtResource("2_hmgqi")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

@@ -15,6 +15,7 @@ var coin_template: Node
 func _ready() -> void:
 	_setup_spawn_timer()
 	_setup_coin_template()
+	_spawn_initial_coins()
 
 func _setup_spawn_timer() -> void:
 	spawn_timer = Timer.new()
@@ -29,6 +30,23 @@ func _setup_coin_template() -> void:
 	coin_template = $Coin
 	if not coin_template:
 		push_error("Bogatie: Coin template not found!")
+
+func _spawn_initial_coins() -> void:
+	# Get the number of coins from GameManager
+	
+	var initial_coin_count = min(GameManager.get_coins(), 200)
+	
+	# Spawn the initial number of coins
+	for i in range(initial_coin_count):
+		var pos := _generate_random_position()
+		# Keep trying to find a valid position
+		var attempts := 0
+		const MAX_ATTEMPTS := 10
+		while not _is_position_valid(pos) and attempts < MAX_ATTEMPTS:
+			pos = _generate_random_position()
+			attempts += 1
+		if attempts < MAX_ATTEMPTS:  # Only spawn if we found a valid position
+			_spawn_coin_at_position(pos)
 
 func _generate_random_color() -> Color:
 	# Generate a random color with full alpha

@@ -3,17 +3,8 @@ extends Control
 @onready var back_button = $BackButton
 @onready var total_coins_label = $TotalCoins
 
-# Reference to the GameManager
-var game_manager
-
 func _ready():
 	print("UpgradesScreen: Initializing")
-	
-	# Get reference to GameManager
-	game_manager = get_node("/root/GameManager")
-	if not game_manager:
-		print("UpgradesScreen ERROR: GameManager not found!")
-		return
 	
 	# Connect button signals
 	back_button.pressed.connect(_on_back_pressed)
@@ -53,11 +44,9 @@ func _ready():
 			_on_upgrade_pressed.bind("run_time"))
 
 func update_ui():
-	if not game_manager:
-		return
 		
-	total_coins_label.text = "Total Coins: %d" % game_manager.get_coins()
-	print("UpgradesScreen: Updated UI with %d coins" % game_manager.get_coins())
+	total_coins_label.text = "Coins: %d" % GameManager.get_coins()
+	print("UpgradesScreen: Updated UI with %d coins" % GameManager.get_coins())
 	
 	# Update upgrade buttons - only update buttons that exist
 	_update_upgrade_button("fuel_tank_size")
@@ -69,21 +58,19 @@ func update_ui():
 	_update_upgrade_button("run_time")
 
 func _update_upgrade_button(upgrade_name: String):
-	if not game_manager:
-		return
 		
 	var button = _get_upgrade_button(upgrade_name)
 	if button:
-		var cost = game_manager.upgrades_manager.get_upgrade_cost(upgrade_name)
-		var current_level = game_manager.upgrades_manager.get_upgrade_level(upgrade_name)
-		var max_level = game_manager.upgrades_manager.base_upgrades.MAX_LEVEL
+		var cost = GameManager.upgrades_manager.get_upgrade_cost(upgrade_name)
+		var current_level = GameManager.upgrades_manager.get_upgrade_level(upgrade_name)
+		var max_level = GameManager.upgrades_manager.base_upgrades.MAX_LEVEL
 		
 		if current_level >= max_level:
 			button.text = "MAX LEVEL"
 			button.disabled = true
 		else:
 			button.text = "Upgrade (%d coins) - Level %d/%d" % [cost, current_level, max_level]
-			button.disabled = game_manager.get_coins() < cost
+			button.disabled = GameManager.get_coins() < cost
 
 func _get_upgrade_button(upgrade_name: String) -> Button:
 	match upgrade_name:
@@ -104,29 +91,28 @@ func _get_upgrade_button(upgrade_name: String) -> Button:
 	return null
 
 func _on_upgrade_pressed(upgrade_name: String):
-	if not game_manager:
-		return
+
 		
-	var cost = game_manager.upgrades_manager.get_upgrade_cost(upgrade_name)
+	var cost = GameManager.upgrades_manager.get_upgrade_cost(upgrade_name)
 	
-	if game_manager.spend_coins(cost):
-		if game_manager.upgrades_manager.apply_upgrade(upgrade_name):
+	if GameManager.spend_coins(cost):
+		if GameManager.upgrades_manager.apply_upgrade(upgrade_name):
 			# Apply the upgrade effects to the inventory
-			game_manager.upgrades_manager.apply_upgrade_effects(game_manager.inventory)
+			GameManager.upgrades_manager.apply_upgrade_effects(GameManager.inventory)
 			
 			# Save the game after upgrading
-			game_manager.save_game()
+			GameManager.save_game()
 			
 			# Update the UI
 			update_ui()
 			
 			print("UpgradesScreen: Upgraded %s to level %d" % [
 				upgrade_name, 
-				game_manager.upgrades_manager.get_upgrade_level(upgrade_name)
+				GameManager.upgrades_manager.get_upgrade_level(upgrade_name)
 			])
 		else:
 			# Refund the coins if upgrade couldn't be applied
-			game_manager.add_coins(cost)
+			GameManager.add_coins(cost)
 			print("UpgradesScreen: Failed to apply upgrade %s" % upgrade_name)
 	else:
 		print("UpgradesScreen: Not enough coins for upgrade %s" % upgrade_name)

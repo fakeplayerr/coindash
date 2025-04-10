@@ -1,8 +1,29 @@
-[gd_scene load_steps=4 format=3 uid="uid://dhfxp03wrqhat"]
+[gd_scene load_steps=10 format=3 uid="uid://dhfxp03wrqhat"]
 
 [ext_resource type="Script" uid="uid://gfj2rnawc1vg" path="res://src/ui/screens/start_screen.gd" id="1_4k4m3"]
 [ext_resource type="PackedScene" uid="uid://clk13i3hwoyi3" path="res://src/ui/screens/bogatie/bogatie.tscn" id="2_6bpkx"]
+[ext_resource type="Texture2D" uid="uid://4t7un63m6png" path="res://src/ui/assets/main_background.png" id="2_k0060"]
+[ext_resource type="Shader" uid="uid://jab47nse38sp" path="res://src/ui/screens/start_screen.gdshader" id="2_vvk1j"]
 [ext_resource type="Theme" uid="uid://cm6paiulktuae" path="res://src/ui/theme/base.tres" id="3_ixfe8"]
+
+[sub_resource type="Gradient" id="Gradient_vvk1j"]
+offsets = PackedFloat32Array(0, 0.426426, 1)
+colors = PackedColorArray(0.333333, 0.72549, 0.639216, 1, 0.30045, 0.553675, 0.518461, 1, 0.305882, 0.65098, 0.603922, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_n15vk"]
+fractal_lacunarity = 4.365
+fractal_gain = 0.48
+domain_warp_fractal_lacunarity = 7.525
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_n15vk"]
+color_ramp = SubResource("Gradient_vvk1j")
+noise = SubResource("FastNoiseLite_n15vk")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_n15vk"]
+shader = ExtResource("2_vvk1j")
+shader_parameter/fade_start = 0.647
+shader_parameter/fade_end = 0.947
+shader_parameter/smoothness = 0.388
 
 [node name="StartScreen" type="Control"]
 layout_mode = 3
@@ -12,94 +33,56 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_4k4m3")
+metadata/_edit_lock_ = true
 
-[node name="Background" type="ColorRect" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.2, 0.2, 0.2, 1)
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = -594.0
+offset_top = -61.0
+offset_right = 1714.0
+offset_bottom = 2994.0
+texture = SubResource("NoiseTexture2D_n15vk")
+metadata/_edit_lock_ = true
+
+[node name="MainBackground" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_n15vk")
+position = Vector2(543.5, 547.5)
+scale = Vector2(1.06152, 1.06152)
+texture = ExtResource("2_k0060")
 
 [node name="Bogatie" parent="." instance=ExtResource("2_6bpkx")]
 metadata/_edit_lock_ = true
-
-[node name="Title" type="Label" parent="."]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -200.0
-offset_top = 50.0
-offset_right = 200.0
-offset_bottom = 100.0
-grow_horizontal = 2
-theme_override_font_sizes/font_size = 48
-text = "Coin Dash"
-horizontal_alignment = 1
 
 [node name="CarPreview" type="Control" parent="."]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -50.0
-offset_top = 110.0
-offset_right = 50.0
-offset_bottom = 210.0
+offset_left = -55.0
+offset_top = 1267.0
+offset_right = 45.0
+offset_bottom = 1367.0
 grow_horizontal = 2
-
-[node name="CarBackground" type="ColorRect" parent="CarPreview"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = -2.131
-anchor_top = 12.159
-anchor_right = 4.079
-anchor_bottom = 13.33
-offset_left = 220.1
-offset_top = 35.1
-offset_right = -300.9
-offset_bottom = 17.9999
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.15, 0.15, 0.15, 1)
 
 [node name="CarSprite" type="Sprite2D" parent="CarPreview"]
-position = Vector2(50, 1162)
+position = Vector2(50, 176)
 scale = Vector2(2, 2)
-
-[node name="SelectedCarLabel" type="Label" parent="CarPreview"]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -75.0
-offset_top = 5.0
-offset_right = 75.0
-offset_bottom = 28.0
-grow_horizontal = 2
-grow_vertical = 0
-text = "Current Car"
-horizontal_alignment = 1
 
 [node name="ResetSaveButton" type="Button" parent="."]
 layout_mode = 2
-offset_left = 762.0
-offset_top = 1658.0
-offset_right = 1017.0
-offset_bottom = 1711.0
+offset_left = 68.0
+offset_top = 1823.0
+offset_right = 323.0
+offset_bottom = 1876.0
 theme = ExtResource("3_ixfe8")
 text = "Reset Save Data"
 
 [node name="AddCoins" type="Button" parent="."]
 layout_mode = 2
-offset_left = 440.0
-offset_top = 1591.5
-offset_right = 640.0
-offset_bottom = 1644.5
+offset_left = 98.0
+offset_top = 1702.0
+offset_right = 298.0
+offset_bottom = 1755.0
 theme = ExtResource("3_ixfe8")
 text = "Add coins"
 
@@ -158,15 +141,12 @@ text = "Quit"
 
 [node name="TotalCoins" type="Label" parent="."]
 layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
+anchors_preset = 12
 anchor_top = 1.0
-anchor_right = 0.5
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -239.0
-offset_top = -202.0
-offset_right = 254.0
-offset_bottom = -20.0
+offset_top = -235.0
+offset_bottom = -122.0
 grow_horizontal = 2
 grow_vertical = 0
 theme = ExtResource("3_ixfe8")
