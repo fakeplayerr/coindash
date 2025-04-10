@@ -46,6 +46,8 @@ animations = [{
 size = Vector2(37, 50)
 
 [node name="Girl1" type="CharacterBody2D" groups=["enemies"]]
+collision_layer = 4
+collision_mask = 4
 script = ExtResource("1_b4jrm")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

@@ -42,21 +42,20 @@ func _on_area_2d_body_entered(body):
 			var audio_player = AudioStreamPlayer2D.new()
 			audio_player.stream = audio_stream
 			audio_player.volume_db = -10.0
-			audio_player.finished.connect(queue_free)  # Free the node when audio finishes
-			add_child(audio_player)
+			get_tree().root.add_child(audio_player)  # Add to root so sound persists
 			audio_player.play()
-			
-			# Find the current level through the group system
-			var current_levels = get_tree().get_nodes_in_group("current_level")
-			for level_manager in current_levels:
-				if level_manager.has_method("handle_coin_collected"):
-					level_manager.handle_coin_collected(projectile_resource.amount)
-		else:
-			# If no audio, free immediately
-			queue_free()
+		
+		# Find the current level through the group system and handle coin collection
+		var current_levels = get_tree().get_nodes_in_group("current_level")
+		for level_manager in current_levels:
+			if level_manager.has_method("handle_coin_collected"):
+				level_manager.handle_coin_collected(projectile_resource.amount)
+		
+		# Remove the coin immediately
+		queue_free()
 	elif body.is_in_group("enemies") and shot_by_player:
 		body.hit()  # Call the hit function on the enemy
 		queue_free()  # Remove the projectile
 
 func _on_visible_on_screen_notifier_2d_screen_exited():
-	queue_free()  # Clean up when leaving screen
+	queue_free()  # Clean up when leaving screenaaas

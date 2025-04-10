@@ -54,7 +54,7 @@ func _physics_process(delta):
 	
 	# Combine downward movement with sideways sway
 	direction = Vector2(sway, 1).normalized()
-	velocity = direction * speed
+	velocity = direction * speed * 10.0
 	
 	# Handle movement based on node type
 	move_and_slide()

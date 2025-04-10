@@ -44,6 +44,8 @@ animations = [{
 size = Vector2(37, 50)
 
 [node name="Girl2" type="CharacterBody2D" groups=["enemies"]]
+collision_layer = 4
+collision_mask = 4
 script = ExtResource("1_ncbm8")
 death_sound = ExtResource("2_1xxp5")
 

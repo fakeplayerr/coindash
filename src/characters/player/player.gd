@@ -11,6 +11,11 @@ var coin_bullet_resource = preload("res://src/projectiles/coin_small_bullet.tres
 var engine_audio : AudioStreamPlayer2D  # Persistent audio player for idle sound
 var moving_audio : AudioStreamPlayer2D  # Separate player for moving sound
 
+# Touch input variables
+var touch_index : int = -1  # Track the touch event index (-1 means no touch)
+var touch_start_pos : Vector2 = Vector2.ZERO  # Where the touch began
+var touch_current_pos : Vector2 = Vector2.ZERO  # Current touch position
+
 func _ready() -> void:
 	# Connect to base_player's car property changes
 	if base_player and base_player.car:
@@ -38,17 +43,42 @@ func _update_car_texture() -> void:
 	if base_player and base_player.car and base_player.car.image:
 		$Car.texture = base_player.car.image
 
+func _input(event: InputEvent) -> void:
+	# Handle touch input
+	if event is InputEventScreenTouch:
+		if event.pressed and touch_index == -1:  # Start touch
+			touch_index = event.index
+			touch_start_pos = event.position
+			touch_current_pos = event.position
+		elif not event.pressed and event.index == touch_index:  # End touch
+			touch_index = -1
+			velocity = Vector2.ZERO  # Stop movement when touch is released
+			if moving_audio.playing:
+				moving_audio.stop()
+	
+	# Handle touch drag
+	if event is InputEventScreenDrag and event.index == touch_index:
+		touch_current_pos = event.position
+
 func _physics_process(delta: float) -> void:
-	# Add the gravity.
-	#if not is_on_floor():
-		#velocity += get_gravity() * delta
-
-	# Handle jump.
-	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
-		velocity.y = base_player.JUMP_VELOCITY
-
-	# Get the input direction and handle the movement/deceleration.
-	var direction := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
+	# Handle keyboard input
+	var keyboard_direction := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
+	
+	# Handle touch input
+	var touch_direction := Vector2.ZERO
+	if touch_index != -1:  # If there's an active touch
+		var touch_vector = touch_current_pos - touch_start_pos
+		var touch_magnitude = touch_vector.length()
+		# Normalize direction and limit to a "joystick" range (e.g., 100 pixels)
+		if touch_magnitude > 10:  # Small deadzone to prevent jitter
+			touch_direction = touch_vector.normalized()
+			# Optional: Scale magnitude up to 1 based on drag distance (like a joystick)
+			var strength = min(touch_magnitude / 100.0, 1.0)  # Max influence at 100 pixels
+			touch_direction *= strength
+	
+	# Combine inputs (touch takes priority if active, else use keyboard)
+	var direction := touch_direction if touch_index != -1 else keyboard_direction
+	
 	if direction:
 		velocity.x = direction.x * base_player.SPEED
 		velocity.y = direction.y * base_player.SPEED
@@ -71,7 +101,7 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 	
-	# Handle coin shooting
+	# Handle coin shooting (unchanged, works with touch or keyboard)
 	if Input.is_action_just_pressed("ui_select") or Input.is_action_just_pressed("shoot"):
 		shoot_coin()
 
@@ -133,7 +163,7 @@ func shoot_coin() -> void:
 				new_material.set_shader_parameter("base_color", random_color)
 				new_material.set_shader_parameter("glow_color", random_color)
 				
-				# Apply the new material to the sprite
+				# Apply the newInew_material to the sprite
 				sprite.material = new_material
 			
 			# Position at spawn point
