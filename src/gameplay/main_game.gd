@@ -2,6 +2,7 @@ extends Node2D
 
 @export var level1 : BaseLevel
 @export var round_time: float = 60.0  # 60 seconds per round
+@export var death_sound: AudioStream
 @onready var player = $Player
 @onready var coin_spawner = $CoinSpawner
 @onready var coin_label = $UI/TopBar/CoinLabel
@@ -16,11 +17,12 @@ var girls_collected_this_round: int = 0
 func _ready() -> void:
 	# Make sure the game starts unpaused
 	get_tree().paused = false
-	
+	player.set_max_speed(GameManager.get_speed())
 	GameManager.initialize_player(player)
 	
+	GameManager.upgrades_manager.apply_upgrade_effects(GameManager.inventory)
 	# Apply current upgrades to game elements
-	apply_all_upgrades()
+	#apply_all_upgrades()
 	
 	# Connect to GameManager upgrade changes signal if it exists
 	if GameManager.has_signal("upgrades_changed"):
@@ -99,7 +101,12 @@ func handle_player_died() -> void:
 func game_over(success: bool = true) -> void:
 	if is_game_over:
 		return
-		
+	if death_sound:
+		var audio_player = AudioStreamPlayer2D.new()
+		audio_player.stream = death_sound
+		audio_player.volume_db = -10.0  # Adjust volume as needed
+		get_tree().root.add_child(audio_player)  # Add to root so sound persists after game over
+		audio_player.play()
 	is_game_over = true
 	
 	# Pause the game
@@ -132,32 +139,32 @@ func _on_return_to_menu_pressed() -> void:
 	get_tree().change_scene_to_file("res://src/ui/screens/start_screen.tscn")
 
 # Apply all current upgrades from GameManager to game elements
-func apply_all_upgrades() -> void:
-	apply_speed_upgrades()
-	apply_projectile_upgrades()
+#func apply_all_upgrades() -> void:
+	#apply_speed_upgrades()
+	#apply_projectile_upgrades()
 
 # Apply speed-related upgrades to the player
-func apply_speed_upgrades() -> void:
-	if player and player.has_method("set_max_speed"):
-		var speed_multiplier = 1.0 + (GameManager.upgrades_manager.get_upgrade_level("car_speed") - 1) * 0.15
-		var base_speed = GameManager.get_speed()
-		var new_speed = base_speed * speed_multiplier
-		player.set_max_speed(new_speed)
-		print("Applied speed upgrade: ", new_speed)
-
-# Apply projectile-related upgrades
-func apply_projectile_upgrades() -> void:
-	# Set projectile speed on spawner if it has the method
-	if coin_spawner and coin_spawner.has_method("set_projectile_speed"):
-		var projectile_speed = GameManager.get_projectile_speed()
-		coin_spawner.set_projectile_speed(projectile_speed)
-		print("Applied projectile speed upgrade: ", projectile_speed)
-	
-	# Set fire rate on spawner if it has the method
-	if coin_spawner and coin_spawner.has_method("set_fire_rate"):
-		var fire_rate = GameManager.get_fire_rate()
-		coin_spawner.set_fire_rate(fire_rate)
-		print("Applied fire rate upgrade: ", fire_rate)
+#func apply_speed_upgrades() -> void:
+	#if player and player.has_method("set_max_speed"):
+		#var speed_multiplier = 1.0 + (GameManager.upgrades_manager.get_upgrade_level("car_speed") - 1) * 0.15
+		#var base_speed = GameManager.get_speed()
+		#var new_speed = base_speed * speed_multiplier
+		#player.set_max_speed(new_speed)
+		#print("Applied speed upgrade: ", new_speed)
+#
+## Apply projectile-related upgrades
+#func apply_projectile_upgrades() -> void:
+	## Set projectile speed on spawner if it has the method
+	#if coin_spawner and coin_spawner.has_method("set_projectile_speed"):
+		#var projectile_speed = GameManager.get_projectile_speed()
+		#coin_spawner.set_projectile_speed(projectile_speed)
+		#print("Applied projectile speed upgrade: ", projectile_speed)
+	#
+	## Set fire rate on spawner if it has the method
+	#if coin_spawner and coin_spawner.has_method("set_fire_rate"):
+		#var fire_rate = GameManager.get_fire_rate()
+		#coin_spawner.set_fire_rate(fire_rate)
+		#print("Applied fire rate upgrade: ", fire_rate)
 
 # Handle when a coin is collected (group-based approach)
 # This is called directly by the coin projectile

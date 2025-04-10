@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://crm0y5ev3lovg"]
+[gd_scene load_steps=11 format=3 uid="uid://crm0y5ev3lovg"]
 
 [ext_resource type="Script" uid="uid://bwjlorgdgur3x" path="res://src/gameplay/main_game.gd" id="1_sq1eg"]
 [ext_resource type="Resource" uid="uid://luybrgcgac4r" path="res://src/gameplay/Level1.tres" id="2_m70f8"]
+[ext_resource type="AudioStream" uid="uid://cwa01q2st6l7m" path="res://src/assets/sounds/crash-7075.mp3" id="3_3fcp7"]
 [ext_resource type="PackedScene" uid="uid://dry8n3hcd7hi7" path="res://src/characters/player/player.tscn" id="3_44uhg"]
 [ext_resource type="PackedScene" uid="uid://ejcvrsf4dhhh" path="res://src/core/spawners/coin/coin_spawner.tscn" id="3_gt3fb"]
 [ext_resource type="PackedScene" uid="uid://ct0erhcdhouh0" path="res://src/core/spawners/girl/girl_spawner.tscn" id="4_0dvni"]
@@ -15,6 +16,7 @@ size = Vector2(41, 2261)
 [node name="MainGame" type="Node2D"]
 script = ExtResource("1_sq1eg")
 level1 = ExtResource("2_m70f8")
+death_sound = ExtResource("3_3fcp7")
 
 [node name="CollisionWall" type="Node2D" parent="."]
 
@@ -58,7 +60,6 @@ shape = SubResource("RectangleShape2D_lp7an")
 [node name="Node2D" parent="." instance=ExtResource("5_glor6")]
 
 [node name="CoinSpawner" parent="." instance=ExtResource("3_gt3fb")]
-projectile_speed = 2000.0
 
 [node name="GirlSpawner" parent="." instance=ExtResource("4_0dvni")]
 spawn_interval = 1.0
@@ -80,6 +81,7 @@ offset_bottom = 80.0
 grow_horizontal = 2
 
 [node name="FuelBar" type="ProgressBar" parent="UI/TopBar"]
+visible = false
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
@@ -120,7 +122,7 @@ horizontal_alignment = 2
 process_mode = 3
 title = "Game Over"
 initial_position = 2
-size = Vector2i(400, 200)
+size = Vector2i(400, 220)
 theme = ExtResource("7_8t1lp")
 ok_button_text = "Return to Menu"
 dialog_text = "Round Over!

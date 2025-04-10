@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=3 uid="uid://fff3rpcl2g3o"]
+
+[ext_resource type="Texture2D" uid="uid://c1b7dut44hxtv" path="res://src/assets/coin/coin_240x240_no_bg.png" id="1_j32f4"]
+
+[sub_resource type="Gradient" id="Gradient_pra11"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="Curve" id="Curve_pra11"]
+_limits = [-1.0, 1.0, 0.0, 1.0]
+_data = [Vector2(0, -0.0469218), 0.0, 0.0, 0, 0, Vector2(0.430137, 0.800998), 0.0, 0.0, 0, 0, Vector2(0.991781, -0.142097), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[node name="CPUParticles2D" type="CPUParticles2D"]
+emitting = false
+amount = 20
+texture = ExtResource("1_j32f4")
+lifetime = 0.5
+one_shot = true
+speed_scale = 2.0
+explosiveness = 1.0
+randomness = 1.0
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_max = 1000.0
+angle_max = 720.0
+scale_amount_min = 0.01
+scale_amount_max = 0.1
+color_ramp = SubResource("Gradient_pra11")
+hue_variation_min = -1.0
+hue_variation_max = 1.0
+hue_variation_curve = SubResource("Curve_pra11")

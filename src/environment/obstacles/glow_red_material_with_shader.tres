@@ -1,0 +1,10 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://dera86qcwla5b"]
+
+[ext_resource type="Shader" uid="uid://b4ayjum1cnibg" path="res://src/environment/obstacles/glow_red.gdshader" id="1_k6u5o"]
+
+[resource]
+shader = ExtResource("1_k6u5o")
+shader_parameter/outline_width = 1.0
+shader_parameter/pulse_speed = 10.0
+shader_parameter/pulse_amplitude = 2.0
+shader_parameter/outline_color = Color(1, 0, 0, 1)

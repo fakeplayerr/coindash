@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://k4f0x2sgy32k"]
+[gd_scene load_steps=5 format=3 uid="uid://k4f0x2sgy32k"]
 
 [ext_resource type="Script" uid="uid://ck4dxlggjn2qh" path="res://src/environment/obstacles/obstacle.gd" id="1_e5jv2"]
 [ext_resource type="Texture2D" uid="uid://bsiudv1auwrk2" path="res://src/assets/png/barrel_blue.png" id="2_e5jv2"]
+[ext_resource type="Material" uid="uid://dera86qcwla5b" path="res://src/environment/obstacles/glow_red_material_with_shader.tres" id="2_rl83c"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_nw22k"]
 radius = 29.0
@@ -13,7 +14,7 @@ script = ExtResource("1_e5jv2")
 shape = SubResource("CircleShape2D_nw22k")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-modulate = Color(0.256836, 0.204524, 0.0990283, 1)
+material = ExtResource("2_rl83c")
 texture = ExtResource("2_e5jv2")
 
 [node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="."]

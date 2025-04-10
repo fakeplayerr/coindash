@@ -1,10 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://ixfpvpouqwk7"]
+[gd_scene load_steps=12 format=3 uid="uid://ixfpvpouqwk7"]
 
 [ext_resource type="Script" uid="uid://6xilrjfg8gcd" path="res://src/projectiles/coin_projectile.gd" id="1_8k4m3"]
-[ext_resource type="Texture2D" path="res://assets/general/coin/coin_32x32_no_bg.png" id="2_8k4m3"]
+[ext_resource type="Texture2D" uid="uid://curamjqt5c68y" path="res://src/assets/coin/coin_32x32_no_bg.png" id="2_8k4m3"]
 [ext_resource type="Resource" uid="uid://cbcq371n87v7k" path="res://src/projectiles/coin_small_bullet.tres" id="2_mklch"]
 [ext_resource type="AudioStream" uid="uid://dnme2ltl6l8p8" path="res://src/assets/sounds/coin-recieved-230517.mp3" id="3_7152f"]
 [ext_resource type="Shader" uid="uid://ccu5mu5q1ojxl" path="res://src/projectiles/coin_glow.gdshader" id="3_kjay5"]
+[ext_resource type="PackedScene" uid="uid://fff3rpcl2g3o" path="res://src/effects/coin_explosion.tscn" id="6_pra11"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7152f"]
 shader = ExtResource("3_kjay5")
@@ -79,6 +80,8 @@ shape = SubResource("CircleShape2D_1")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 rect = Rect2(-20, -20, 40, 40)
+
+[node name="CPUParticles2D" parent="." instance=ExtResource("6_pra11")]
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_area_2d_body_entered"]

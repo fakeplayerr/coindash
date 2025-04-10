@@ -4,8 +4,8 @@
 [ext_resource type="Resource" uid="uid://c81m1mkpba2ml" path="res://src/characters/player/base_player.tres" id="2_03ylq"]
 [ext_resource type="AudioStream" uid="uid://p8ktlwhw1c1s" path="res://src/assets/sounds/coin-flip-37787.mp3" id="3_03ylq"]
 [ext_resource type="AudioStream" uid="uid://civhpp4siqw1y" path="res://src/assets/sounds/car-idle-84718.mp3" id="3_hhnms"]
-[ext_resource type="Texture2D" path="res://assets/UI/Vector/Red/arrow_basic_n.svg" id="3_qhqgy"]
 [ext_resource type="AudioStream" uid="uid://c3j5nfb0jvg0r" path="res://src/assets/sounds/car-engine-revving-94831.mp3" id="4_qf5tv"]
+[ext_resource type="Texture2D" uid="uid://curamjqt5c68y" path="res://src/assets/coin/coin_32x32_no_bg.png" id="6_hhaut"]
 [ext_resource type="Texture2D" uid="uid://cwrv18j4a0w4v" path="res://src/characters/cars/car_resources/pngaaa.com-381242.png" id="7_hhaut"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1"]
@@ -26,7 +26,7 @@ position = Vector2(0, -20)
 [node name="Trail" type="CPUParticles2D" parent="."]
 position = Vector2(0, 62)
 emitting = false
-texture = ExtResource("3_qhqgy")
+texture = ExtResource("6_hhaut")
 lifetime = 0.2
 speed_scale = 0.5
 randomness = 0.2

@@ -1,7 +1,7 @@
 extends Node
 
 @export var projectiles: Array[BaseProjectile] = []
-@export var spawn_interval: float = 2.0  # Time between spawns
+@export var spawn_interval: float = 1.0  # Time between spawns
 @export var spawn_area: Vector2 = Vector2(1000, 100)  # Area in which to spawn projectiles
 @export var projectile_speed: float = 1000.0  # Speed of projectiles
 @export var fire_rate: float = 1000.0  # Fire rate affects spawn interval
@@ -19,7 +19,7 @@ func _ready() -> void:
 	add_child(timer)
 	
 	# Initialize with GameManager values
-	projectile_speed = GameManager.get_projectile_speed()
+	projectile_speed = projectile_speed + GameManager.get_projectile_speed()
 	fire_rate = GameManager.get_fire_rate()
 	update_spawn_interval()
 	print("CoinSpawner initialized with projectile speed: ", projectile_speed)

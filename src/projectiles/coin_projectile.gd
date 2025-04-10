@@ -5,6 +5,7 @@ extends Node2D
 
 @export var velocity: Vector2 = Vector2.ZERO
 @export_range(0, 1000, 10) var speed: float = 200
+@onready var coin_explosion: CPUParticles2D = $CPUParticles2D
 var shot_by_player: bool = false
 
 func _ready():
@@ -35,7 +36,6 @@ func _on_area_2d_body_entered(body):
 	# Skip if this is a player-shot coin and it hits the player
 	if shot_by_player and body.is_in_group("player"):
 		return
-		
 	if body.is_in_group("player"):
 		# Play audio if we have one
 		if audio_stream:
@@ -45,28 +45,45 @@ func _on_area_2d_body_entered(body):
 			get_tree().root.add_child(audio_player)  # Add to root so sound persists
 			audio_player.play()
 		
-		# Find the current level through the group system and handle coin collection
+		# Find the current level and handle coin collection
 		var current_levels = get_tree().get_nodes_in_group("current_level")
 		for level_manager in current_levels:
 			if level_manager.has_method("handle_coin_collected"):
 				level_manager.handle_coin_collected(projectile_resource.amount)
 		
-		# Remove the coin immediately
+		# Show explosion and cleanup
 		queue_free()
+
 	elif body.is_in_group("enemies") and shot_by_player:
 		body.hit()  # Call the hit function on the enemy
-		queue_free()  # Remove the projectile
+		explode_and_free()  # Show explosion and cleanup
 	elif body.is_in_group("environment"):
 		# Destroy coin when hitting obstacles
-		queue_free()
+		explode_and_free()
 
 # When colliding with another area (like an obstacle's HitArea)
 func _on_area_entered(area):
-	# Check if this area is part of an obstacle
 	var parent = area.get_parent()
 	if parent and parent.is_in_group("environment"):
 		# Destroy coin when hitting obstacles
-		queue_free()
+		explode_and_free()
 
 func _on_visible_on_screen_notifier_2d_screen_exited():
-	queue_free()  # Clean up when leaving screen
+	explode_and_free()  # Show explosion and cleanup
+
+# Helper function to show explosion and then free the node
+func explode_and_free():
+	# Stop movement
+	velocity = Vector2.ZERO
+	
+	# Hide the sprite and collision shape so only the explosion shows
+	$Sprite2D.hide()
+	$CollisionShape2D.set_deferred("disabled", true)
+	#$CollisionShape2D.disabled = true
+	
+	# Start the particle explosion
+	coin_explosion.emitting = true
+	
+	# Wait for the particle lifetime before freeing
+	await get_tree().create_timer(coin_explosion.lifetime).timeout
+	queue_free()

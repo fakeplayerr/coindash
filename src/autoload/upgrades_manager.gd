@@ -7,19 +7,20 @@ class_name UpgradesManager
 # Apply upgrade effects to the inventory
 func apply_upgrade_effects(inventory: Inventory) -> void:
 	# Apply fuel tank size upgrade
-	inventory.fuel_tank_size = 1000.0 * (1.0 + (base_upgrades.fuel_tank_size_level - 1) * 0.2)
+	var base_inventory = Inventory.new()
+	inventory.fuel_tank_size = base_inventory.fuel_tank_size * (1.0 + (base_upgrades.fuel_tank_size_level - 1) * 0.2)
 	
 	# Apply coin efficiency upgrade (increases coin value)
 	# This would be applied when collecting coins
 	
 	# Apply car speed upgrade - enhanced to give more noticeable progression
-	inventory.speed = 1000.0 * (1.0 + (base_upgrades.car_speed_level - 1) * 0.25)
+	inventory.speed = base_inventory.speed * (1.0 + (base_upgrades.car_speed_level - 1) * 0.25)
 	
 	# Apply fire rate upgrade
-	inventory.fire_rate = 1000.0 * (1.0 + (base_upgrades.fire_rate_level - 1) * 0.2)
+	inventory.fire_rate = base_inventory.fire_rate * (1.0 + (base_upgrades.fire_rate_level - 1) * 0.2)
 	
 	# Apply projectile speed upgrade - enhanced to give more noticeable progression
-	inventory.projectile_speed = 1000.0 * (1.0 + (base_upgrades.projectile_speed_level - 1) * 0.3)
+	inventory.projectile_speed = base_inventory.projectile_speed * (1.0 + (base_upgrades.projectile_speed_level - 1) * 0.3)
 	
 	# Other upgrades would be applied in their respective systems
 
@@ -73,11 +74,4 @@ func load_upgrades(config: ConfigFile) -> void:
 
 # Reset all upgrades to their default levels
 func reset() -> void:
-	base_upgrades.fuel_tank_size_level = 1
-	base_upgrades.coin_efficiency_level = 1
-	base_upgrades.car_speed_level = 1
-	base_upgrades.car_handling_level = 1
-	base_upgrades.power_up_slots_level = 1
-	base_upgrades.fire_rate_level = 1
-	base_upgrades.projectile_speed_level = 1
-	base_upgrades.run_time_level = 1
+	base_upgrades = BaseUpgrades.new()

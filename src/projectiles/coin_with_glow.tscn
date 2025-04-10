@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://6xilrjfg8gcd" path="res://src/projectiles/coin_projectile.gd" id="1_r0txn"]
 [ext_resource type="Shader" uid="uid://c3xid1cndotol" path="res://src/ui/screens/bogatie/coin_glow.gdshader" id="1_y47d2"]
-[ext_resource type="Texture2D" path="res://assets/general/coin/coin_240x240_no_bg.png" id="2_r0txn"]
+[ext_resource type="Texture2D" uid="uid://c1b7dut44hxtv" path="res://src/assets/coin/coin_240x240_no_bg.png" id="2_r0txn"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ty2en"]
 rough = true

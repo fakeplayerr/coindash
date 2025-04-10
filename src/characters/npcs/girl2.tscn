@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://f6t55orpuo85"]
 
 [ext_resource type="Script" uid="uid://bapcxbi75x3bd" path="res://src/characters/npcs/girl_npc.gd" id="1_ncbm8"]
-[ext_resource type="Texture2D" path="res://assets/general/human/girl2/girl2sprite.png" id="1_p4ogc"]
+[ext_resource type="Texture2D" uid="uid://c14io5k8p1bsx" path="res://src/characters/npcs/characters/girl2/girl2sprite.png" id="1_p4ogc"]
 [ext_resource type="AudioStream" uid="uid://blbt6thtaibdv" path="res://src/assets/sounds/anime-wow-sound-effect.mp3" id="2_1xxp5"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_85fhk"]

@@ -31,7 +31,7 @@ func _ready() -> void:
 	
 	# Setup moving audio player (plays only when moving up)
 	moving_audio = AudioStreamPlayer2D.new()
-	moving_audio.volume_db = -10.0
+	moving_audio.volume_db = -30.0
 	add_child(moving_audio)
 	if moving_sound:
 		moving_audio.stream = moving_sound
@@ -80,16 +80,16 @@ func _physics_process(delta: float) -> void:
 	var direction := touch_direction if touch_index != -1 else keyboard_direction
 	
 	if direction:
-		velocity.x = direction.x * base_player.SPEED
-		velocity.y = direction.y * base_player.SPEED
+		velocity.x = direction.x * base_player.speed
+		velocity.y = direction.y * base_player.speed
 		
 		# Play moving sound only when moving upward (negative y direction)
 		if direction.y < 0 and moving_sound and not moving_audio.playing:
 			moving_audio.play()
-			moving_audio.volume_db = linear_to_db(-direction.y)  # Volume based on upward speed
+			moving_audio.volume_db = -10  # Volume based on upward speed
 	else:
-		velocity.x = move_toward(velocity.x, 0, base_player.SPEED)
-		velocity.y = move_toward(velocity.y, 0, base_player.SPEED)
+		velocity.x = move_toward(velocity.x, 0, base_player.speed)
+		velocity.y = move_toward(velocity.y, 0, base_player.speed)
 		
 		# Stop moving sound when not going up
 		if moving_audio.playing:
@@ -185,7 +185,7 @@ func shoot_coin() -> void:
 			break
 
 # Set the maximum speed of the player from upgrades
-func set_max_speed(speed: float) -> void:
+func set_max_speed(amount: float) -> void:
 	if base_player:
-		base_player.SPEED = speed
-		print("Player speed set to: ", speed)
+		base_player.speed = amount
+		print("Player speed set to: ", amount)

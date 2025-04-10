@@ -25,7 +25,7 @@ const RUN_TIME_COST: int = 225
 const COST_MULTIPLIER: float = 1.5
 
 # Maximum level for each upgrade
-const MAX_LEVEL: int = 5
+const MAX_LEVEL: int = 10
 
 # Get the cost for a specific upgrade at its current level
 func get_upgrade_cost(upgrade_name: String) -> int:

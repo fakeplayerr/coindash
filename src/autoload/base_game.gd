@@ -5,7 +5,7 @@ signal upgrades_changed
 
 var config = ConfigFile.new()
 
-@export var inventory: Inventory = Inventory.new()
+@export var inventory: Inventory
 @export var car_manager: CarManager
 @export var upgrades_manager: UpgradesManager
 
@@ -14,11 +14,13 @@ var passive_income_timer: Timer
 var is_passive_income_active: bool = false
 
 # Global game settings
-const MAX_SPEED := 2000.0
 
 func _ready() -> void:
+	
 	print("Game Manager loaded")
 	print("loading game:...")
+	print("initializing inventory: ")
+	inventory = Inventory.new()
 	load_game()
 	
 	# Setup passive income timer

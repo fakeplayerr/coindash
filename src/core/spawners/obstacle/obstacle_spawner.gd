@@ -34,7 +34,8 @@ func _ready() -> void:
 	
 	# Initialize with GameManager values if available
 	if GameManager.has_method("get_projectile_speed"):
-		obstacle_speed = GameManager.get_projectile_speed() * 0.5  # Half speed of coins
+		#obstacle_speed = GameManager.get_projectile_speed() * 0.5  # Half speed of coins
+		obstacle_speed = GameManager.get_projectile_speed() # Half speed of coins
 	
 	print("ObstacleSpawner initialized with speed: ", obstacle_speed)
 
