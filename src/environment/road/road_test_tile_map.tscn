@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=4 uid="uid://cwnyp4topu4nb"]
 
 [ext_resource type="Script" uid="uid://wag78ma26x55" path="res://src/environment/road/road_test_tile_map_map.gd" id="1_rm80b"]
-[ext_resource type="Texture2D" uid="uid://cddc38uk7u6o8" path="res://assets/general/Tilemap/tilemap_packed.png" id="1_yiv64"]
+[ext_resource type="Texture2D" uid="uid://cc5m78kpatvey" path="res://src/assets/tilemaps/tilemap_packed.png" id="1_yiv64"]
 [ext_resource type="Script" uid="uid://dxjtj1my5tjf1" path="res://src/environment/road/road_test_tile_map_layer.gd" id="3_nkefm"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rm80b"]

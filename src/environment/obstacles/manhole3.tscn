@@ -1,20 +1,20 @@
-[gd_scene load_steps=4 format=3 uid="uid://586yc4uxhadk"]
+[gd_scene load_steps=4 format=3 uid="uid://do7mtdn0nk7l4"]
 
-[ext_resource type="Texture2D" uid="uid://gll0g7ep6w8k" path="res://src/assets/png/barrel_red.png" id="1_3sig1"]
-[ext_resource type="Script" uid="uid://ck4dxlggjn2qh" path="res://src/environment/obstacles/obstacle.gd" id="1_nw22k"]
+[ext_resource type="Script" uid="uid://ck4dxlggjn2qh" path="res://src/environment/obstacles/obstacle.gd" id="1_r0wd3"]
+[ext_resource type="Texture2D" uid="uid://cqrguhfso0d7g" path="res://src/assets/png/cone_straight.png" id="2_r0wd3"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_nw22k"]
 radius = 29.0
 
 [node name="Manhole" type="StaticBody2D" groups=["environment"]]
-script = ExtResource("1_nw22k")
+script = ExtResource("1_r0wd3")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_nw22k")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 modulate = Color(0.256836, 0.204524, 0.0990283, 1)
-texture = ExtResource("1_3sig1")
+texture = ExtResource("2_r0wd3")
 
 [node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="."]
 scale = Vector2(2.88, 2.8)

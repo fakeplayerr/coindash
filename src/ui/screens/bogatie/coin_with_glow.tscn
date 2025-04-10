@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://bishgb6fc2q44"]
 
 [ext_resource type="Shader" uid="uid://c3xid1cndotol" path="res://src/ui/screens/bogatie/coin_glow.gdshader" id="1_q0aep"]
-[ext_resource type="Texture2D" uid="uid://c1b7dut44hxtv" path="res://assets/general/coin/coin_240x240_no_bg.png" id="2_hmgqi"]
+[ext_resource type="Texture2D" path="res://assets/general/coin/coin_240x240_no_bg.png" id="2_hmgqi"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ty2en"]
 rough = true

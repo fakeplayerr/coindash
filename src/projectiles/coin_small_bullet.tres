@@ -1,12 +1,10 @@
-[gd_resource type="Resource" script_class="BaseProjectile" load_steps=3 format=3 uid="uid://cbcq371n87v7k"]
+[gd_resource type="Resource" script_class="BaseProjectile" load_steps=2 format=3 uid="uid://cbcq371n87v7k"]
 
-[ext_resource type="Texture2D" uid="uid://curamjqt5c68y" path="res://assets/general/coin/coin_32x32_no_bg.png" id="1_a36jl"]
 [ext_resource type="Script" uid="uid://d2nw6btlmeg5f" path="res://src/projectiles/base_projectile.gd" id="2_qlu3n"]
 
 [resource]
 script = ExtResource("2_qlu3n")
 damage = 2
 size = 3
-image = ExtResource("1_a36jl")
 amount = 1
 metadata/_custom_type_script = "uid://d2nw6btlmeg5f"
