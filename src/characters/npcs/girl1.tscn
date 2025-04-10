@@ -1,14 +1,14 @@
 [gd_scene load_steps=12 format=3 uid="uid://ccty25c3n3pfl"]
 
 [ext_resource type="Script" uid="uid://bapcxbi75x3bd" path="res://src/characters/npcs/girl_npc.gd" id="1_b4jrm"]
-[ext_resource type="Texture2D" uid="uid://c0av7bj3bfm6q" path="res://assets/general/human/girl1/run-1.png" id="1_sugbh"]
-[ext_resource type="Texture2D" uid="uid://mhho5vvvwv3h" path="res://assets/general/human/girl1/run-2.png" id="2_k2hqw"]
-[ext_resource type="Texture2D" uid="uid://ddg8ssro07vb8" path="res://assets/general/human/girl1/run-3.png" id="3_5rn2w"]
-[ext_resource type="Texture2D" uid="uid://56fcrqawmbxb" path="res://assets/general/human/girl1/run-4.png" id="4_oegt8"]
-[ext_resource type="Texture2D" uid="uid://c5nkkhko8qg8t" path="res://assets/general/human/girl1/run-5.png" id="5_aguil"]
-[ext_resource type="Texture2D" uid="uid://cyq85pft7sg3" path="res://assets/general/human/girl1/run-6.png" id="6_e88en"]
-[ext_resource type="Texture2D" uid="uid://bt485pn6lc3de" path="res://assets/general/human/girl1/run-7.png" id="7_aowhk"]
-[ext_resource type="Texture2D" uid="uid://fm0q5cbdujk" path="res://assets/general/human/girl1/run-8.png" id="8_uk2po"]
+[ext_resource type="Texture2D" uid="uid://c0av7bj3bfm6q" path="res://src/characters/npcs/characters/girl1/run-1.png" id="1_sugbh"]
+[ext_resource type="Texture2D" uid="uid://mhho5vvvwv3h" path="res://src/characters/npcs/characters/girl1/run-2.png" id="2_k2hqw"]
+[ext_resource type="Texture2D" uid="uid://ddg8ssro07vb8" path="res://src/characters/npcs/characters/girl1/run-3.png" id="3_5rn2w"]
+[ext_resource type="Texture2D" uid="uid://56fcrqawmbxb" path="res://src/characters/npcs/characters/girl1/run-4.png" id="4_oegt8"]
+[ext_resource type="Texture2D" uid="uid://c5nkkhko8qg8t" path="res://src/characters/npcs/characters/girl1/run-5.png" id="5_aguil"]
+[ext_resource type="Texture2D" uid="uid://cyq85pft7sg3" path="res://src/characters/npcs/characters/girl1/run-6.png" id="6_e88en"]
+[ext_resource type="Texture2D" uid="uid://bt485pn6lc3de" path="res://src/characters/npcs/characters/girl1/run-7.png" id="7_aowhk"]
+[ext_resource type="Texture2D" uid="uid://fm0q5cbdujk" path="res://src/characters/npcs/characters/girl1/run-8.png" id="8_uk2po"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_dkbfw"]
 animations = [{
@@ -45,7 +45,7 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iuafg"]
 size = Vector2(37, 50)
 
-[node name="Girl1" type="CharacterBody2D" groups=["humans"]]
+[node name="Girl1" type="CharacterBody2D" groups=["enemies"]]
 script = ExtResource("1_b4jrm")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

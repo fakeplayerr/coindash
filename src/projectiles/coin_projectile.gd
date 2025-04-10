@@ -41,6 +41,7 @@ func _on_area_2d_body_entered(body):
 		if audio_stream:
 			var audio_player = AudioStreamPlayer2D.new()
 			audio_player.stream = audio_stream
+			audio_player.volume_db = -10.0
 			audio_player.finished.connect(queue_free)  # Free the node when audio finishes
 			add_child(audio_player)
 			audio_player.play()
@@ -53,6 +54,9 @@ func _on_area_2d_body_entered(body):
 		else:
 			# If no audio, free immediately
 			queue_free()
+	elif body.is_in_group("enemies") and shot_by_player:
+		body.hit()  # Call the hit function on the enemy
+		queue_free()  # Remove the projectile
 
 func _on_visible_on_screen_notifier_2d_screen_exited():
 	queue_free()  # Clean up when leaving screen

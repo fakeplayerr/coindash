@@ -1,8 +1,9 @@
 extends CharacterBody2D
 
-# Add signal for when the NPC is killed
+# Common signal for when the NPC is killed
 signal died
 
+# Movement settings
 var speed: float = 50.0
 var direction: Vector2 = Vector2.ZERO
 var wander_time: float = 0.0
@@ -12,10 +13,9 @@ var sway_time: float = 0.0
 var sway_speed: float = 1.0
 var screen_width: float = 1080
 var wall_padding: float = 80.0
-
-# Override in child classes if needed
+@export var death_sound: AudioStream
 var has_animation: bool = false
-
+# Keep track of NPC type
 func _ready():
 	# Set random initial direction
 	direction = Vector2(randf_range(-1, 1), randf_range(-1, 1)).normalized()
@@ -27,7 +27,7 @@ func _ready():
 	sway_time = randf() * PI
 	
 	# Add to humans group (for compatibility with existing code)
-	add_to_group("humans")
+	add_to_group("enemies")  # Add to enemies group for projectile collision
 	
 	# Start animation if the NPC has one
 	if has_animation:
@@ -44,27 +44,8 @@ func _process(delta):
 		direction = Vector2(randf_range(-1, 1), randf_range(-1, 1)).normalized()
 		wander_time = 0
 	
-	# Move in the current direction
-	velocity = direction * speed
-	move_and_slide()
-	
-	# Keep within screen bounds
-	var viewport_rect = get_viewport_rect().size
-	if position.x < 0:
-		position.x = 0
-		direction.x = abs(direction.x)
-	elif position.x > viewport_rect.x:
-		position.x = viewport_rect.x
-		direction.x = -abs(direction.x)
-	
-	# Update sprite direction if the NPC has an animated sprite
-	if has_animation:
-		var sprite = get_node_or_null("AnimatedSprite2D")
-		if sprite:
-			if direction.x < -0.05:
-				sprite.flip_h = true
-			elif direction.x > 0.05:
-				sprite.flip_h = false
+	# For AnimatedSprite handling
+	update_sprite_direction()
 
 func _physics_process(delta):
 	# Calculate sideways sway using sine wave
@@ -75,6 +56,7 @@ func _physics_process(delta):
 	direction = Vector2(sway, 1).normalized()
 	velocity = direction * speed
 	
+	# Handle movement based on node type
 	move_and_slide()
 	
 	# Keep within screen bounds manually as a fallback
@@ -94,39 +76,29 @@ func _physics_process(delta):
 			direction.x = -direction.x
 			sway_time += PI / 2  # Offset the sine wave
 
-# Called when hit by a projectile
+# Update sprite direction based on movement
+func update_sprite_direction():
+	var sprite = get_node_or_null("AnimatedSprite2D")
+	if sprite:
+		if direction.x < -0.05:
+			sprite.flip_h = true
+		elif direction.x > 0.05:
+			sprite.flip_h = false
+
 func hit():
 	# Disable collision
 	$CollisionShape2D.set_deferred("disabled", true)
 	
-	# Let the main game know an NPC was hit
-	var main_game = get_node("/root/MainGame")
-	if main_game and main_game.has_method("on_human_hit"):
-		main_game.on_human_hit(global_position)
-	
-	# Spawn coins
-	spawn_coins()
+	# Play death sound if one is assigned
+	if death_sound:
+		var audio_player = AudioStreamPlayer2D.new()
+		audio_player.stream = death_sound
+		audio_player.volume_db = -10.0
+		get_tree().root.add_child(audio_player)  # Add to root so it persists after girl is freed
+		audio_player.play()
 	
 	# Emit died signal before being removed
 	emit_signal("died")
 	
 	# Queue for removal
 	queue_free()
-
-# Spawn coins when hit
-func spawn_coins():
-	var coin_scene = load("res://src/projectiles/coin_projectile.tscn")
-	var coin_count = randi_range(1, 3)  # Random number of coins
-	
-	for i in range(coin_count):
-		var coin = coin_scene.instantiate()
-		get_parent().add_child(coin)
-		
-		# Position slightly randomly around the NPC
-		var offset = Vector2(randf_range(-20, 20), randf_range(-20, 20))
-		coin.global_position = global_position + offset
-		
-		# Set random direction for the coin
-		var random_direction = Vector2(randf_range(-1, 1), randf_range(-1, 1)).normalized()
-		if coin.has_method("set_direction"):
-			coin.set_direction(random_direction) 

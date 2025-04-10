@@ -1,0 +1,139 @@
+[gd_scene load_steps=9 format=3 uid="uid://c4hpy4a3jrftr"]
+
+[ext_resource type="Shader" uid="uid://ccu5mu5q1ojxl" path="res://src/projectiles/coin_glow.gdshader" id="2_tipd3"]
+[ext_resource type="Texture2D" uid="uid://curamjqt5c68y" path="res://assets/general/coin/coin_32x32_no_bg.png" id="3_jjwdd"]
+
+[sub_resource type="GDScript" id="GDScript_ivqiy"]
+script/source = "extends Node2D
+
+@export var projectile_resource: BaseProjectile
+@export var audio_stream: AudioStream  # Add this to expose audio in editor
+
+@export var velocity: Vector2 = Vector2.ZERO
+@export_range(0, 1000, 10) var speed: float = 200
+var shot_by_player: bool = false
+
+func _ready():
+	if projectile_resource:
+		$Sprite2D.texture = projectile_resource.image
+		$Sprite2D.scale = Vector2.ONE * projectile_resource.size * 0.5  # Scale based on size
+		$CollisionShape2D.scale = Vector2.ONE * projectile_resource.size * 0.5
+		
+	# Start animation if it exists
+	if has_node(\"AnimationPlayer\"):
+		$AnimationPlayer.play(\"rotate\")
+		
+	# Connect screen exited signal
+	if has_node(\"VisibleOnScreenNotifier2D\"):
+		$VisibleOnScreenNotifier2D.connect(\"screen_exited\", Callable(self, \"_on_visible_on_screen_notifier_2d_screen_exited\"))
+
+func _process(delta):
+	# Move according to velocity
+	position += velocity * delta
+
+func set_velocity(vel: Vector2):
+	velocity = vel
+
+func set_speed(spd: float):
+	speed = spd
+	
+func _on_area_2d_body_entered(body):
+	# Skip if this is a player-shot coin and it hits the player
+	if shot_by_player and body.is_in_group(\"player\"):
+		return
+		
+	if body.is_in_group(\"player\"):
+		# Play audio if we have one
+		if audio_stream:
+			var audio_player = AudioStreamPlayer2D.new()
+			audio_player.stream = audio_stream
+			audio_player.volume_db = -10.0
+			audio_player.finished.connect(queue_free)  # Free the node when audio finishes
+			add_child(audio_player)
+			audio_player.play()
+			
+			# Find the current level through the group system
+			var current_levels = get_tree().get_nodes_in_group(\"current_level\")
+			for level_manager in current_levels:
+				if level_manager.has_method(\"handle_coin_collected\"):
+					level_manager.handle_coin_collected(projectile_resource.amount)
+		else:
+			# If no audio, free immediately
+			queue_free()
+
+func _on_visible_on_screen_notifier_2d_screen_exited():
+	queue_free()  # Clean up when leaving screen
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7152f"]
+shader = ExtResource("2_tipd3")
+shader_parameter/speed = 0.5
+shader_parameter/width = 0.9
+shader_parameter/glow_color = Color(0, 1, 1, 1)
+shader_parameter/base_color = Color(1, 1, 1, 1)
+shader_parameter/left_width = 0.5
+shader_parameter/right_width = 0.5
+
+[sub_resource type="Animation" id="Animation_mklch"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_ok43x"]
+resource_name = "rotate"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0.03, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 6.28319]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_kjay5"]
+_data = {
+&"RESET": SubResource("Animation_mklch"),
+&"rotate": SubResource("Animation_ok43x")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1"]
+radius = 16.0
+
+[node name="CoinCollectable" type="Area2D"]
+collision_layer = 7
+collision_mask = 7
+script = SubResource("GDScript_ivqiy")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_7152f")
+scale = Vector2(2.75, 2.75)
+texture = ExtResource("3_jjwdd")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_kjay5")
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_1")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+rect = Rect2(-20, -20, 40, 40)
+
+[connection signal="body_entered" from="." to="." method="_on_area_2d_body_entered"]

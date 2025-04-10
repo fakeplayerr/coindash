@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://crm0y5ev3lovg"]
+[gd_scene load_steps=6 format=3 uid="uid://crm0y5ev3lovg"]
 
 [ext_resource type="Script" uid="uid://bwjlorgdgur3x" path="res://src/gameplay/main_game.gd" id="1_sq1eg"]
 [ext_resource type="Resource" uid="uid://luybrgcgac4r" path="res://src/gameplay/Level1.tres" id="2_m70f8"]
 [ext_resource type="PackedScene" uid="uid://dry8n3hcd7hi7" path="res://src/characters/player/player.tscn" id="3_44uhg"]
 [ext_resource type="PackedScene" uid="uid://ejcvrsf4dhhh" path="res://src/core/spawners/coin/coin_spawner.tscn" id="3_gt3fb"]
+[ext_resource type="PackedScene" uid="uid://ct0erhcdhouh0" path="res://src/core/spawners/girl/girl_spawner.tscn" id="4_0dvni"]
 
 [node name="MainGame" type="Node2D"]
 script = ExtResource("1_sq1eg")
@@ -11,6 +12,8 @@ level1 = ExtResource("2_m70f8")
 
 [node name="CoinSpawner" parent="." instance=ExtResource("3_gt3fb")]
 spawn_interval = 0.2
+
+[node name="GirlSpawner" parent="." instance=ExtResource("4_0dvni")]
 
 [node name="Player" parent="." instance=ExtResource("3_44uhg")]
 position = Vector2(543, 1717)

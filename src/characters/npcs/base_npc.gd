@@ -13,10 +13,8 @@ var sway_time: float = 0.0
 var sway_speed: float = 1.0
 var screen_width: float = 1080
 var wall_padding: float = 80.0
-
+@export var death_sound: AudioStream
 # Keep track of NPC type
-var npc_type: String = "human"
-
 func _ready():
 	# Set random initial direction
 	direction = Vector2(randf_range(-1, 1), randf_range(-1, 1)).normalized()
@@ -24,14 +22,16 @@ func _ready():
 	# Set initial wander time
 	wander_time = randf_range(0, wander_duration)
 	
-	# Add to humans group - all NPCs use this group for consistency
-	add_to_group("humans")
+	# Initialize sway time with random value for variety
+	sway_time = randf() * PI
 	
-	# Initialize sprite if this is not a human
-	if npc_type != "human":
-		var sprite = get_node_or_null("AnimatedSprite2D")
-		if sprite and sprite.has_animation("run"):
-			sprite.play("run")
+	# Add to humans group (for compatibility with existing code)
+	add_to_group("enemies")  # Add to enemies group for projectile collision
+	
+	# Start animation if the NPC has one
+	var sprite = get_node_or_null("AnimatedSprite2D")
+	if sprite and sprite.has_animation("run"):
+		sprite.play("run")
 
 func _process(delta):
 	# Update wander time
@@ -76,49 +76,27 @@ func _physics_process(delta):
 
 # Update sprite direction based on movement
 func update_sprite_direction():
-	if npc_type != "human":
-		var sprite = get_node_or_null("AnimatedSprite2D")
-		if sprite:
-			if direction.x < -0.05:
-				sprite.flip_h = true
-			elif direction.x > 0.05:
-				sprite.flip_h = false
+	var sprite = get_node_or_null("AnimatedSprite2D")
+	if sprite:
+		if direction.x < -0.05:
+			sprite.flip_h = true
+		elif direction.x > 0.05:
+			sprite.flip_h = false
 
-# Called when hit by a projectile
 func hit():
 	# Disable collision
-	var collision = get_node_or_null("CollisionShape2D")
-	if collision:
-		collision.set_deferred("disabled", true)
+	$CollisionShape2D.set_deferred("disabled", true)
 	
-	# Let the main game know an NPC was hit
-	var main_game = get_node("/root/MainGame")
-	if main_game and main_game.has_method("on_human_hit"):
-		main_game.on_human_hit(global_position)
-	
-	# Spawn coins
-	spawn_coins()
+	# Play death sound if one is assigned
+	if death_sound:
+		var audio_player = AudioStreamPlayer2D.new()
+		audio_player.stream = death_sound
+		audio_player.volume_db = -10.0
+		get_tree().root.add_child(audio_player)  # Add to root so it persists after girl is freed
+		audio_player.play()
 	
 	# Emit died signal before being removed
 	emit_signal("died")
 	
 	# Queue for removal
 	queue_free()
-
-# Spawn coins when hit
-func spawn_coins():
-	var coin_scene = load("res://src/projectiles/coin_projectile.tscn")
-	var coin_count = randi_range(1, 3)  # Random number of coins
-	
-	for i in range(coin_count):
-		var coin = coin_scene.instantiate()
-		get_parent().add_child(coin)
-		
-		# Position slightly randomly around the NPC
-		var offset = Vector2(randf_range(-20, 20), randf_range(-20, 20))
-		coin.global_position = global_position + offset
-		
-		# Set random direction for the coin
-		var random_direction = Vector2(randf_range(-1, 1), randf_range(-1, 1)).normalized()
-		if coin.has_method("set_direction"):
-			coin.set_direction(random_direction) 

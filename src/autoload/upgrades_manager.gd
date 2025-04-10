@@ -59,4 +59,15 @@ func load_upgrades(config: ConfigFile) -> void:
 	base_upgrades.power_up_slots_level = config.get_value("upgrades", "power_up_slots_level", 1)
 	base_upgrades.fire_rate_level = config.get_value("upgrades", "fire_rate_level", 1)
 	base_upgrades.projectile_speed_level = config.get_value("upgrades", "projectile_speed_level", 1)
-	base_upgrades.run_time_level = config.get_value("upgrades", "run_time_level", 1) 
+	base_upgrades.run_time_level = config.get_value("upgrades", "run_time_level", 1)
+
+# Reset all upgrades to their default levels
+func reset() -> void:
+	base_upgrades.fuel_tank_size_level = 1
+	base_upgrades.coin_efficiency_level = 1
+	base_upgrades.car_speed_level = 1
+	base_upgrades.car_handling_level = 1
+	base_upgrades.power_up_slots_level = 1
+	base_upgrades.fire_rate_level = 1
+	base_upgrades.projectile_speed_level = 1
+	base_upgrades.run_time_level = 1

@@ -82,3 +82,10 @@ func load_cars(config: ConfigFile) -> void:
 		unlocked_cars = [true]  # First car always unlocked
 		for i in range(1, cars.size()):
 			unlocked_cars.append(false)
+
+# Reset all car data to default state
+func reset() -> void:
+	selected_car_index = 0
+	unlocked_cars = [true]  # First car unlocked
+	for i in range(1, cars.size()):
+		unlocked_cars.append(false)

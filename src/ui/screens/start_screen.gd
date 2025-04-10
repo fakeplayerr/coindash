@@ -94,29 +94,11 @@ func _on_reset_save_pressed():
 
 func _reset_save_data_confirmed():
 	# Get save manager
-	var save_manager = get_node_or_null("/root/SaveManager")
-	if save_manager:
-		# Reset save data
-		save_manager.reset_save_data()
-		
+		GameManager.reset_game()
 		# Update UI to show reset values
 		update_ui()
 		
-		# Show message
-		var message = Label.new()
-		message.text = "Save data reset to default values!"
-		message.position = Vector2(get_viewport_rect().size.x/2 - 150, get_viewport_rect().size.y/2)
-		message.add_theme_font_size_override("font_size", 24)
-		message.modulate = Color(1, 0.5, 0, 1)  # Orange
-		add_child(message)
-		
-		# Animate and remove
-		var tween = create_tween()
-		tween.tween_property(message, "position:y", message.position.y - 100, 1.5)
-		tween.parallel().tween_property(message, "modulate:a", 0, 1.5)
-		tween.tween_callback(message.queue_free)
-	else:
-		print("SaveManager not found when trying to reset save data")
+	
 
 func _on_quit_pressed():
 	get_tree().quit()

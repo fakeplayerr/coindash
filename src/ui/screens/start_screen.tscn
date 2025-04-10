@@ -70,10 +70,10 @@ scale = Vector2(2, 2)
 
 [node name="ResetSaveButton" type="Button" parent="."]
 layout_mode = 2
-offset_left = 68.0
-offset_top = 1823.0
-offset_right = 323.0
-offset_bottom = 1876.0
+offset_left = 66.0
+offset_top = 1851.0
+offset_right = 321.0
+offset_bottom = 1904.0
 theme = ExtResource("3_ixfe8")
 text = "Reset Save Data"
 

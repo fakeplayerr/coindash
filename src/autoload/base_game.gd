@@ -83,6 +83,25 @@ func load_game():
 	else:
 		print("No save file found or failed to load.")
 
+func reset_game() -> void:
+	# Reset inventory to default values
+	inventory.coins = 0
+	inventory.fuel = 100.0
+	inventory.speed = 0.0
+	inventory.fuel_tank_size = 1000.0
+	inventory.fire_rate = 100.0
+	inventory.projectile_speed = 100.0
+	
+	# Reset car manager
+	car_manager.reset()
+	
+	# Reset upgrades
+	upgrades_manager.reset()
+	
+	# Save the reset state
+	save_game()
+	print("Game has been reset to default values")
+
 # Car-related helper functions
 func get_selected_car() -> BaseCar:
 	return car_manager.get_selected_car()

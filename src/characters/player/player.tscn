@@ -1,9 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://dry8n3hcd7hi7"]
+[gd_scene load_steps=8 format=3 uid="uid://dry8n3hcd7hi7"]
 
 [ext_resource type="Script" uid="uid://di2pkjinq0d3t" path="res://src/characters/player/player.gd" id="1_player"]
 [ext_resource type="Resource" uid="uid://c81m1mkpba2ml" path="res://src/characters/player/base_player.tres" id="2_03ylq"]
 [ext_resource type="AudioStream" uid="uid://p8ktlwhw1c1s" path="res://src/assets/sounds/coin-flip-37787.mp3" id="3_03ylq"]
+[ext_resource type="AudioStream" uid="uid://civhpp4siqw1y" path="res://src/assets/sounds/car-idle-84718.mp3" id="3_hhnms"]
 [ext_resource type="Texture2D" uid="uid://diktjy5qgstx0" path="res://assets/UI/Vector/Red/arrow_basic_n.svg" id="3_qhqgy"]
+[ext_resource type="AudioStream" uid="uid://c3j5nfb0jvg0r" path="res://src/assets/sounds/car-engine-revving-94831.mp3" id="4_qf5tv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1"]
 size = Vector2(82, 104)
@@ -14,6 +16,8 @@ collision_mask = 7
 script = ExtResource("1_player")
 base_player = ExtResource("2_03ylq")
 shoot_sound = ExtResource("3_03ylq")
+idle_sound = ExtResource("3_hhnms")
+moving_sound = ExtResource("4_qf5tv")
 
 [node name="CoinSpawnPoint" type="Marker2D" parent="."]
 position = Vector2(0, -20)

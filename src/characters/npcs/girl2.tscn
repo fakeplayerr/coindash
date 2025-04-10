@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://f6t55orpuo85"]
+[gd_scene load_steps=10 format=3 uid="uid://f6t55orpuo85"]
 
 [ext_resource type="Script" uid="uid://bapcxbi75x3bd" path="res://src/characters/npcs/girl_npc.gd" id="1_ncbm8"]
 [ext_resource type="Texture2D" uid="uid://diiqlc5t2roim" path="res://assets/general/human/girl2/girl2sprite.png" id="1_p4ogc"]
+[ext_resource type="AudioStream" uid="uid://blbt6thtaibdv" path="res://src/assets/sounds/anime-wow-sound-effect.mp3" id="2_1xxp5"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_85fhk"]
 atlas = ExtResource("1_p4ogc")
@@ -42,8 +43,9 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yuloi"]
 size = Vector2(37, 50)
 
-[node name="Girl2" type="CharacterBody2D" groups=["humans"]]
+[node name="Girl2" type="CharacterBody2D" groups=["enemies"]]
 script = ExtResource("1_ncbm8")
+death_sound = ExtResource("2_1xxp5")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(-1, 6)
