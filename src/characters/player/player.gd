@@ -173,9 +173,19 @@ func shoot_coin() -> void:
 			var mouse_pos = get_global_mouse_position()
 			var direction = (mouse_pos - global_position).normalized()
 			
-			# Set velocity towards mouse position
-			coin_instance.set_velocity(direction * coin_instance.speed)
+			# Set projectile speed from GameManager upgrades
+			var projectile_speed = GameManager.get_projectile_speed()
+			coin_instance.set_speed(projectile_speed)
+			
+			# Set velocity towards mouse position with upgraded speed
+			coin_instance.set_velocity(direction * projectile_speed)
 			
 			# Add to scene
 			get_tree().root.add_child(coin_instance)
 			break
+
+# Set the maximum speed of the player from upgrades
+func set_max_speed(speed: float) -> void:
+	if base_player:
+		base_player.SPEED = speed
+		print("Player speed set to: ", speed)

@@ -12,14 +12,14 @@ func apply_upgrade_effects(inventory: Inventory) -> void:
 	# Apply coin efficiency upgrade (increases coin value)
 	# This would be applied when collecting coins
 	
-	# Apply car speed upgrade
-	inventory.speed = 100.0 * (1.0 + (base_upgrades.car_speed_level - 1) * 0.15)
+	# Apply car speed upgrade - enhanced to give more noticeable progression
+	inventory.speed = 1000.0 * (1.0 + (base_upgrades.car_speed_level - 1) * 0.25)
 	
 	# Apply fire rate upgrade
-	inventory.fire_rate = 100.0 * (1.0 + (base_upgrades.fire_rate_level - 1) * 0.2)
+	inventory.fire_rate = 1000.0 * (1.0 + (base_upgrades.fire_rate_level - 1) * 0.2)
 	
-	# Apply projectile speed upgrade
-	inventory.projectile_speed = 100.0 * (1.0 + (base_upgrades.projectile_speed_level - 1) * 0.15)
+	# Apply projectile speed upgrade - enhanced to give more noticeable progression
+	inventory.projectile_speed = 1000.0 * (1.0 + (base_upgrades.projectile_speed_level - 1) * 0.3)
 	
 	# Other upgrades would be applied in their respective systems
 
@@ -37,7 +37,17 @@ func can_upgrade(upgrade_name: String) -> bool:
 
 # Apply an upgrade to the specified upgrade type
 func apply_upgrade(upgrade_name: String) -> bool:
-	return base_upgrades.apply_upgrade(upgrade_name)
+	var result = base_upgrades.apply_upgrade(upgrade_name)
+	
+	if result:
+		# Apply upgrade effects to the GameManager's inventory
+		apply_upgrade_effects(GameManager.inventory)
+		
+		# Emit signal if GameManager has the upgrades_changed signal
+		if GameManager.has_signal("upgrades_changed"):
+			GameManager.emit_signal("upgrades_changed")
+	
+	return result
 
 # Save upgrades to the config file
 func save_upgrades(config: ConfigFile) -> void:

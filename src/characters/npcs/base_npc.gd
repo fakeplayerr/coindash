@@ -14,6 +14,7 @@ var sway_speed: float = 1.0
 var screen_width: float = 1080
 var wall_padding: float = 80.0
 @export var death_sound: AudioStream
+var has_animation: bool = false
 # Keep track of NPC type
 func _ready():
 	# Set random initial direction
@@ -29,9 +30,10 @@ func _ready():
 	add_to_group("enemies")  # Add to enemies group for projectile collision
 	
 	# Start animation if the NPC has one
-	var sprite = get_node_or_null("AnimatedSprite2D")
-	if sprite and sprite.has_animation("run"):
-		sprite.play("run")
+	if has_animation:
+		var animated_sprite = get_node_or_null("AnimatedSprite2D")
+		if animated_sprite:
+			animated_sprite.play("run")
 
 func _process(delta):
 	# Update wander time
@@ -52,7 +54,7 @@ func _physics_process(delta):
 	
 	# Combine downward movement with sideways sway
 	direction = Vector2(sway, 1).normalized()
-	velocity = direction * speed
+	velocity = direction * speed * 10.0
 	
 	# Handle movement based on node type
 	move_and_slide()

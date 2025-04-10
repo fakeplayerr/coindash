@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="BaseCar" load_steps=3 format=3 uid="uid://dwm6qjf0nlfnw"]
+
+[ext_resource type="Texture2D" uid="uid://gf2hxfn62kf0" path="res://src/characters/cars/car_resources/pngaaa.com-396832.png" id="1_hc2hr"]
+[ext_resource type="Script" uid="uid://c3j0p3qg3ux1f" path="res://src/characters/cars/base_car.gd" id="1_rewlc"]
+
+[resource]
+script = ExtResource("1_rewlc")
+name = ""
+description = ""
+image = ExtResource("1_hc2hr")
+metadata/_custom_type_script = "uid://c3j0p3qg3ux1f"

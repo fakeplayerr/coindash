@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="CarManager" load_steps=7 format=3 uid="uid://bvgk51mom6lq7"]
+[gd_resource type="Resource" script_class="CarManager" load_steps=16 format=3 uid="uid://bvgk51mom6lq7"]
 
 [ext_resource type="Script" uid="uid://c3j0p3qg3ux1f" path="res://src/characters/cars/base_car.gd" id="1_ypfsw"]
 [ext_resource type="Resource" uid="uid://dlon8ibcr7cy3" path="res://src/characters/cars/dacia_black.tres" id="2_opij8"]
@@ -6,10 +6,19 @@
 [ext_resource type="Resource" uid="uid://x15fg3n7xuh8" path="res://src/characters/cars/lambo_green.tres" id="3_6gi51"]
 [ext_resource type="Resource" uid="uid://csllmlj1ck1ix" path="res://src/characters/cars/lambo_red.tres" id="4_egwso"]
 [ext_resource type="Resource" uid="uid://p6pncv8x05u6" path="res://src/characters/cars/lambo_blue.tres" id="5_nwu40"]
+[ext_resource type="Resource" uid="uid://du675q331tl3w" path="res://src/characters/cars/car1.tres" id="6_mjgff"]
+[ext_resource type="Resource" uid="uid://c5qvxftj1r7ac" path="res://src/characters/cars/car2.tres" id="7_3jfm4"]
+[ext_resource type="Resource" uid="uid://dk6cbmtyw1vld" path="res://src/characters/cars/car3.tres" id="8_okjrv"]
+[ext_resource type="Resource" uid="uid://b24ex8e04etiv" path="res://src/characters/cars/car4.tres" id="9_7vi1a"]
+[ext_resource type="Resource" uid="uid://dwm6qjf0nlfnw" path="res://src/characters/cars/car5.tres" id="10_csj1p"]
+[ext_resource type="Resource" uid="uid://buhquedjpju7n" path="res://src/characters/cars/car6.tres" id="11_tdb3t"]
+[ext_resource type="Resource" uid="uid://dtycjd7hpu23m" path="res://src/characters/cars/car7.tres" id="12_v2hl2"]
+[ext_resource type="Resource" uid="uid://c77ro0tfks45s" path="res://src/characters/cars/car8.tres" id="13_pul4k"]
+[ext_resource type="Resource" uid="uid://pfjpbkem2qi4" path="res://src/characters/cars/car9.tres" id="14_4fwks"]
 
 [resource]
 script = ExtResource("2_rdj1j")
-cars = Array[ExtResource("1_ypfsw")]([ExtResource("2_opij8"), ExtResource("3_6gi51"), ExtResource("4_egwso"), ExtResource("5_nwu40")])
+cars = Array[ExtResource("1_ypfsw")]([ExtResource("2_opij8"), ExtResource("3_6gi51"), ExtResource("4_egwso"), ExtResource("5_nwu40"), ExtResource("6_mjgff"), ExtResource("7_3jfm4"), ExtResource("8_okjrv"), ExtResource("9_7vi1a"), ExtResource("10_csj1p"), ExtResource("11_tdb3t"), ExtResource("12_v2hl2"), ExtResource("13_pul4k"), ExtResource("14_4fwks")])
 selected_car_index = 0
 unlocked_cars = Array[bool]([])
 metadata/_custom_type_script = "uid://dt3s83pfgkuhg"

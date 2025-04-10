@@ -15,9 +15,7 @@ func _on_visible_on_screen_enabler_2d_screen_entered() -> void:
 	var newTile = self.duplicate()
 	newTile.position.y = position.y - 512
 	get_parent().add_child(newTile)
-	print("Tilemap created at: ", newTile.position)
 
 
 func _on_visible_on_screen_enabler_2d_screen_exited() -> void:
-	print("Tilemap destroyed at: ", position)
 	queue_free()

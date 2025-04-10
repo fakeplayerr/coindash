@@ -1,4 +1,4 @@
-extends "res://src/characters/base_npc.gd"
+extends "res://src/characters/npcs/base_npc.gd"
 
 # Girl NPCs need animation support
 func _ready():

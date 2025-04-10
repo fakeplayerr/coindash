@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://c4hpy4a3jrftr"]
+[gd_scene load_steps=9 format=3 uid="uid://d08k0342kr5jg"]
 
 [ext_resource type="Shader" uid="uid://ccu5mu5q1ojxl" path="res://src/projectiles/coin_glow.gdshader" id="2_tipd3"]
 [ext_resource type="Texture2D" uid="uid://curamjqt5c68y" path="res://assets/general/coin/coin_32x32_no_bg.png" id="3_jjwdd"]

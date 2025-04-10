@@ -7,10 +7,19 @@ class_name CarManager
 
 # Car unlock costs
 const CAR_COSTS = {
-	0: 0,     # Default car (free)
-	1: 500,   # Second car
-	2: 1000,  # Third car
-	3: 2000   # Fourth car
+	0: 0,        # Default car (free)
+	1: 250,      # Second car
+	2: 500,      # Third car
+	3: 1000,     # Fourth car
+	4: 2000,     # Fifth car
+	5: 5000,     # Sixth car
+	6: 10000,    # Seventh car
+	7: 20000,    # Eighth car
+	8: 40000,    # Ninth car
+	9: 80000,    # Tenth car
+	10: 150000,  # Eleventh car
+	11: 300000,  # Twelfth car
+	12: 1000000  # Thirteenth car
 }
 
 func _init():
@@ -55,7 +64,7 @@ func unlock_car(index: int) -> bool:
 
 # Get the cost to unlock a car
 func get_car_cost(index: int) -> int:
-	return CAR_COSTS.get(index, 5000)  # Default cost if not specified
+	return CAR_COSTS.get(index, 1000000)  # Default cost if not specified
 	
 # Get number of cars
 func get_car_count() -> int:

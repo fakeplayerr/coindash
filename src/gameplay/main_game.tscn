@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://crm0y5ev3lovg"]
+[gd_scene load_steps=9 format=3 uid="uid://crm0y5ev3lovg"]
 
 [ext_resource type="Script" uid="uid://bwjlorgdgur3x" path="res://src/gameplay/main_game.gd" id="1_sq1eg"]
 [ext_resource type="Resource" uid="uid://luybrgcgac4r" path="res://src/gameplay/Level1.tres" id="2_m70f8"]
@@ -6,16 +6,58 @@
 [ext_resource type="PackedScene" uid="uid://ejcvrsf4dhhh" path="res://src/core/spawners/coin/coin_spawner.tscn" id="3_gt3fb"]
 [ext_resource type="PackedScene" uid="uid://ct0erhcdhouh0" path="res://src/core/spawners/girl/girl_spawner.tscn" id="4_0dvni"]
 [ext_resource type="PackedScene" uid="uid://cwnyp4topu4nb" path="res://src/environment/road/road_test_tile_map.tscn" id="5_glor6"]
+[ext_resource type="Theme" uid="uid://cm6paiulktuae" path="res://src/ui/theme/base.tres" id="7_8t1lp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lp7an"]
+size = Vector2(41, 2261)
 
 [node name="MainGame" type="Node2D"]
 script = ExtResource("1_sq1eg")
 level1 = ExtResource("2_m70f8")
 
+[node name="CollisionWall" type="Node2D" parent="."]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="CollisionWall"]
+collision_layer = 32768
+collision_mask = 32768
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionWall/StaticBody2D"]
+position = Vector2(-3.5, 925.5)
+shape = SubResource("RectangleShape2D_lp7an")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="CollisionWall"]
+position = Vector2(1084, 0)
+collision_layer = 32768
+collision_mask = 32768
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionWall/StaticBody2D2"]
+position = Vector2(-3.5, 925.5)
+shape = SubResource("RectangleShape2D_lp7an")
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="CollisionWall"]
+position = Vector2(1408, 1899)
+rotation = 1.5708
+collision_layer = 32768
+collision_mask = 32768
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionWall/StaticBody2D3"]
+position = Vector2(18.0032, 871)
+shape = SubResource("RectangleShape2D_lp7an")
+
+[node name="StaticBody2D4" type="StaticBody2D" parent="CollisionWall"]
+position = Vector2(1476, -12)
+rotation = 1.5708
+collision_layer = 32768
+collision_mask = 32768
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionWall/StaticBody2D4"]
+position = Vector2(-3.99671, 908)
+shape = SubResource("RectangleShape2D_lp7an")
+
 [node name="Node2D" parent="." instance=ExtResource("5_glor6")]
 
 [node name="CoinSpawner" parent="." instance=ExtResource("3_gt3fb")]
-spawn_interval = 0.2
-projectile_speed = 1000.0
+projectile_speed = 2000.0
 
 [node name="GirlSpawner" parent="." instance=ExtResource("4_0dvni")]
 spawn_interval = 1.0
@@ -53,7 +95,7 @@ offset_top = 65.0
 offset_right = 200.0
 grow_vertical = 2
 theme_override_font_sizes/font_size = 24
-text = "Time: 0.0"
+text = "Time: 60"
 
 [node name="CoinLabel" type="Label" parent="UI/TopBar"]
 layout_mode = 1
@@ -69,3 +111,15 @@ grow_vertical = 2
 theme_override_font_sizes/font_size = 24
 text = "Coins: 0"
 horizontal_alignment = 2
+
+[node name="GameOverDialog" type="AcceptDialog" parent="UI"]
+process_mode = 3
+title = "Game Over"
+initial_position = 2
+size = Vector2i(400, 200)
+theme = ExtResource("7_8t1lp")
+ok_button_text = "Return to Menu"
+dialog_text = "Round Over!
+
+Coins collected: 0"
+dialog_autowrap = true
