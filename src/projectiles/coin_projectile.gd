@@ -4,6 +4,7 @@ extends Node2D
 
 @export var velocity: Vector2 = Vector2.ZERO
 @export_range(0, 1000, 10) var speed: float = 200
+var shot_by_player: bool = false
 
 func _ready():
 	if projectile_resource:
@@ -30,6 +31,10 @@ func set_speed(spd: float):
 	speed = spd
 	
 func _on_area_2d_body_entered(body):
+	# Skip if this is a player-shot coin and it hits the player
+	if shot_by_player and body.is_in_group("player"):
+		return
+		
 	if body.is_in_group("player"):
 		# Find the current level through the group system
 		var current_levels = get_tree().get_nodes_in_group("current_level")

@@ -2,6 +2,9 @@ extends CharacterBody2D
 
 @export var base_player : BasePlayer
 
+var coin_projectile = preload("res://src/projectiles/coin_projectile.tscn")
+var coin_bullet_resource = preload("res://src/projectiles/coin_small_bullet.tres")
+
 func _ready() -> void:
 	# Connect to base_player's car property changes
 	if base_player and base_player.car:
@@ -35,3 +38,43 @@ func _physics_process(delta: float) -> void:
 		velocity.y = move_toward(direction.normalized().y, 0, base_player.SPEED)
 
 	move_and_slide()
+	
+	# Handle coin shooting
+	if Input.is_action_just_pressed("ui_select") or Input.is_action_just_pressed("shoot"):
+		shoot_coin()
+
+func shoot_coin() -> void:
+	# Find the current level to check coin count
+	var current_levels = get_tree().get_nodes_in_group("current_level")
+	for level_manager in current_levels:
+		print("shoot: ", level_manager.name)
+		
+		
+		if level_manager.has_method("handle_coin_collected"):
+			var coins = level_manager.level1.get_coins()
+			
+			# Check if player has coins to shoot
+			if coins <= 0:
+				return
+				
+			# Subtract a coin
+			level_manager.handle_coin_collected(-1)
+			
+			# Create coin projectile
+			var coin_instance = coin_projectile.instantiate()
+			coin_instance.projectile_resource = coin_bullet_resource
+			coin_instance.shot_by_player = true
+			
+			# Position at spawn point
+			coin_instance.global_position = $CoinSpawnPoint.global_position
+			
+			# Calculate direction to mouse position
+			var mouse_pos = get_global_mouse_position()
+			var direction = (mouse_pos - global_position).normalized()
+			
+			# Set velocity towards mouse position
+			coin_instance.set_velocity(direction * coin_instance.speed)
+			
+			# Add to scene
+			get_tree().root.add_child(coin_instance)
+			break

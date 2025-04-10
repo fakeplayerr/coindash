@@ -10,6 +10,7 @@ script = ExtResource("1_sq1eg")
 level1 = ExtResource("2_m70f8")
 
 [node name="CoinSpawner" parent="." instance=ExtResource("3_gt3fb")]
+spawn_interval = 0.2
 
 [node name="Player" parent="." instance=ExtResource("3_44uhg")]
 position = Vector2(543, 1717)
